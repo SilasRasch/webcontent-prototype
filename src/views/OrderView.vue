@@ -22,13 +22,12 @@ function handleBack() {
 
 <template>
     <div class="grid justify-center text-center m-4">
-        
       <!-- Order "navigation" -->
       <h1 class="text-3xl font-semibold">Bestilling</h1>
-      <div class="flex m-2 justify-center [&>*]:m-2 self-center items-center">
+      <div class="flex justify-center [&>*]:m-2 self-center items-center">
         <div class="flex flex-col items-center">
           <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 0, 'active-link': currPage === 0 }">0</p>
-          <span class="mt-1" :class="{'opacity-50':currPage !== 0}">Info</span>
+          <span class="mt-1" :class="{'opacity-50':currPage !== 0}">Start</span>
         </div>
         
         <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':currPage <= 0}" aria-hidden="true"></i>
@@ -48,31 +47,33 @@ function handleBack() {
         <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':currPage <= 2}" aria-hidden="true"></i>
 
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 3, 'active-link': currPage === 3 }">Bestil</p>
+          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 3, 'active-link': currPage === 3 }">4</p>
+          <span class="mt-1" :class="{'opacity-50':currPage !== 3}">Content</span>
+        </div>
+
+        <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':currPage <= 3}" aria-hidden="true"></i>
+
+        <div class="flex flex-col items-center">
+          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 4, 'active-link': currPage === 4 }">Bestil</p>
           <span class="opacity-0 mt-1">.</span>
         </div>
       </div>
-      <div class="grid justify-center">
-        <!-- Next and back buttons -->
-        
-        <!-- Currently rendered component -->
-        <TransitionGroup name="order-page" appear tag="div" class="flex">
-          <OrderPageZero v-if="currPage === 0" />
-          <OrderPageOne v-if="currPage === 1" />
-          <OrderPageTwo v-if="currPage === 2" />
-          <OrderPageThree v-if="currPage === 3" />
-        </TransitionGroup>
 
-        <div class="flex justify-between w-full">
-          <button @click="handleBack" class="mx-6">
-            <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': currPage !== 0}" aria-hidden="true"></i>
-          </button>
-          <button @click="handleNext" class="mx-2">
-              <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': currPage !== 3}" aria-hidden="true"></i>
-          </button>
-        </div>
+      <TransitionGroup name="order-page" appear tag="div" class="flex md:[&>*]:max-w-[568px]">
+        <OrderPageZero v-if="currPage === 0" />
+        <OrderPageOne v-if="currPage === 1" />
+        <OrderPageTwo v-if="currPage === 2" />
+        <OrderPageThree v-if="currPage === 3" />
+      </TransitionGroup>
+
+      <div class="flex justify-between w-full">
+        <button @click="handleBack" class="px-2">
+          <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': currPage !== 0}" aria-hidden="true"></i>
+        </button>
+        <button @click="handleNext" class="px-2">
+            <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': currPage !== 3}" aria-hidden="true"></i>
+        </button>
       </div>
-
     </div>
 
 </template>
@@ -111,12 +112,12 @@ function handleBack() {
 }
 
 .order-page-leave-active {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.6s ease-in-out;
   position: absolute;
 }
 
 .order-page-move {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 
 </style>
