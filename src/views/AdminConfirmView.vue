@@ -1,7 +1,8 @@
 <script setup>
 import { store } from '../store/store.js'
-// import OrderCard from '@/components/OrderCard.vue';
 import OrderCardConfirm from '@/components/OrderCardConfirm.vue';
+
+var orders = store.orders.filter((order) => order.isConfirmed == false)
 </script>
 
 <template>
@@ -12,10 +13,10 @@ import OrderCardConfirm from '@/components/OrderCardConfirm.vue';
         <div class="mt-2">
             <p class="font-semibold text-lg">Bestillinger til bekræftelse</p>
             <div class="grid">
-                <OrderCardConfirm v-for="order in store.orders" :key="order.orderId" :order="order"/>
+                <OrderCardConfirm v-for="order in orders" :key="order.orderId" :order="order"/>
 
                 <!-- No orders -->
-                <div v-if="store.orders.length < 1" class="bg-slate-700 rounded-xl p-8 text-white">
+                <div v-if="orders.length < 1" class="bg-slate-700 rounded-xl p-8 text-white">
                     <p>Ingen bestillinger at se</p>
                 </div>
             </div>

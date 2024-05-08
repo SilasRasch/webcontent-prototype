@@ -1,4 +1,5 @@
 <script setup>
+import { store } from '../store/store.js'
 import { ref } from 'vue' 
 const props = defineProps(['order'])
 var semiConfirm = ref(false)
@@ -21,11 +22,12 @@ function handleCancel() {
 function handleSend() {
     console.log("Sent");
     // store.thisorder.isConfirmed = true
+    store.confirmOrder(props.order.orderId)
 }
 </script>
 
 <template>
-    <div v-if="!rejected" class="bg-slate-700 rounded-xl p-6 text-white md:min-w-[40vw] m-2">
+    <div v-if="!props.order.isConfirmed && !rejected" class="bg-slate-700 rounded-xl p-6 text-white md:min-w-[40vw] m-2">
         <h3 class="text-left m-2 bg-opacity-50 bg-slate-950 rounded-md p-4 font-semibold text-xl">
             Bestilling {{ props.order.orderId }}
         </h3>

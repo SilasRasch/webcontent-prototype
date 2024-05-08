@@ -44,5 +44,11 @@ export const store = reactive({
             isConfirmed: false,
         }
     },
+
+    confirmOrder(id) {
+        const index = this.orders.findIndex((order) => order.orderId === id)
+        this.orders[index].isConfirmed = true
+    },
+
     role: 'Bruger'
 })
