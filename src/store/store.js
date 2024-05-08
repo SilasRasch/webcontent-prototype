@@ -13,11 +13,16 @@ export const store = reactive({
         contentCount: '',
         contentLength: '',
         channels: '',
-        extraCreator: '',
-        extraHook: '',
+        extraCreator: false,
+        extraHook: false,
         extraNotes: '',
         orderId: 0,
         isConfirmed: false,
+        price: 0,
+        deliveryTime: {
+            from: 0,
+            to: 0,
+        },
     },
 
     addOrder(order) {
@@ -42,6 +47,11 @@ export const store = reactive({
             extraNotes: '',
             orderId: 0,
             isConfirmed: false,
+            price: 0,
+            deliveryTime: {
+                from: 0,
+                to: 0,
+            },
         }
     },
 
@@ -50,5 +60,5 @@ export const store = reactive({
         this.orders[index].isConfirmed = true
     },
 
-    role: 'Bruger'
+    role: 'Bruger',
 })

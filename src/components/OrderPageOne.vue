@@ -27,3 +27,9 @@ import { store } from '../store/store.js'
         
     </div>
 </template>
+
+<style>
+input {
+    @apply border-gray-300 rounded-xl border-2 mx-2 w-full
+}
+</style>

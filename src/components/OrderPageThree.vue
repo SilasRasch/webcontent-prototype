@@ -99,12 +99,14 @@ function handleSend() {
                 <p>3-5 hverdage</p>
             </div>
         </div>
-
-        <button @click="handleSend" class="btn-red" 
-        :class="{'bg-opacity-50 cursor-not-allowed':store.newOrder.brand === ''}" 
-        :disabled="store.newOrder.brand === ''">
-            Send
-        </button>
+        <div class="grid">
+            <button @click="handleSend" class="btn-red m-2 w-full" 
+            :class="{'bg-opacity-50 cursor-not-allowed':store.newOrder.brand === ''}" 
+            :disabled="store.newOrder.brand === ''">
+                Send
+            </button>
+        </div>
+        
         <p v-if="store.newOrder.brand === ''" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
     </div>
 </template>

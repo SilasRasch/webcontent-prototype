@@ -13,6 +13,7 @@ function handleConfirm() {
 function handleReject() {
     console.log("Denied");
     rejected.value = true
+    // Send API-request to deny (add isDenied data point?)
 }
 
 function handleCancel() {
