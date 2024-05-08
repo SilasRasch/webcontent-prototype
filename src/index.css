@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-red {
+        @apply bg-red-500 rounded-3xl font-semibold hover:bg-red-700 duration-200 text-white p-4
+    }
+
+    .order-step {
+        @apply font-semibold p-4 min-w-14 rounded-full text-white
+    }
+
+    .arrow {
+        @apply btn-red min-w-14 rounded-full
+    }
+
+    .input > input, p {
+        @apply p-2
+    }
+
+    .order-arrow-right {
+        @apply absolute right-[0%] top-2/4 lg:top-1/4 sm:right-[5%] xl:right-[15%] 2xl:right-[25%]
+    }
+
+    .order-arrow-left {
+        @apply absolute left-[0%] top-2/4 lg:top-1/4 sm:left-[5%] xl:left-[15%] 2xl:left-[25%]
+    }
+
+    @media screen {
+        
+    }
+}
