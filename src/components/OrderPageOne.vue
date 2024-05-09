@@ -7,7 +7,7 @@ import MultiSelectItem from './Input/MultiSelectItem.vue';
 </script>
 
 <template>
-    <TransitionGroup class="text-center w-full p-2" tag="div">
+    <div class="text-center w-full p-2" tag="div">
         <p class="text-xl font-semibold m-2">Grundinformation</p>
 
         <DoubleInput v-model:firstInput="store.newOrder.brand" v-model:secondInput="store.newOrder.cvr"
@@ -37,13 +37,13 @@ import MultiSelectItem from './Input/MultiSelectItem.vue';
             </div>
         </div> -->
 
-        <SingleMultiSelect label="Hvor har du hørt om os?" placeholder="Vælg en til flere" required="">
+        <SingleMultiSelect v-model="store.newOrder.sourceArr" label="Hvor har du hørt om os?" placeholder="Vælg en til flere" required>
             <MultiSelectItem item="LinkedIn" />
             <MultiSelectItem item="Facebook" />
             <MultiSelectItem item="Instagram" />
             <MultiSelectItem item="Mundtligt" />
         </SingleMultiSelect>
-    </TransitionGroup>
+    </div>
 </template>
 
 <style scoped>
