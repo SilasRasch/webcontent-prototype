@@ -28,6 +28,7 @@ export const store = reactive({
         price: 0,
         deliveryTimeFrom: 0,
         deliveryTimeTo: 0,
+        sourceArr: [],
     },
 
     addOrder(order) {
@@ -62,6 +63,7 @@ export const store = reactive({
             price: 0,
             deliveryTimeFrom: 0,
             deliveryTimeTo: 0,
+            sourceArr: [],
         }
     },
 

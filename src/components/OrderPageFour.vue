@@ -8,6 +8,10 @@ const router = useRouter()
 console.log(store.newOrder);
 
 function handleSend() {
+    store.newOrder.sourceArr.forEach((item) => {
+        store.newOrder.source += item
+    })
+    
     store.addOrder(store.newOrder)
     router.push('/min-side')
 }

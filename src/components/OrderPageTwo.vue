@@ -3,6 +3,13 @@ import { store } from '../store/store.js'
 import DoubleInput from './Input/DoubleInput.vue';
 import SingleInput from './Input/SingleInput.vue';
 
+// Compute source String
+store.newOrder.source = ''
+store.newOrder.sourceArr.forEach((item) => {
+    store.newOrder.source += item + ", "
+})
+store.newOrder.source = store.newOrder.source.slice(0, store.newOrder.source.length - 2)
+
 console.log(store.newOrder);
 </script>
 

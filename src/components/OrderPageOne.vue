@@ -2,10 +2,12 @@
 import { store } from '../store/store.js'
 import DoubleInput from './Input/DoubleInput.vue';
 import SingleInput from './Input/SingleInput.vue';
+import SingleMultiSelect from './Input/SingleMultiSelect.vue';
+import MultiSelectItem from './Input/MultiSelectItem.vue';
 </script>
 
 <template>
-    <div class="text-center w-full p-2">
+    <TransitionGroup class="text-center w-full p-2" tag="div">
         <p class="text-xl font-semibold m-2">Grundinformation</p>
 
         <DoubleInput v-model:firstInput="store.newOrder.brand" v-model:secondInput="store.newOrder.cvr"
@@ -26,8 +28,22 @@ import SingleInput from './Input/SingleInput.vue';
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
-        <SingleInput v-model="store.newOrder.source" placeholder="F.eks. LinkedIn">Hvor har du hørt om os?</SingleInput>
-    </div>
+        <!-- <SingleInput v-model="store.newOrder.source" placeholder="F.eks. LinkedIn">Hvor har du hørt om os?</SingleInput> -->
+        
+        <!-- <div class="input text-left my-2">
+            <div class="input text-left">
+                <p class="px-0">Hvor har du hørt om os?</p>
+                <input class="input-field" v-model="store.newOrder.source" placeholder="LinkedIn">
+            </div>
+        </div> -->
+
+        <SingleMultiSelect label="Hvor har du hørt om os?" placeholder="Vælg en til flere">
+            <MultiSelectItem item="LinkedIn" />
+            <MultiSelectItem item="Facebook" />
+            <MultiSelectItem item="Instagram" />
+            <MultiSelectItem item="Mundtligt" />
+        </SingleMultiSelect>
+    </TransitionGroup>
 </template>
 
 <style scoped>
