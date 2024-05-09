@@ -14,7 +14,7 @@ console.log(store.newOrder);
             <div class="input text-left">
                 <p class="px-0">Noter til indhold <strong :class="{'text-red-500': store.newOrder.notes === ''}">*</strong></p>
                 <textarea class="input-field p-2 resize-none" rows="3" v-model="store.newOrder.notes" 
-                placeholder="Hvilke produkter, fokuspunkter, eventuelle ideer, etc"></textarea>
+                placeholder="Hvilke produkter, fokuspunkter, eventuelle ideer, etc..."></textarea>
             </div>
         </div>
 
@@ -53,7 +53,7 @@ console.log(store.newOrder);
             </div>
         </div>
 
-        <SingleInput v-model="store.newOrder.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review">Ekstra noter</SingleInput>
+        <SingleInput v-model="store.newOrder.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review...">Ekstra noter</SingleInput>
     </div>
 </template>
 

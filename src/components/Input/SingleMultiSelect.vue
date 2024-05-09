@@ -3,7 +3,11 @@ import { ref } from 'vue';
 // import MultiSelectItem from './MultiSelectItem.vue';
 import { store } from '@/store/store.js';
 
-const props = defineProps(['label', 'placeholder'])
+const props = defineProps({
+    label: String,
+    placeholder: String,
+    required: Boolean,
+})
 
 var open = ref(false)
 
@@ -21,8 +25,8 @@ function handleRemove(item) {
 </script>
 
 <template>
-    <div class="container box-border">
-        <p class="px-0 text-left">{{ props.label }}</p>
+    <div class="container box-border mb-2">
+        <p class="px-0 text-left">{{ props.label }} <strong v-if="props.required" :class="{'text-red-500': model === ''}">*</strong></p>
         <div class="flex justify-between select-btn text-left input-field p-2 cursor-pointer select-none items-center min-h-10"
         @click="handleToggle"
         >

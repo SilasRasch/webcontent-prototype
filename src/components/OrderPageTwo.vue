@@ -19,7 +19,7 @@ console.log(store.newOrder);
         
 
         <DoubleInput v-model:firstInput="store.newOrder.projectName" v-model:secondInput="store.newOrder.projectType"
-        placeholder-one="Dit brand - Produktvideo" placeholder-two="User Generated Content">
+        placeholder-one="Helst noget beskrivende..." placeholder-two="User Generated Content...">
             <template v-slot:slotOne>Projektnavn</template>
             <template v-slot:slotTwo>Projekttype</template>
         </DoubleInput>
@@ -44,8 +44,8 @@ console.log(store.newOrder);
             </div>
         </div>
 
-        <SingleInput class="mt-0" v-model="store.newOrder.format" placeholder="16:9, 9:16, 1:1">Format</SingleInput>
-        <SingleInput v-model="store.newOrder.channels" placeholder="TikTok, Instagram, Facebook">Tiltænkte platforme</SingleInput>
+        <SingleInput class="mt-0" v-model="store.newOrder.format" placeholder="16:9, 9:16, 1:1...">Format</SingleInput>
+        <SingleInput v-model="store.newOrder.channels" placeholder="TikTok, Instagram, Facebook...">Tiltænkte platforme</SingleInput>
     </div>
 </template>
 

@@ -11,7 +11,7 @@ function handleSend() {
     store.newOrder.sourceArr.forEach((item) => {
         store.newOrder.source += item
     })
-    
+
     store.addOrder(store.newOrder)
     router.push('/min-side')
 }
@@ -97,7 +97,7 @@ const estimatedDelivery = computed(() => {
 
         <div class="input text-left my-2">
             <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">Hvor har du hørt om os? <strong :class="{'text-red-500': store.newOrder.source === ''}">*</strong></p>
+                <p class="px-0 font-semibold">Hvor har du hørt om os? <!--<strong :class="{'text-red-500': store.newOrder.source === ''}">*</strong>--></p>
                 <p class="input-value">{{ store.newOrder.source }}</p>
             </div>
         </div>
@@ -119,11 +119,11 @@ const estimatedDelivery = computed(() => {
 
         <div class="grid md:grid-cols-2 grid-cols-1 mb-0">
             <div class="input text-left mb-0">
-                <p class="px-0 font-semibold">Mængde af indhold <strong :class="{'text-red-500': store.newOrder.contentCount === ''}">*</strong></p>
+                <p class="px-0 font-semibold">Mængde af indhold</p>
                 <p class="input-value">{{ store.newOrder.contentCount }} stk</p>
             </div>
             <div class="input text-left mb-0"> 
-                <p class="px-0 font-semibold">Længde af indhold <strong :class="{'text-red-500': store.newOrder.contentLength === ''}">*</strong></p>
+                <p class="px-0 font-semibold">Længde af indhold</p>
                 <p class="input-value">{{ store.newOrder.contentLength }} sekunder</p>
             </div>
         </div>
@@ -156,12 +156,12 @@ const estimatedDelivery = computed(() => {
 
         <div class="flex input text-left">
             <div class="input text-left w-full mr-1">
-                <p class="px-0 font-semibold">Ekstra hook <strong>*</strong></p>
+                <p class="px-0 font-semibold">Ekstra hook</p>
                 <p v-if="store.newOrder.extraHook" class="input-value">{{ store.newOrder.extraHookCount }} stk</p>
                 <p v-else class="input-value">Nej</p>
             </div>
             <div class="input text-left w-full ml-1">
-                <p class="px-0 font-semibold">Ekstra creator <strong>*</strong></p>
+                <p class="px-0 font-semibold">Ekstra creator</p>
                 <p v-if="store.newOrder.extraCreator" class="input-value">Ja</p>
                 <p v-else class="input-value">Nej</p>
             </div>
