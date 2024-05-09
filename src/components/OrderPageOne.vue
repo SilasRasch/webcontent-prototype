@@ -1,67 +1,32 @@
-<!-- <script setup>
-import { store } from '../store/store.js'
-</script>
-
-<template>
-    <div class="grid text-center">
-        <p class="text-xl font-semibold">Information om dig</p>
-        
-        <div class="grid md:grid-cols-2 grid-cols-1">
-            <div class="input text-left">
-                <p class="px-0">Brand <strong :class="{'text-red-500': store.newOrder.brand === ''}">*</strong></p>
-                <input class="input-field" v-model="store.newOrder.brand" placeholder="Dit brand - Produktvideo">
-            </div>
-            <div class="input text-left">
-                <p class="px-0">Telefon <strong :class="{'text-red-500': store.newOrder.phone === ''}">*</strong></p>
-                <input class="input-field" v-model="store.newOrder.phone" placeholder="Dit telefonnummer">
-            </div>
-            <div class="input text-left">
-                <p class="px-0">E-mail <strong :class="{'text-red-500': store.newOrder.email === ''}">*</strong></p>
-                <input class="input-field" v-model="store.newOrder.email" placeholder="Din e-mail">
-            </div>
-            <div class="input text-left">
-                <p class="px-0">Hvor har du hørt om os?</p>
-                <input class="input-field" v-model="store.newOrder.source" placeholder="LinkedIn">
-            </div>
-        </div>
-        
-    </div>
-</template>
-
-<style scoped>
-.toggle-btn {
-    @apply border-gray-300 rounded-xl border-2 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
-}
-</style> -->
-
 <script setup>
 import { store } from '../store/store.js'
+import DoubleInput from './Input/DoubleInput.vue';
+import SingleInput from './Input/SingleInput.vue';
 </script>
 
 <template>
     <div class="text-center w-full p-2">
-        <p class="text-xl font-semibold m-2">Information om dit projekt</p>
+        <p class="text-xl font-semibold m-2">Grundinformation</p>
 
-        <div class="grid md:grid-cols-2 grid-cols-1 my-2">
-            <div class="input text-left mr-1">
-                <p class="px-0">Brand <strong :class="{'text-red-500': store.newOrder.brand === ''}">*</strong></p>
-                <input class="input-field" v-model="store.newOrder.brand" placeholder="Dit brand - Produktvideo">
-            </div>
-            <div class="input text-left ml-1">
-                <p class="px-0">Telefon <strong :class="{'text-red-500': store.newOrder.phone === ''}">*</strong></p>
-                <input class="input-field" v-model="store.newOrder.phone" placeholder="Dit telefonnummer">
-            </div>
-        </div>
-        <div class="grid md:grid-cols-2 grid-cols-1 my-2">
-            <div class="input text-left mr-1">
-                <p class="px-0">E-mail <strong :class="{'text-red-500': store.newOrder.email === ''}">*</strong></p>
-                <input class="input-field" v-model="store.newOrder.email" placeholder="Din e-mail">
-            </div>
-            <div class="input text-left ml-1">
-                <p class="px-0">Hvor har du hørt om os?</p>
-                <input class="input-field" v-model="store.newOrder.source" placeholder="LinkedIn">
-            </div>
-        </div>
+        <DoubleInput v-model:firstInput="store.newOrder.brand" v-model:secondInput="store.newOrder.cvr"
+        placeholder-one="Dit brand - Produktvideo" placeholder-two="F.eks. 40791752">
+            <template v-slot:slotOne>Brand</template>
+            <template v-slot:slotTwo>CVR</template>
+        </DoubleInput>
+
+        <hr class="text-black bg-black h-0.5 my-6" />
+
+        <DoubleInput v-model:firstInput="store.newOrder.contact.name" v-model:secondInput="store.newOrder.contact.phone"
+        placeholder-one="Din e-mail" placeholder-two="Dit telefonnummer">
+            <template v-slot:slotOne>Kontaktperson</template>
+            <template v-slot:slotTwo>Telefon</template>
+        </DoubleInput>
+
+        <SingleInput v-model="store.newOrder.contact.email" placeholder="Din e-mail">E-mail</SingleInput>
+
+        <hr class="text-black bg-black h-0.5 my-6" />
+
+        <SingleInput v-model="store.newOrder.source" placeholder="F.eks. LinkedIn">Hvor har du hørt om os?</SingleInput>
     </div>
 </template>
 

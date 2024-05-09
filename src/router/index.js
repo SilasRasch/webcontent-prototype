@@ -28,6 +28,7 @@ const router = createRouter({
         { path: 'first-step', component: () => import('../components/OrderPageOne.vue')},
         { path: 'second-step', component: () => import('../components/OrderPageTwo.vue')},
         { path: 'third-step', component: () => import('../components/OrderPageThree.vue')},
+        { path: 'fourth-step', component: () => import('../components/OrderPageFour.vue')},
       ]
     },
     {

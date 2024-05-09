@@ -1,112 +1,74 @@
 <script setup>
 import { store } from '../store/store.js'
-import { useRouter } from 'vue-router'
+import SingleInput from './Input/SingleInput.vue';
+import ToolTip from './Input/ToolTip.vue';
 
-const router = useRouter()
-
-function handleSend() {
-    store.addOrder(store.newOrder)
-    router.push('/min-side')
-}
+console.log(store.newOrder);
 </script>
 
 <template>
-    <div class="grid text-center [&>*]:m-2">
-        <p class="text-xl font-semibold">Tjek information</p>
-        
-        <div class="grid md:grid-cols-2 grid-cols-1 [&>*]:m-2">
+    <div class="text-center w-full p-2">
+        <p class="text-xl font-semibold m-2">Information om indholdet</p>
+
+        <div class="input text-left my-2">
             <div class="input text-left">
-                <p class="">Brand <strong :class="{'text-red-500': store.newOrder.brand === ''}">*</strong></p>
-                <!-- <input placeholder="Dit brand - Produktvideo"> -->
-                <p class="italic">{{ store.newOrder.brand }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Telefon <strong :class="{'text-red-500': store.newOrder.phone === ''}">*</strong></p>
-                <!-- <input placeholder="Dit telefonnummer"> -->
-                <p class="italic">{{ store.newOrder.phone }}</p>
-            </div>
-            <div class="input text-left">
-                <p>E-mail <strong :class="{'text-red-500': store.newOrder.email === ''}">*</strong></p>
-                <!-- <input placeholder="Din e-mail"> -->
-                <p class="italic">{{ store.newOrder.email }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Hvor har du hørt om os?</p>
-                <!-- <input placeholder="LinkedIn"> -->
-                <p class="italic">{{ store.newOrder.source }}</p>
+                <p class="px-0">Noter til indhold <strong :class="{'text-red-500': store.newOrder.notes === ''}">*</strong></p>
+                <textarea class="input-field p-2 resize-none" rows="3" v-model="store.newOrder.notes" 
+                placeholder="Hvilke produkter, fokuspunkter, eventuelle ideer, etc"></textarea>
             </div>
         </div>
 
-        <hr class="text-black bg-black h-0.5" />
+        <hr class="text-black bg-black h-0.5 my-6" />
 
-        <div class="grid md:grid-cols-2 grid-cols-1 [&>*]:m-2">
-            <div class="input text-left">
-                <p>Projektnavn <strong :class="{'text-red-500': store.newOrder.projectName === ''}">*</strong></p>
-                <!-- <input placeholder="Dit brand - Produktvideo"> -->
-                <p class="italic">{{ store.newOrder.projectName }}</p>
+        <div class="flex input text-left">
+            <div class="input text-left w-full mr-1">
+                <p class="px-0">Ekstra hook 
+                    <ToolTip class="bg-yellow-500 text-white hover:bg-opacity-75 p-1" 
+                    label="Populær!">Tilføj lidt ekstra spice til dit content med ekstra hooks!</ToolTip>
+                </p>
+                
+                <button class="toggle-btn" 
+                :class="{'bg-red-500 fa fa-times':!store.newOrder.extraHook, 'bg-green-500 fa fa-check':store.newOrder.extraHook}"
+                @click="store.newOrder.extraHook = !store.newOrder.extraHook"
+                ></button>
             </div>
-            <div class="input text-left">
-                <p>Projekttype <strong :class="{'text-red-500': store.newOrder.projectType === ''}">*</strong></p>
-                <!-- <input placeholder="User Generated Content"> -->
-                <p class="italic">{{ store.newOrder.projectType }}</p>
+            <div class="input text-left w-full ml-1 mb-2">
+                <p class="px-0">Ekstra creator 
+                    <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker mere end én creator på dit projekt (+ 1500 kr)</ToolTip>
+                </p>
+                <button class="toggle-btn" 
+                :class="{'bg-red-500 fa fa-times':!store.newOrder.extraCreator, 'bg-green-500 fa fa-check':store.newOrder.extraCreator}"
+                @click="store.newOrder.extraCreator = !store.newOrder.extraCreator"
+                ></button>
             </div>
         </div>
 
-        <hr class="text-black bg-black h-0.5" />
+        <div v-if="store.newOrder.extraHook" class="mb-0">
+            <div class="input text-left mb-0">
+                <p class="px-0">Hvor mange videoer m. ekstra hook?</p>
+                <div class="flex flex-col justify-center mr-1">
+                    <input v-model="store.newOrder.extraHookCount" class="" type="range" min="1" :max="store.newOrder.contentCount" step="1"/>
+                    <span class="text-center opacity-50">{{ store.newOrder.extraHookCount }} stk</span>
+                </div>
+            </div>
+        </div>
 
-        <div class="grid md:grid-cols-2 grid-cols-1 [&>*]:m-2">
-            <div class="input text-left">
-                <p>Mængde af indhold <strong :class="{'text-red-500': store.newOrder.contentCount === ''}">*</strong></p>
-                <!-- <input placeholder="1-8"> -->
-                <p class="italic">{{ store.newOrder.contentCount }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Ekstra creator <strong :class="{'text-red-500': store.newOrder.extraCreator === ''}">*</strong></p>
-                <!-- <input placeholder="Ja / Nej"> -->
-                <p class="italic">{{ store.newOrder.extraCreator }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Længde af indhold <strong :class="{'text-red-500': store.newOrder.contentLength === ''}">*</strong></p>
-                <!-- <input placeholder="Fx. 30-45 sekunder"> -->
-                <p class="italic">{{ store.newOrder.contentLength }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Ekstra hook <strong :class="{'text-red-500': store.newOrder.extraHook === ''}">*</strong></p>
-                <!-- <input placeholder="Ja / Nej"> -->
-                <p class="italic">{{ store.newOrder.extraHook }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Tiltænkte channels <strong :class="{'text-red-500': store.newOrder.channels === ''}">*</strong></p>
-                <!-- <input placeholder="Fx. Meta & TikTok"> -->
-                <p class="italic">{{ store.newOrder.channels }}</p>
-            </div>
-            <div class="input text-left">
-                <p>Ekstra noter</p>
-                <!-- <input placeholder="Fx. 2 testimonials, 2 unboxing, 4 product review"> -->
-                <p class="italic">{{ store.newOrder.extraNotes }}</p>
-            </div>
-        </div>
-        
-        <hr class="text-black bg-black h-0.5" />
-
-        <div class="grid md:grid-cols-2 grid-cols-1 [&>*]:m-2">
-            <div class="input text-left">
-                <p class="font-semibold">Estimeret pris</p>
-                <p>123.000.000 kr</p>
-            </div>
-            <div class="input text-left">
-                <p class="font-semibold">Estimeret leveringstid</p>
-                <p>3-5 hverdage</p>
-            </div>
-        </div>
-        <div class="grid">
-            <button @click="handleSend" class="btn-red m-2 w-full" 
-            :class="{'bg-opacity-50 cursor-not-allowed':store.newOrder.brand === ''}" 
-            :disabled="store.newOrder.brand === ''">
-                Send
-            </button>
-        </div>
-        
-        <p v-if="store.newOrder.brand === ''" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
+        <SingleInput v-model="store.newOrder.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review">Ekstra noter</SingleInput>
     </div>
 </template>
+
+<style scoped>
+.toggle-btn {
+    @apply border-gray-300 rounded-xl border-2 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-runnable-track {
+    @apply bg-red-400 h-2 rounded p-0
+}
+
+/******** Firefox ********/
+input[type="range"]::-moz-range-track {
+    @apply bg-red-400 h-2 rounded p-0
+}
+</style>

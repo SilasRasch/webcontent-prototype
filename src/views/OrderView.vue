@@ -4,11 +4,12 @@ import OrderPageZero from '../components/OrderPageZero.vue'
 import OrderPageOne from '@/components/OrderPageOne.vue';
 import OrderPageTwo from '@/components/OrderPageTwo.vue';
 import OrderPageThree from '@/components/OrderPageThree.vue';
+import OrderPageFour from '@/components/OrderPageFour.vue';
 
 var currPage = ref(0);
 
 function handleNext() {
-  if (currPage.value < 3) {
+  if (currPage.value < 4) {
     currPage.value++
   }
 }
@@ -47,7 +48,7 @@ function handleBack() {
         <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':currPage <= 2}" aria-hidden="true"></i>
 
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 3, 'active-link': currPage === 3 }">4</p>
+          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 3, 'active-link': currPage === 3 }">3</p>
           <span class="mt-1" :class="{'opacity-50':currPage !== 3}">Content</span>
         </div>
 
@@ -64,6 +65,7 @@ function handleBack() {
         <OrderPageOne v-if="currPage === 1" />
         <OrderPageTwo v-if="currPage === 2" />
         <OrderPageThree v-if="currPage === 3" />
+        <OrderPageFour v-if="currPage === 4" />
       </TransitionGroup>
 
       <div class="flex justify-between w-full">
@@ -71,7 +73,7 @@ function handleBack() {
           <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': currPage !== 0}" aria-hidden="true"></i>
         </button>
         <button @click="handleNext" class="px-2">
-            <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': currPage !== 3}" aria-hidden="true"></i>
+            <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': currPage !== 4}" aria-hidden="true"></i>
         </button>
       </div>
     </div>
