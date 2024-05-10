@@ -48,7 +48,7 @@ import SingleMultiSelect from './Input/SingleMultiSelect.vue';
         </div>
 
         <SingleMultiSelect v-model="store.newOrder.formatArr" required
-        :items="['16:9', '9:16', '1:1', '4:3']">
+        :items="['16:9', '9:16', '1:1', '4:5']">
             Format
         </SingleMultiSelect>
 

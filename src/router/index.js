@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import OrderView from'../views/OrderView.vue'
-// import OrderPageZero from '../components/OrderPageZero.vue'
+import DashboardView from '../views/DashboardView.vue'
+import ProjectView from '../views/ProjectView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,13 +24,6 @@ const router = createRouter({
       path: '/bestil',
       name: 'bestil',
       component: OrderView,
-      children: [
-        { path: '', component: () => import('../components/OrderPageZero.vue')},
-        { path: 'first-step', component: () => import('../components/OrderPageOne.vue')},
-        { path: 'second-step', component: () => import('../components/OrderPageTwo.vue')},
-        { path: 'third-step', component: () => import('../components/OrderPageThree.vue')},
-        { path: 'fourth-step', component: () => import('../components/OrderPageFour.vue')},
-      ]
     },
     {
       path: '/login',
@@ -49,8 +43,13 @@ const router = createRouter({
     {
       path: '/min-side',
       name: 'min-side',
-      component: () => import('../views/MyDashboardView.vue')
-    }
+      component: DashboardView,
+    },
+    {
+      path: '/min-side/projekt/:id',
+      name: 'projekt',
+      component: ProjectView,
+    },
   ]
 })
 

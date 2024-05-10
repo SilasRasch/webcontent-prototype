@@ -5,7 +5,6 @@ const model = defineModel()
 </script>
 
 <template>
-    <!-- Dashboard -->
     <div class="grid gap-2 w-[90vw] p-2 rounded-xl mt-0">
         <!-- Column 1 -->
         <div class="grid gap-2">

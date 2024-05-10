@@ -24,7 +24,7 @@ const arr = [1,2,3,4,5]
         </div>
 
         <!-- Dashboard -->
-        <TransitionGroup tag="div" class="flex bg-slate-300 rounded-lg justify-center max-w-[50rem]" name="dashboard">
+        <TransitionGroup tag="div" class="flex justify-center bg-slate-300 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
             <DashboardConfirmed v-if="currTab === 1" />
             <DashboardPool v-if="currTab === 2" v-model="arr">Ubekræftede projekter</DashboardPool>
             <DashboardPool v-if="currTab === 3" v-model="arr">Annullerede projekter</DashboardPool>
@@ -45,12 +45,10 @@ const arr = [1,2,3,4,5]
 
 .dashboard-enter-from {
   opacity: 0;
-  transform: translateY(-5px)
 }
 
 .dashboard-enter-to {
   opacity: 1;
-  transform: translateY(0)
 }
 
 .dashboard-enter-active {
@@ -59,12 +57,10 @@ const arr = [1,2,3,4,5]
 
 .dashboard-leave-from {
   opacity: 1;
-  transform: translateY(0)
 }
 
 .dashboard-leave-to {
   opacity: 0;
-  transform: translateY(-100px)
 }
 
 .dashboard-leave-active {
