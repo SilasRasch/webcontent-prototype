@@ -2,6 +2,7 @@
 import { store } from '../store/store.js'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue';
+import ToolTip from './Input/ToolTip.vue';
 
 const router = useRouter()
 
@@ -179,11 +180,11 @@ const estimatedDelivery = computed(() => {
         <div class="grid md:grid-cols-2 grid-cols-1">
             <div class="input text-left">
                 <p class="font-semibold">Estimeret pris</p>
-                <p>{{ estimatedPrice }} kr</p>
+                <p>{{ estimatedPrice }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ estimatedPrice * 1.25 }} kr inkl. moms</ToolTip></p>
             </div>
             <div class="input text-left">
                 <p class="font-semibold">Estimeret leveringstid</p>
-                <p class="">{{ estimatedDelivery }}-{{ estimatedDelivery + 2 }} hverdage</p>
+                <p class="">{{ estimatedDelivery }}-{{ estimatedDelivery + 2 }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi estimerer derfor i intervaller. Husk dog stadig at det er et estimat.</ToolTip></p>
             </div>
         </div>
         <div class="grid">

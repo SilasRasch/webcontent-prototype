@@ -49,7 +49,7 @@ const router = createRouter({
     {
       path: '/min-side',
       name: 'min-side',
-      component: () => import('../views/MyOrdersView.vue')
+      component: () => import('../views/MyDashboardView.vue')
     }
   ]
 })
