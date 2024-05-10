@@ -2,6 +2,13 @@
 import OrderCardMini from './OrderCardMini.vue';
 
 const model = defineModel()
+
+// const props = defineProps({
+//     colorClass: {
+//         type: String,
+//         required: false
+//     }
+// })
 </script>
 
 <template>
@@ -12,7 +19,7 @@ const model = defineModel()
             <hr class="text-white bg-white rounded-full opacity-50 h-1 mx-0.5 border-none" />
 
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                <OrderCardMini v-for="index in model" :key="index" brand="Brand">Projektnavn</OrderCardMini>
+                <OrderCardMini v-for="index in model" :key="index" :order-id="index" brand="Brand">Projektnavn</OrderCardMini>
             </div>
         </div>
     </div>

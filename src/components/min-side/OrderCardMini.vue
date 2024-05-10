@@ -8,14 +8,22 @@ const props = defineProps({
     orderId: {
         type: Number,
         required: true
+    },
+    colorClass: {
+        type: String,
+        required: false
     }
 })
 </script>
 
 <template>
-    <RouterLink :to="`min-side/projekt/${orderId}`">
-        <div class="bg-red-600 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
-            <h3 class="font-semibold text-xl px-2 p-1 bg-red-800 rounded text-white">{{ props.brand }}</h3>
+    <RouterLink :to="`min-side/projekt/${orderId}`" draggable="false">
+        <div v-if="!props.colorClass" class="bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
+            <h3 class="font-semibold text-xl px-2 p-1 bg-red-500 rounded text-white">{{ props.brand }}</h3>
+            <p class="px-1 text-white font-semibold"><slot></slot></p>
+        </div>
+        <div v-else class="bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
+            <h3 class="font-semibold text-xl px-2 p-1 rounded text-white" :class="props.colorClass">{{ props.brand }}</h3>
             <p class="px-1 text-white font-semibold"><slot></slot></p>
         </div>
     </RouterLink>

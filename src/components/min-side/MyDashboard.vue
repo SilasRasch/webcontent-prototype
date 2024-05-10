@@ -10,7 +10,7 @@ function handleTabClick(item) {
     console.log(currTab.value);
 }
 
-const arr = [1,2,3,4,5]
+const arr = [1,2,3,4,5,6]
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const arr = [1,2,3,4,5]
         </div>
 
         <!-- Dashboard -->
-        <TransitionGroup tag="div" class="flex justify-center bg-slate-300 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
+        <TransitionGroup tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
             <DashboardConfirmed v-if="currTab === 1" />
             <DashboardPool v-if="currTab === 2" v-model="arr">Ubekræftede projekter</DashboardPool>
             <DashboardPool v-if="currTab === 3" v-model="arr">Annullerede projekter</DashboardPool>

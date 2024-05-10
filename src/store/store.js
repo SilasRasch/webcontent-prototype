@@ -77,4 +77,31 @@ export const store = reactive({
     },
 
     role: 'Bruger',
+
+    mockOrder: {
+        orderId: 999,
+        brand: 'WebContent',
+        cvr: '40791752',
+        contact: {
+            name: 'Mathias Hansen',
+            phone: '12344321',
+            email: 'info@webcontent.dk',
+        },
+        projectName: 'Content Cloud',
+        projectType: 'User Generated Content',
+        contentCount: 5,
+        contentLength: 60,
+        channels: 'TikTok, Instagram',
+        format: '9:16, 4:5',
+        extraCreator: true,
+        extraHook: true,
+        extraHookCount: 2,
+        extraNotes: 'Vægt på reviews og testimonials',
+        notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
+        isConfirmed: true,
+        source: 'LinkedIn',
+        price: 6219,
+        deliveryTimeFrom: 1,
+        deliveryTimeTo: 3
+    },
 })

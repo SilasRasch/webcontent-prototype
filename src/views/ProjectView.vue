@@ -17,15 +17,17 @@ onBeforeRouteUpdate(async (to) => {
 </script>
 
 <template>
-    <div class="mt-2 grid justify-center text-center" v-if="store.role === 'Bruger'">
+    <div class="grid justify-center text-center m-4">
         <h1 class="text-3xl font-semibold">Min Side</h1>
-        <p class="font-semibold text-lg">Bestilling {{ paramId }}</p>
 
-        <button class="fa fa-arrow-left fa-2x rounded-full bg-red-500 w-fit p-2 text-white relative -bottom-2 -left-10 hover:opacity-50 duration-200"
+        <hr class="text-black bg-black opacity-50 h-0.5 m-3 mb-4" />
+
+        <!-- <p class="font-semibold text-lg">Bestilling {{ paramId }}</p> -->
+        
+        <button class="fa fa-arrow-left fa-2x rounded-full bg-slate-600 w-fit p-2 text-white relative -left-14 hover:bg-slate-800 duration-200"
         @click="router.back"
         ></button>
-        <div class="grid mt-[-3rem]">
-            <OrderCard :key="paramId" :order="order"/>
-        </div>
-    </div>
+        <!-- Normal bruger -->
+        <OrderCard :key="paramId" :order="order"/>
+    </div>    
 </template>
