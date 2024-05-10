@@ -1,8 +1,8 @@
 <script setup>
-import { store } from '../store/store.js'
+import { store } from '../../store/store.js'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue';
-import ToolTip from './Input/ToolTip.vue';
+import ToolTip from '../Input/ToolTip.vue';
 
 const router = useRouter()
 

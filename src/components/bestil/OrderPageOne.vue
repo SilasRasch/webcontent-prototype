@@ -1,8 +1,8 @@
 <script setup>
-import { store } from '../store/store.js'
-import DoubleInput from './Input/DoubleInput.vue';
-import SingleInput from './Input/SingleInput.vue';
-import SingleMultiSelect from './Input/SingleMultiSelect.vue';
+import { store } from '../../store/store.js'
+import DoubleInput from '../Input/DoubleInput.vue';
+import SingleInput from '../Input/SingleInput.vue';
+import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 </script>
 
 <template>

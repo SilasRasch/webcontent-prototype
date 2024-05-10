@@ -1,7 +1,7 @@
 <script setup>
-import { store } from '../store/store.js'
-import SingleInput from './Input/SingleInput.vue';
-import ToolTip from './Input/ToolTip.vue';
+import { store } from '../../store/store.js'
+import SingleInput from '../Input/SingleInput.vue';
+import ToolTip from '../Input/ToolTip.vue';
 
 console.log(store.newOrder);
 </script>

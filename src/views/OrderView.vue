@@ -1,11 +1,11 @@
 <script setup>
 import { store } from '@/store/store.js';
 import { ref } from 'vue'
-import OrderPageZero from '../components/OrderPageZero.vue'
-import OrderPageOne from '@/components/OrderPageOne.vue';
-import OrderPageTwo from '@/components/OrderPageTwo.vue';
-import OrderPageThree from '@/components/OrderPageThree.vue';
-import OrderPageFour from '@/components/OrderPageFour.vue';
+import OrderPageZero from '../components/bestil/OrderPageZero.vue'
+import OrderPageOne from '@/components/bestil/OrderPageOne.vue';
+import OrderPageTwo from '@/components/bestil/OrderPageTwo.vue';
+import OrderPageThree from '@/components/bestil/OrderPageThree.vue';
+import OrderPageFour from '@/components/bestil/OrderPageFour.vue';
 
 function arrayToString(string, array) {
     string = ''

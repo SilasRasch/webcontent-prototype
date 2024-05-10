@@ -1,6 +1,6 @@
 <script setup>
 import { store } from '@/store/store';
-import ToolTip from './Input/ToolTip.vue';
+import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
 
 // const props = defineProps(['order'])

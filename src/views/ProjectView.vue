@@ -2,7 +2,7 @@
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { store } from '@/store/store';
-import OrderCard from '@/components/OrderCard.vue';
+import OrderCard from '@/components/min-side/OrderCard.vue';
 
 const route = useRoute()
 const router = useRouter()

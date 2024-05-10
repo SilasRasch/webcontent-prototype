@@ -1,7 +1,7 @@
 <script setup>
-import { store } from '../store/store.js'
-import DoubleInput from './Input/DoubleInput.vue';
-import SingleMultiSelect from './Input/SingleMultiSelect.vue';
+import { store } from '../../store/store.js'
+import DoubleInput from '../Input/DoubleInput.vue';
+import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 
 // function arrayToString(string, array) {
 //     string = ''
