@@ -1,16 +1,22 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps(['item'])
-var showCheck = ref(false)
+const model = defineModel()
+const props = defineProps({
+    item: String,
+})
 
-import { store } from '@/store/store.js';
+function handleAdd(item) {
+    model.value.push(item)
+}
+
+var showCheck = ref(false)
 </script>
 
 <template>
     <li class="item bg-red-300 rounded-lg p-2 input-field hover:opacity-100 cursor-pointer my-1"
-        v-if="!store.newOrder.sourceArr.includes(props.item)"
-        @click="store.newOrder.sourceArr.push(props.item)"
+        v-if="!model.includes(props.item)"
+        @click="handleAdd(props.item)"
         >
             <span class="checkbox border-2 border-gray-400 rounded-lg p-0.5 px-1 opacity-50 hover:opacity-100 bg-white duration-200" 
             @mouseover="showCheck = !showCheck" @mouseleave="showCheck = false">

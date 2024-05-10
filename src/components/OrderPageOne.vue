@@ -3,7 +3,6 @@ import { store } from '../store/store.js'
 import DoubleInput from './Input/DoubleInput.vue';
 import SingleInput from './Input/SingleInput.vue';
 import SingleMultiSelect from './Input/SingleMultiSelect.vue';
-import MultiSelectItem from './Input/MultiSelectItem.vue';
 </script>
 
 <template>
@@ -37,12 +36,9 @@ import MultiSelectItem from './Input/MultiSelectItem.vue';
             </div>
         </div> -->
 
-        <SingleMultiSelect v-model="store.newOrder.sourceArr" label="Hvor har du hørt om os?" placeholder="Vælg en til flere" required>
-            <MultiSelectItem item="LinkedIn" />
-            <MultiSelectItem item="Facebook" />
-            <MultiSelectItem item="Instagram" />
-            <MultiSelectItem item="Mundtligt" />
-        </SingleMultiSelect>
+        <SingleMultiSelect v-model="store.newOrder.sourceArr" label="Hvor har du hørt om os?" required
+        :items="['LinkedIn', 'Facebook', 'Instagram', 'Mundtligt']">
+            Hvor har du hørt om os?</SingleMultiSelect>
     </div>
 </template>
 

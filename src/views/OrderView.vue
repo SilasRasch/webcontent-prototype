@@ -1,4 +1,5 @@
 <script setup>
+import { store } from '@/store/store.js';
 import { ref } from 'vue'
 import OrderPageZero from '../components/OrderPageZero.vue'
 import OrderPageOne from '@/components/OrderPageOne.vue';
@@ -6,11 +7,31 @@ import OrderPageTwo from '@/components/OrderPageTwo.vue';
 import OrderPageThree from '@/components/OrderPageThree.vue';
 import OrderPageFour from '@/components/OrderPageFour.vue';
 
+function arrayToString(string, array) {
+    string = ''
+    array.forEach((item) => {
+        string += item + ", "
+    })
+
+    // Trim excess
+    return string.slice(0, string.length - 2)
+}
+
+function updateStrings() {
+    store.newOrder.source = arrayToString(store.newOrder.source, store.newOrder.sourceArr)
+    store.newOrder.channels = arrayToString(store.newOrder.channels, store.newOrder.channelsArr)
+    store.newOrder.format = arrayToString(store.newOrder.format, store.newOrder.formatArr)
+}
+
 var currPage = ref(0);
 
 function handleNext() {
   if (currPage.value < 4) {
     currPage.value++
+    
+    if (currPage.value == 4) {
+      updateStrings()
+    }
   }
 }
 

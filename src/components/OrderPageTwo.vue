@@ -1,16 +1,19 @@
 <script setup>
 import { store } from '../store/store.js'
 import DoubleInput from './Input/DoubleInput.vue';
-import SingleInput from './Input/SingleInput.vue';
+import SingleMultiSelect from './Input/SingleMultiSelect.vue';
 
-// Compute source String
-store.newOrder.source = ''
-store.newOrder.sourceArr.forEach((item) => {
-    store.newOrder.source += item + ", "
-})
-store.newOrder.source = store.newOrder.source.slice(0, store.newOrder.source.length - 2)
+// function arrayToString(string, array) {
+//     string = ''
+//     array.forEach((item) => {
+//         string += item + ", "
+//     })
 
-console.log(store.newOrder);
+//     // Trim excess
+//     return string.slice(0, string.length - 2)
+// }
+
+// store.newOrder.source = arrayToString(store.newOrder.source, store.newOrder.sourceArr)
 </script>
 
 <template>
@@ -44,8 +47,15 @@ console.log(store.newOrder);
             </div>
         </div>
 
-        <SingleInput class="mt-0" v-model="store.newOrder.format" placeholder="16:9, 9:16, 1:1...">Format</SingleInput>
-        <SingleInput v-model="store.newOrder.channels" placeholder="TikTok, Instagram, Facebook...">Tiltænkte platforme</SingleInput>
+        <SingleMultiSelect v-model="store.newOrder.formatArr" required
+        :items="['16:9', '9:16', '1:1', '4:3']">
+            Format
+        </SingleMultiSelect>
+
+        <SingleMultiSelect v-model="store.newOrder.channelsArr" required
+        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube']">
+            Tiltænkte platforme
+        </SingleMultiSelect>
     </div>
 </template>
 
@@ -54,13 +64,17 @@ console.log(store.newOrder);
     @apply border-gray-300 rounded-xl border-2 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
 }
 
-/***** Chrome, Safari, Opera, and Edge Chromium *****/
 input[type="range"]::-webkit-slider-runnable-track {
-    @apply bg-red-400 h-2 rounded p-0
+    @apply bg-red-400 h-2 rounded
 }
 
-/******** Firefox ********/
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @apply h-5 w-5 bg-gray-500 rounded-full -mt-1
+}
+
+
 input[type="range"]::-moz-range-track {
     @apply bg-red-400 h-2 rounded p-0
-}
+} 
 </style>

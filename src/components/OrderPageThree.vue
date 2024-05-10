@@ -43,15 +43,18 @@ console.log(store.newOrder);
             </div>
         </div>
 
-        <div v-if="store.newOrder.extraHook" class="mb-0">
-            <div class="input text-left mb-0">
-                <p class="px-0">Hvor mange videoer m. ekstra hook?</p>
-                <div class="flex flex-col justify-center mr-1">
-                    <input v-model="store.newOrder.extraHookCount" class="" type="range" min="1" :max="store.newOrder.contentCount" step="1"/>
-                    <span class="text-center opacity-50">{{ store.newOrder.extraHookCount }} stk</span>
+        <!-- Extra hook -->
+        <Transition>
+            <div v-if="store.newOrder.extraHook" class="mb-0">
+                <div class="input text-left mb-0">
+                    <p class="px-0">Hvor mange videoer m. ekstra hook?</p>
+                    <div class="flex flex-col justify-center mr-1">
+                        <input v-model="store.newOrder.extraHookCount" class="" type="range" min="1" :max="store.newOrder.contentCount" step="1"/>
+                        <span class="text-center opacity-50">{{ store.newOrder.extraHookCount }} stk</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Transition>
 
         <SingleInput v-model="store.newOrder.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review...">Ekstra noter</SingleInput>
     </div>
@@ -62,13 +65,52 @@ console.log(store.newOrder);
     @apply border-gray-300 rounded-xl border-2 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
 }
 
-/***** Chrome, Safari, Opera, and Edge Chromium *****/
+/* Chrome */
 input[type="range"]::-webkit-slider-runnable-track {
-    @apply bg-red-400 h-2 rounded p-0
+    @apply bg-red-400 h-2 rounded
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @apply h-5 w-5 bg-gray-500 rounded-full -mt-1
 }
 
 /******** Firefox ********/
 input[type="range"]::-moz-range-track {
     @apply bg-red-400 h-2 rounded p-0
+}
+
+.v-enter-from {
+  opacity: 0;
+  transform: translateY(-10px)
+}
+
+.v-enter-to {
+  opacity: 1;
+  transform: translateY(0)
+}
+
+.v-enter-active {
+  transition: all 0.4s ease-in-out;
+}
+
+.v-leave-from {
+    z-index: -100;
+    opacity: 0;
+    transform: translateY(0)
+}
+
+.v-leave-to {
+    opacity: 0;
+    transform: translateY(-5px)
+}
+
+.v-leave-active {
+    transition: all 0.2s ease-in-out;
+}
+
+.v-move {
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
 }
 </style>

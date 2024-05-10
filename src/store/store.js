@@ -29,6 +29,8 @@ export const store = reactive({
         deliveryTimeFrom: 0,
         deliveryTimeTo: 0,
         sourceArr: [],
+        channelsArr: [],
+        formatArr: [],
     },
 
     addOrder(order) {
@@ -64,6 +66,8 @@ export const store = reactive({
             deliveryTimeFrom: 0,
             deliveryTimeTo: 0,
             sourceArr: [],
+            channelsArr: [],
+            formatArr: [],
         }
     },
 
