@@ -1,6 +1,9 @@
 import { reactive } from "vue";
 
 export const store = reactive({
+    currOrderPage: 0,
+    currDashboardTab: 1,
+
     mockId: 1000,
     newOrder: {
         orderId: 0,

@@ -1,6 +1,5 @@
 <script setup>
 import { store } from '@/store/store.js';
-import { ref } from 'vue'
 import OrderPageZero from '../components/bestil/OrderPageZero.vue'
 import OrderPageOne from '@/components/bestil/OrderPageOne.vue';
 import OrderPageTwo from '@/components/bestil/OrderPageTwo.vue';
@@ -23,21 +22,19 @@ function updateStrings() {
     store.newOrder.format = arrayToString(store.newOrder.format, store.newOrder.formatArr)
 }
 
-var currPage = ref(0);
-
 function handleNext() {
-  if (currPage.value < 4) {
-    currPage.value++
-    
-    if (currPage.value == 4) {
+  if (store.currOrderPage < 4) {
+    store.currOrderPage++
+
+    if (store.currOrderPage == 4) {
       updateStrings()
     }
   }
 }
 
 function handleBack() {
-  if (currPage.value > 0) {
-    currPage.value--
+  if (store.currOrderPage > 0) {
+    store.currOrderPage--
   }
 }
 </script>
@@ -48,53 +45,53 @@ function handleBack() {
       <h1 class="text-3xl font-semibold">Bestilling</h1>
       <div class="flex justify-center [&>*]:m-2 self-center items-center">
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 0, 'active-link': currPage === 0 }">0</p>
-          <span class="mt-1" :class="{'opacity-50':currPage !== 0}">Start</span>
+          <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 0, 'active-link': store.currOrderPage === 0 }">0</p>
+          <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 0}">Start</span>
         </div>
         
-        <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':currPage <= 0}" aria-hidden="true"></i>
+        <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':store.currOrderPage <= 0}" aria-hidden="true"></i>
         
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 1, 'active-link': currPage === 1 }">1</p>
-          <span class="mt-1" :class="{'opacity-50':currPage !== 1}">Kontakt</span>
+          <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 1, 'active-link': store.currOrderPage === 1 }">1</p>
+          <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 1}">Kontakt</span>
         </div>
         
-        <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':currPage <= 1}" aria-hidden="true"></i>
+        <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':store.currOrderPage <= 1}" aria-hidden="true"></i>
 
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 2, 'active-link': currPage === 2 }">2</p>  
-          <span class="mt-1" :class="{'opacity-50':currPage !== 2}">Projekt</span>
+          <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 2, 'active-link': store.currOrderPage === 2 }">2</p>  
+          <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 2}">Projekt</span>
         </div>
               
-        <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':currPage <= 2}" aria-hidden="true"></i>
+        <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':store.currOrderPage <= 2}" aria-hidden="true"></i>
 
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 3, 'active-link': currPage === 3 }">3</p>
-          <span class="mt-1" :class="{'opacity-50':currPage !== 3}">Content</span>
+          <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 3, 'active-link': store.currOrderPage === 3 }">3</p>
+          <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 3}">Content</span>
         </div>
 
-        <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':currPage <= 3}" aria-hidden="true"></i>
+        <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':store.currOrderPage <= 3}" aria-hidden="true"></i>
 
         <div class="flex flex-col items-center">
-          <p class="order-step w-fit" :class="{ 'inactive-link': currPage !== 4, 'active-link': currPage === 4 }">Bestil</p>
+          <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 4, 'active-link': store.currOrderPage === 4 }">Bestil</p>
           <span class="opacity-0 mt-1">.</span>
         </div>
       </div>
 
       <TransitionGroup name="order-page" appear tag="div" class="flex md:[&>*]:max-w-[568px]">
-        <OrderPageZero v-if="currPage === 0" />
-        <OrderPageOne v-if="currPage === 1" />
-        <OrderPageTwo v-if="currPage === 2" />
-        <OrderPageThree v-if="currPage === 3" />
-        <OrderPageFour v-if="currPage === 4" />
+        <OrderPageZero v-if="store.currOrderPage === 0" />
+        <OrderPageOne v-if="store.currOrderPage === 1" />
+        <OrderPageTwo v-if="store.currOrderPage === 2" />
+        <OrderPageThree v-if="store.currOrderPage === 3" />
+        <OrderPageFour v-if="store.currOrderPage === 4" />
       </TransitionGroup>
 
       <div class="flex justify-between w-full">
         <button @click="handleBack" class="px-2">
-          <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': currPage !== 0}" aria-hidden="true"></i>
+          <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': store.currOrderPage !== 0}" aria-hidden="true"></i>
         </button>
         <button @click="handleNext" class="px-2">
-            <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': currPage !== 4}" aria-hidden="true"></i>
+            <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': store.currOrderPage !== 4}" aria-hidden="true"></i>
         </button>
       </div>
     </div>
