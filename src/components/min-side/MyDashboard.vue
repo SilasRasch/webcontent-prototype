@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { store } from '@/store/store';
 import DashboardConfirmed from '@/components/min-side/DashboardConfirmed.vue';
 import DashboardPool from './DashboardPool.vue';
 
@@ -10,7 +11,11 @@ function handleTabClick(item) {
     console.log(currTab.value);
 }
 
-const arr = [1,2,3,4,5,6]
+// const arr = [1,2,3,4,5,6]
+
+const unconfirmed = store.orders.filter((i) => i.isConfirmed == false)
+const cancelled = store.orders.filter((i) => i.isConfirmed == false)
+const closed = store.orders.filter((i) => i.isConfirmed == false)
 </script>
 
 <template>
@@ -26,9 +31,9 @@ const arr = [1,2,3,4,5,6]
         <!-- Dashboard -->
         <TransitionGroup tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
             <DashboardConfirmed v-if="currTab === 1" />
-            <DashboardPool v-if="currTab === 2" v-model="arr">Ubekræftede projekter</DashboardPool>
-            <DashboardPool v-if="currTab === 3" v-model="arr">Annullerede projekter</DashboardPool>
-            <DashboardPool v-if="currTab === 4" v-model="arr">Færdige projekter</DashboardPool>
+            <DashboardPool v-if="currTab === 2" v-model="unconfirmed">Ubekræftede projekter</DashboardPool>
+            <DashboardPool v-if="currTab === 3" v-model="cancelled">Annullerede projekter</DashboardPool>
+            <DashboardPool v-if="currTab === 4" v-model="closed">Færdige projekter</DashboardPool>
         </TransitionGroup>
         
     </div>

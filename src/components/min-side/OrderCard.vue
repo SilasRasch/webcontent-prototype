@@ -2,10 +2,15 @@
 import { store } from '@/store/store';
 import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 // const props = defineProps(['order'])
 
-const model = ref(store.mockOrder)
+const route = useRoute()
+const id = parseInt(route.params.id)
+const index = store.orders.findIndex((i) => i.orderId === id)
+console.log(index);
+const model = ref(store.orders[index])
 
 var toggleContact = ref(true)
 var toggleProject = ref(true)
