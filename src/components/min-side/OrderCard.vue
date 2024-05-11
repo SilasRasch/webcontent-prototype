@@ -9,8 +9,15 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 const id = parseInt(route.params.id)
 const index = store.orders.findIndex((i) => i.orderId === id)
-console.log(index);
-const model = ref(store.orders[index])
+
+var tmp
+if (id !== 1) {
+    tmp = ref(store.orders[index])
+}
+else {
+    tmp = ref(store.mockOrder)
+}
+const model = tmp
 
 var toggleContact = ref(true)
 var toggleProject = ref(true)
