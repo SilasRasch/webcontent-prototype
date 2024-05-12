@@ -29,11 +29,6 @@ const router = createRouter({
       component: OrderView,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/AboutView.vue')
-    },
-    {
       path: '/kontrolpanel',
       name: 'kontrolpanel',
       component: () => import('../views/ControlPanelView.vue')
@@ -60,7 +55,7 @@ const router = createRouter({
     },
     {
       path: '/opret',
-      name: 'projekt',
+      name: 'create-user',
       component: CreateUser,
     },
   ]
