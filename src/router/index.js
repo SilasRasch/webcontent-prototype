@@ -37,12 +37,12 @@ const router = createRouter({
       component: () => import('../views/ControlPanelView.vue')
     },
     {
-      path: '/admin-confirm',
-      name: 'admin-confirm',
+      path: '/admin',
+      name: 'admin',
       component: HomeView
     },
     {
-      path: '/admin-confirm/:id',
+      path: '/admin/confirm/:id',
       name: 'confirm-order',
       component: AdminConfirmView
     },
