@@ -1,4 +1,5 @@
 <script setup>
+import { store } from '@/store/store';
 import { RouterLink } from 'vue-router'
 </script>
 
@@ -10,12 +11,17 @@ import { RouterLink } from 'vue-router'
         <div class="z-10 grid justify-center absolute top-[50%] left-2/4 -translate-x-1/2 -translate-y-1/2 drop-shadow-2xl max-w-[40vw]">
           <h1 class="md:text-5xl sm:text-3xl text-2xl text-red-500 font-bold">Velkommen til WebContents all-in-one platform!</h1>
           <h3 class="md:text-2xl sm:text-lg text-white font-bold sm:mt-8 my-2">Lad os komme i gang!</h3>
-          <div class="flex justify-center items-center">
-            <RouterLink to="/bestil">
+          <div v-if="!store.isLoggedIn" class="flex justify-center items-center">
+            <button @click="store.toggleLoginModal">
               <p class="btn-red sm:mt-8 mt-2 mx-1 w-40">Log ind!</p>
-            </RouterLink>
-            <RouterLink to="/bestil">
+            </button>
+            <RouterLink to="/opret">
               <p class="btn-red sm:mt-8 mt-2 mx-1 w-40">Opret bruger...</p>
+            </RouterLink>
+          </div>
+          <div v-else class="flex justify-center items-center">
+            <RouterLink to="/bestil">
+              <p class="btn-red sm:mt-8 mt-2 mx-1 w-40">Gå til bestilling!</p>
             </RouterLink>
           </div>
         </div>

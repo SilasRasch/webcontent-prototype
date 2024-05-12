@@ -3,6 +3,12 @@ import { reactive } from "vue";
 export const store = reactive({
     currOrderPage: 0,
     currDashboardTab: 1,
+    isLoggedIn: false,
+    loggedInUser: undefined,
+    showLoginModal: false,
+    toggleLoginModal() {
+        this.showLoginModal = !this.showLoginModal
+    },
 
     mockId: 1000,
     newOrder: {
@@ -81,7 +87,13 @@ export const store = reactive({
         this.orders[index].deliveryTimeTo = deliveryTo
     },
 
-    role: 'Bruger',
+    logOut() {
+        store.isLoggedIn = false
+        store.loggedInUser = undefined
+        store.role = '' // Deprecated
+    },
+
+    role: '',
 
     orders: [
         {

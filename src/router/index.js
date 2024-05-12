@@ -5,6 +5,7 @@ import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import AdminConfirmView from '../views/AdminConfirmView.vue'
 import AdminDashboardView from '../views/AdminDashboardView.vue'
+import CreateUser from '../views/CreateUser.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/min-side/projekt/:id',
       name: 'projekt',
       component: ProjectView,
+    },
+    {
+      path: '/opret',
+      name: 'projekt',
+      component: CreateUser,
     },
   ]
 })
