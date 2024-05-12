@@ -39,6 +39,8 @@ import { RouterLink } from 'vue-router'
           <p class="sm:text-xl text-center mt-2">Produkt</p>
         </div>
       </div>
+
+      <p class="text-white my-12">Test</p>
     </div>
   </main>
 </template>

@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
+import AdminConfirmView from '../views/AdminConfirmView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,12 +39,12 @@ const router = createRouter({
     {
       path: '/admin-confirm',
       name: 'admin-confirm',
-      component: () => import('../views/HomeView.vue')
+      component: () => HomeView
     },
     {
       path: '/admin-confirm/:id',
       name: 'confirm-order',
-      component: () => import('../views/AdminConfirmView.vue')
+      component: AdminConfirmView
     },
     {
       path: '/min-side',
