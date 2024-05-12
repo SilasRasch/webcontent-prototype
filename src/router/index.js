@@ -4,6 +4,7 @@ import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import AdminConfirmView from '../views/AdminConfirmView.vue'
+import AdminDashboardView from '../views/AdminDashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,7 +40,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: HomeView
+      component: AdminDashboardView
     },
     {
       path: '/admin/confirm/:id',

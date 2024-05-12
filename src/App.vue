@@ -12,7 +12,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
       <div class="flex [&>*]:p-4 font-semibold items-center text-red-500 text-lg">
         <RouterLink to="/kontrolpanel" v-if="store.role === 'Bruger' || store.role === 'Creator'">Guide</RouterLink>
-        <RouterLink to="/admin-confirm" v-if="store.role === 'Admin'">Bestillinger</RouterLink>
+        <RouterLink to="/admin" v-if="store.role === 'Admin'">Bestillinger</RouterLink>
         <RouterLink to="/kontrolpanel" v-if="store.role === 'Admin'">Kontrolpanel</RouterLink>
         <RouterLink to="/min-side" v-if="store.role === 'Bruger' || store.role === 'Creator'">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="store.role === 'Bruger'">Bestilling</RouterLink>
