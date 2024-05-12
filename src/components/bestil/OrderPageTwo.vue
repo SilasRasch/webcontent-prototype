@@ -65,12 +65,17 @@ import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-    @apply bg-red-400 h-2 rounded
+    @apply bg-red-400 h-2 rounded my-2
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    @apply h-5 w-5 bg-gray-500 rounded-full -mt-1
+    border: 1px solid grey;
+    @apply h-[18px] w-[18px] bg-white rounded-full -mt-[5px];
 }
 
 
