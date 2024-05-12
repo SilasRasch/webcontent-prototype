@@ -28,22 +28,25 @@ import { RouterLink } from 'vue-router'
       </div>
       
 
-      <div class="flex justify-evenly items-center sm:text-2xl font-semibold py-10 sm:px-2 bg-slate-800 text-white">
-        <div class="flow-element">📝
-          <p class="sm:text-xl text-center mt-2">Bestil</p>
+      <div class="sm:text-2xl font-semibold py-10 sm:px-2 bg-slate-800 text-white">
+        <div class="flex justify-center items-center">
+          <div class="flow-element">📝
+            <p class="sm:text-xl text-center mt-2">Bestil</p>
+          </div>
+          <i class="fa fa-2x fa-long-arrow-right"></i>
+          <div class="flow-element">👍
+            <p class="sm:text-xl text-center mt-2">Bekræft</p>
+          </div>
+          <i class="fa fa-2x fa-long-arrow-right"></i>
+          <div class="flow-element">💬
+            <p class="sm:text-xl text-center mt-2">Feedback</p>
+          </div>
+          <i class="fa fa-2x fa-long-arrow-right"></i>
+          <div class="flow-element">📦
+            <p class="sm:text-xl text-center mt-2">Produkt</p>
+          </div>
         </div>
-        <i class="fa fa-2x fa-long-arrow-right"></i>
-        <div class="flow-element">👍
-          <p class="sm:text-xl text-center mt-2">Bekræft</p>
-        </div>
-        <i class="fa fa-2x fa-long-arrow-right"></i>
-        <div class="flow-element">💬
-          <p class="sm:text-xl text-center mt-2">Feedback</p>
-        </div>
-        <i class="fa fa-2x fa-long-arrow-right"></i>
-        <div class="flow-element">📦
-          <p class="sm:text-xl text-center mt-2">Produkt</p>
-        </div>
+        
       </div>
     </div>
   </main>
@@ -51,6 +54,11 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 .flow-element {
-  @apply grid bg-slate-900 rounded-lg sm:px-2 py-2 sm:min-w-[15vw] sm:text-4xl text-sm
+  @apply grid justify-center bg-slate-900 rounded-lg sm:px-2 py-2 sm:min-w-[15vw] lg:min-w-[12rem] sm:text-4xl text-sm
+}
+
+
+i {
+  @apply sm:px-2 lg:px-4
 }
 </style>
