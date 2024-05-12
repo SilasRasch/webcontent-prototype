@@ -39,7 +39,7 @@ const router = createRouter({
     {
       path: '/admin-confirm',
       name: 'admin-confirm',
-      component: () => HomeView
+      component: HomeView
     },
     {
       path: '/admin-confirm/:id',
