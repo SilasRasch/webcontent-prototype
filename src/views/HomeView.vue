@@ -59,6 +59,6 @@ import { RouterLink } from 'vue-router'
 
 
 i {
-  @apply sm:px-2 lg:px-4
+  @apply sm:px-2 lg:px-4 xl:px-8
 }
 </style>
