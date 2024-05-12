@@ -9,12 +9,14 @@ const router = useRouter()
 console.log(store.newOrder);
 
 function handleSend() {
-    store.newOrder.sourceArr.forEach((item) => {
-        store.newOrder.source += item
-    })
-
+    // Push order
     store.addOrder(store.newOrder)
+
+    // Redirect to dashboard
     router.push('/min-side')
+
+    // Reset order flow
+    store.currOrderPage = 0
 }
 
 const estimatedPrice = computed(() => {

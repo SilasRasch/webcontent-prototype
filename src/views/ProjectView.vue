@@ -1,14 +1,13 @@
 <script setup>
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
-import { store } from '@/store/store';
+// import { store } from '@/store/store';
 import OrderCard from '@/components/min-side/OrderCard.vue';
 
 const route = useRoute()
 const router = useRouter()
 
 const paramId = ref(route.params.id)
-const order = ref(store.newOrder)
 
 onBeforeRouteUpdate(async (to) => {
     // paramId.value = await fetchOrder(to.params.id)
@@ -28,6 +27,6 @@ onBeforeRouteUpdate(async (to) => {
         @click="router.back"
         ></button>
         <!-- Normal bruger -->
-        <OrderCard :key="paramId" :order="order"/>
+        <OrderCard :key="paramId" />
     </div>    
 </template>

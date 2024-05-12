@@ -73,9 +73,12 @@ export const store = reactive({
         }
     },
 
-    confirmOrder(id) {
+    confirmOrder(id, price, deliveryfrom, deliveryTo) {
         const index = this.orders.findIndex((order) => order.orderId === id)
         this.orders[index].isConfirmed = true
+        this.orders[index].price = price
+        this.orders[index].deliveryTimeFrom = deliveryfrom
+        this.orders[index].deliveryTimeTo = deliveryTo
     },
 
     role: 'Bruger',

@@ -35,9 +35,14 @@ const router = createRouter({
       name: 'kontrolpanel',
       component: () => import('../views/ControlPanelView.vue')
     },
+    // {
+    //   path: '/admin-confirm',
+    //   name: 'admin-confirm',
+    //   component: () => import('../views/AdminConfirmView.vue')
+    // },
     {
-      path: '/admin-confirm',
-      name: 'admin-confirm',
+      path: '/admin-confirm/:id',
+      name: 'confirm-order',
       component: () => import('../views/AdminConfirmView.vue')
     },
     {
