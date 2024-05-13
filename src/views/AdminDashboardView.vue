@@ -1,6 +1,7 @@
 <script setup>
 import { store } from '@/store/store';
-import AdminDashboard from '@/components/admin/AdminDashboard.vue';
+// import AdminDashboard from '@/components/admin/AdminDashboard.vue';
+import MyDashboard from '@/components/min-side/MyDashboard.vue';
 </script>
 
 <template>
@@ -15,7 +16,8 @@ import AdminDashboard from '@/components/admin/AdminDashboard.vue';
             </h1>
 
         <!-- Mine bestillinger (Normal bruger) -->
-            <AdminDashboard />
+            <!-- <AdminDashboard /> -->
+            <MyDashboard admin />
         </div>
         
         <div v-else>Du har ikke adgang til denne side..</div>
