@@ -31,12 +31,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/guide',
-      name: 'guide',
-      beforeEnter: auth,
-      component: () => import('../views/AboutView.vue')
-    },
-    {
       path: '/bestil',
       name: 'bestil',
       beforeEnter: auth,
