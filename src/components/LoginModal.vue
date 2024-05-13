@@ -12,7 +12,7 @@ function handleLogin() {
         email: email,
         role: 'Bruger',
     }
-    store.role = 'Bruger' // Deprecated
+    store.role = 'Bruger' // Old
 
     store.toggleLoginModal()
 }

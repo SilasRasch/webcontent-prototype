@@ -6,6 +6,21 @@ import ProjectView from '../views/ProjectView.vue'
 import AdminConfirmView from '../views/AdminConfirmView.vue'
 import AdminDashboardView from '../views/AdminDashboardView.vue'
 import CreateUser from '../views/CreateUser.vue'
+import { store } from '@/store/store'
+
+// Navigation guards
+
+function auth() {
+  if (!store.isLoggedIn) {
+    return "/"
+  }
+}
+
+function guest() {
+  if (store.isLoggedIn) {
+    return "/"
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,44 +33,49 @@ const router = createRouter({
     {
       path: '/guide',
       name: 'guide',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      beforeEnter: auth,
       component: () => import('../views/AboutView.vue')
     },
     {
       path: '/bestil',
       name: 'bestil',
+      beforeEnter: auth,
       component: OrderView,
     },
     {
       path: '/kontrolpanel',
       name: 'kontrolpanel',
+      beforeEnter: auth,
       component: () => import('../views/ControlPanelView.vue')
     },
     {
       path: '/admin',
       name: 'admin',
+      beforeEnter: auth,
       component: AdminDashboardView
     },
     {
       path: '/admin/confirm/:id',
       name: 'confirm-order',
+      beforeEnter: auth,
       component: AdminConfirmView
     },
     {
       path: '/min-side',
       name: 'min-side',
+      beforeEnter: auth,
       component: DashboardView,
     },
     {
       path: '/min-side/projekt/:id',
       name: 'projekt',
+      beforeEnter: auth,
       component: ProjectView,
     },
     {
       path: '/opret',
       name: 'create-user',
+      beforeEnter: guest,
       component: CreateUser,
     },
   ]
