@@ -4,15 +4,25 @@ import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import AdminConfirmView from '../views/AdminConfirmView.vue'
-import AdminProjectView from '../views/AdminProjectView.vue'
-import AdminDashboardView from '../views/AdminDashboardView.vue'
 import CreateUser from '../views/CreateUser.vue'
 import { store } from '@/store/store'
 
 // Navigation guards
 
-function auth() { // Make new guard for roles
-  if (!store.isLoggedIn) {
+function user() {
+  if (!store.isLoggedIn && !store.role !== "Bruger") {
+    return "/"
+  }
+}
+
+// function creator() {
+//   if (!store.isLoggedIn && !store.role !== "Creator") {
+//     return "/"
+//   }
+// }
+
+function admin() {
+  if (store.role !== "Admin" && !store.isLoggedIn) {
     return "/"
   }
 }
@@ -34,43 +44,43 @@ const router = createRouter({
     {
       path: '/bestil',
       name: 'bestil',
-      beforeEnter: auth,
+      beforeEnter: user,
       component: OrderView,
     },
     {
       path: '/kontrolpanel',
       name: 'kontrolpanel',
-      beforeEnter: auth,
+      beforeEnter: [user, admin],
       component: () => import('../views/ControlPanelView.vue')
     },
     {
       path: '/admin',
       name: 'admin',
-      beforeEnter: auth,
-      component: AdminDashboardView
+      beforeEnter: admin,
+      component: DashboardView
     },
     {
       path: '/admin/confirm/:id',
       name: 'confirm-order',
-      beforeEnter: auth,
-      component: AdminProjectView
+      beforeEnter: admin,
+      component: ProjectView
     },
     {
       path: '/admin/projekt/:id',
       name: 'admin-view-order',
-      beforeEnter: auth,
+      beforeEnter: admin,
       component: AdminConfirmView
     },
     {
       path: '/min-side',
       name: 'min-side',
-      beforeEnter: auth,
+      beforeEnter: user,
       component: DashboardView,
     },
     {
       path: '/min-side/projekt/:id',
       name: 'projekt',
-      beforeEnter: auth,
+      beforeEnter: user,
       component: ProjectView,
     },
     {
