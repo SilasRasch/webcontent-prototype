@@ -7,16 +7,12 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 const id = parseInt(route.params.id)
 const index = store.orders.findIndex((i) => i.orderId === id)
+const model = ref(store.orders[index])
 
-var tmp
-if (id > 5) {
-    tmp = ref(store.orders[index])
-}
-else {
-    tmp = ref(store.orders[0])
-}
-const model = tmp
+var status = ref('');
+var statusClass = ref('bg-red-500')
 
+// Toggle switches for information
 var toggleContact = ref(true)
 var toggleProject = ref(true)
 var toggleContent = ref(true)
@@ -31,8 +27,7 @@ function handleToggleContent() {
     toggleContent.value = !toggleContent.value
 }
 
-var status = ref('');
-var statusClass = ref('bg-red-500')
+// Compute text and colors to display
 switch (model.value.status) {
     case 1:
         status.value = 'I kø'
