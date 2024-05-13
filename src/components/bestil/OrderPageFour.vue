@@ -10,6 +10,10 @@ console.log(store.newOrder);
 
 function handleSend() {
     // Push order
+    store.newOrder.price = estimatedPrice
+    store.newOrder.deliveryTimeFrom = estimatedDelivery.value
+    store.newOrder.deliveryTimeTo = estimatedDelivery.value + 2
+
     store.addOrder(store.newOrder)
 
     // Redirect to dashboard
