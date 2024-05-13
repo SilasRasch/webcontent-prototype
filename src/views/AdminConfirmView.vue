@@ -3,6 +3,7 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { store } from '@/store/store';
 import OrderCard from '@/components/min-side/OrderCard.vue';
+import ToolTip from '@/components/Input/ToolTip.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -66,15 +67,15 @@ var deliveryTo = ref()
                 <div v-if="semiConfirm" class="order-row mx-2 mr-1 my-1 sm:my-2">
                     <p class="m-1 pb-0">Pris</p>
                     <div class="flex justify-start">
-                        <input v-model="price" type="number" class="order-row mt-1 p-2 w-1/2" placeholder="ekskl. moms" />
-                        <p class="order-row mt-1 p-2 w-1/2">{{ price * 1.25 }} inkl. moms</p>
+                        <input v-model="price" type="number" class="order-row mt-1 p-2 w-1/2 m-2 mr-1" placeholder="ekskl. moms" />
+                        <p class="order-row mt-1 p-2 w-1/2 m-2 ml-1">{{ price * 1.25 }} inkl. moms</p>
                     </div>
                 </div>
                 <div v-if="semiConfirm" class="order-row mx-2 ml-1 my-1 sm:my-2">
-                    <p class="m-1 pb-0">Leveringstid</p>
+                    <p class="m-1 pb-0">Leveringstid <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Angivet i hverdage</ToolTip></p>
                     <div class="flex justify-start">
-                        <input v-model="deliveryFrom" type="number" class="order-row mt-1 p-2 w-1/2" placeholder="Fra" />
-                        <input v-model="deliveryTo" type="number" class="order-row mt-1 p-2 w-1/2" placeholder="Til" />
+                        <input v-model="deliveryFrom" type="number" class="order-row mt-1 p-2 w-1/2 m-2 mr-1" placeholder="Fra" />
+                        <input v-model="deliveryTo" type="number" class="order-row mt-1 p-2 w-1/2 m-2 ml-1" placeholder="Til" />
                     </div>
                     
                 </div>
