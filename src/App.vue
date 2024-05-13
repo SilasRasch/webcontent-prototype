@@ -1,7 +1,14 @@
 <script setup>
 import { store } from './store/store.js'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import LoginModal from './components/LoginModal.vue';
+
+const router = useRouter()
+
+function handleLogout() {
+  store.logOut()
+  router.push("/")
+}
 </script>
 
 <template>
@@ -18,7 +25,7 @@ import LoginModal from './components/LoginModal.vue';
         <RouterLink to="/kontrolpanel" v-if="store.role === 'Admin'">Kontrolpanel</RouterLink>
         <RouterLink to="/min-side" v-if="store.role === 'Bruger' || store.role === 'Creator'">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="store.role === 'Bruger'">Bestilling</RouterLink>
-        <span v-if="store.isLoggedIn" @click="store.logOut" class="cursor-pointer fa fa-sign-out text-xl"></span>
+        <span v-if="store.isLoggedIn" @click="handleLogout" class="cursor-pointer fa fa-sign-out text-xl"></span>
       </div>
   </header>
 

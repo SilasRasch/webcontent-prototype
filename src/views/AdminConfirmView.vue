@@ -18,12 +18,10 @@ var semiConfirm = ref(false)
 var rejected = ref(false)
 
 function handleConfirm() {
-    console.log("Confirmed");
     semiConfirm.value = true
 }
 
 function handleReject() {
-    console.log("Denied");
     rejected.value = true
     // Send API-request to deny (add isDenied data point?)
 }
@@ -33,12 +31,15 @@ function handleCancel() {
 }
 
 function handleSend() {
-    console.log("Sent");
-    console.log(paramId.value);
-    store.confirmOrder(parseInt(paramId.value), parseFloat(price.value), parseInt(deliveryFrom.value), parseInt(deliveryTo.value))
+    store.confirmOrder(parseInt(paramId.value), 
+        parseFloat(price.value), 
+        parseInt(deliveryFrom.value),
+        parseInt(deliveryTo.value));
+    
+    router.push('/admin')
 }
 
-var price = ref()
+var price = ref('') // NaN parse
 var deliveryFrom = ref()
 var deliveryTo = ref()
 </script>
@@ -48,8 +49,6 @@ var deliveryTo = ref()
         <h1 class="text-3xl font-semibold">Min Side</h1>
 
         <hr class="text-black bg-black opacity-50 h-0.5 m-3 mb-4" />
-
-        <!-- <p class="font-semibold text-lg">Bestilling {{ paramId }}</p> -->
         
         <button class="fa fa-arrow-left fa-2x rounded-full bg-slate-600 w-fit p-2 text-white relative -left-14 hover:bg-slate-800 duration-200"
         @click="router.back"></button>
@@ -58,8 +57,8 @@ var deliveryTo = ref()
 
         <div class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2 max-w-">
             <TransitionGroup>
-            <button v-if="!semiConfirm" @click="handleConfirm" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600">Bekræft</button>  
-            <button v-if="!semiConfirm" @click="handleReject" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   
+                <button v-if="!semiConfirm" @click="handleConfirm" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600">Bekræft</button>  
+                <button v-if="!semiConfirm" @click="handleReject" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   
             </TransitionGroup>
 
             <!-- Input -->
@@ -67,15 +66,15 @@ var deliveryTo = ref()
                 <div v-if="semiConfirm" class="order-row mx-2 mr-1 my-1 sm:my-2">
                     <p class="m-1 pb-0">Pris</p>
                     <div class="flex justify-start">
-                        <input v-model="price" class="order-row mt-1 p-2 w-1/2" placeholder="ekskl. moms" />
+                        <input v-model="price" type="number" class="order-row mt-1 p-2 w-1/2" placeholder="ekskl. moms" />
                         <p class="order-row mt-1 p-2 w-1/2">{{ price * 1.25 }} inkl. moms</p>
                     </div>
                 </div>
                 <div v-if="semiConfirm" class="order-row mx-2 ml-1 my-1 sm:my-2">
                     <p class="m-1 pb-0">Leveringstid</p>
                     <div class="flex justify-start">
-                        <input v-model="deliveryFrom" class="order-row mt-1 p-2 w-1/2" placeholder="Fra" />
-                        <input v-model="deliveryTo" class="order-row mt-1 p-2 w-1/2" placeholder="Til" />
+                        <input v-model="deliveryFrom" type="number" class="order-row mt-1 p-2 w-1/2" placeholder="Fra" />
+                        <input v-model="deliveryTo" type="number" class="order-row mt-1 p-2 w-1/2" placeholder="Til" />
                     </div>
                     
                 </div>

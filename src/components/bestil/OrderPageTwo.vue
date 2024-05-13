@@ -2,18 +2,6 @@
 import { store } from '../../store/store.js'
 import DoubleInput from '../Input/DoubleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
-
-// function arrayToString(string, array) {
-//     string = ''
-//     array.forEach((item) => {
-//         string += item + ", "
-//     })
-
-//     // Trim excess
-//     return string.slice(0, string.length - 2)
-// }
-
-// store.newOrder.source = arrayToString(store.newOrder.source, store.newOrder.sourceArr)
 </script>
 
 <template>
