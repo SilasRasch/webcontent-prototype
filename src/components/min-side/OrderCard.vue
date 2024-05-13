@@ -11,11 +11,11 @@ const id = parseInt(route.params.id)
 const index = store.orders.findIndex((i) => i.orderId === id)
 
 var tmp
-if (id !== 1) {
+if (id > 5) {
     tmp = ref(store.orders[index])
 }
 else {
-    tmp = ref(store.mockOrder)
+    tmp = ref(store.orders[0])
 }
 const model = tmp
 

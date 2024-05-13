@@ -5,6 +5,10 @@ export const store = reactive({
     currDashboardTab: 1,
     isLoggedIn: false,
     loggedInUser: undefined,
+    // loggedInUser: {
+    //     email: undefined,
+    //     role: undefined
+    // }
     showLoginModal: false,
     toggleLoginModal() {
         this.showLoginModal = !this.showLoginModal
@@ -42,10 +46,8 @@ export const store = reactive({
     },
 
     addOrder(order) {
-        this.newOrder.orderId = this.mockId
+        this.newOrder.orderId = this.mockId++
         this.orders.push(order)
-        this.mockId++
-        console.log(this.orders);
 
         // Reset newOrder
         this.newOrder = {
@@ -175,30 +177,4 @@ export const store = reactive({
         deliveryTimeTo: 3
         },
     ],
-    mockOrder: {
-        orderId: 999,
-        brand: 'WebContent',
-        cvr: '40791752',
-        contact: {
-            name: 'Mathias Hansen',
-            phone: '12344321',
-            email: 'info@webcontent.dk',
-        },
-        projectName: 'Content Cloud',
-        projectType: 'User Generated Content',
-        contentCount: 5,
-        contentLength: 60,
-        channels: 'TikTok, Instagram',
-        format: '9:16, 4:5',
-        extraCreator: true,
-        extraHook: true,
-        extraHookCount: 2,
-        extraNotes: 'Vægt på reviews og testimonials',
-        notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
-        isConfirmed: true,
-        source: 'LinkedIn',
-        price: 6219,
-        deliveryTimeFrom: 1,
-        deliveryTimeTo: 3
-    },
 })
