@@ -35,6 +35,7 @@ function handleConfirm() {
 
 function handleReject() {
     rejected.value = true
+    model.value.denied = true
     // Send API-request to deny (add isDenied data point?)
 }
 
@@ -104,6 +105,7 @@ var deliveryTo = ref()
         </Transition>
         
 
+
         <button class="fa fa-arrow-left fa-2x rounded-full bg-slate-600 w-fit p-2 text-white relative -left-14 hover:bg-slate-800 duration-200"
         @click="router.back"></button>
         <!-- Normal bruger -->
@@ -115,7 +117,7 @@ var deliveryTo = ref()
                 <button v-if="!semiConfirm" @click="handleReject" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   
             </TransitionGroup>
 
-            <!-- Input -->
+            <!-- Confirm buttons -->
             <TransitionGroup>
                 <div v-if="semiConfirm" class="order-row mx-2 mr-1 my-1 sm:my-2">
                     <p class="m-1 pb-0">Pris</p>
