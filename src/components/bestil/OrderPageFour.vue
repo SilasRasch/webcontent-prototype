@@ -10,7 +10,7 @@ console.log(store.newOrder);
 
 function handleSend() {
     // Push order
-    store.newOrder.price = estimatedPrice
+    store.newOrder.price = estimatedPrice.value
     store.newOrder.deliveryTimeFrom = estimatedDelivery.value
     store.newOrder.deliveryTimeTo = estimatedDelivery.value + 2
 
@@ -55,7 +55,7 @@ const estimatedPrice = computed(() => {
         price += 250 * store.newOrder.extraHookCount
     }
 
-    return Math.round(price)
+    return parseFloat(Math.round(price))
 })
 
 const estimatedDelivery = computed(() => {

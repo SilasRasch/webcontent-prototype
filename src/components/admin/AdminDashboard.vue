@@ -3,13 +3,15 @@ import { store } from '@/store/store';
 import DashboardConfirmed from '@/components/min-side/DashboardConfirmed.vue';
 import DashboardPool from '../min-side/DashboardPool.vue';
 
+var unconfirmed = store.orders.filter((i) => i.isConfirmed === false)
+var cancelled = store.orders.filter((i) => i.isDenied === true)
+var closed = store.orders.filter((i) => i.isComplete === true)
+
 function handleTabClick(item) {
   store.currDashboardTab = item
 }
 
-const unconfirmed = store.orders.filter((i) => i.isConfirmed == false)
-const cancelled = store.orders.filter((i) => i.isConfirmed == false && i.isCancelled == true)
-const closed = store.orders.filter((i) => i.isConfirmed == false && i.isCompleted == true)
+
 </script>
 
 <template>
@@ -25,7 +27,7 @@ const closed = store.orders.filter((i) => i.isConfirmed == false && i.isComplete
         <!-- Dashboard -->
         <TransitionGroup tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
             <DashboardPool v-if="store.currDashboardTab === 1" v-model="unconfirmed" admin>Ubekræftede projekter</DashboardPool>
-            <DashboardConfirmed v-if="store.currDashboardTab === 2" />
+            <DashboardConfirmed v-if="store.currDashboardTab === 2" admin/>
             <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled" admin>Annullerede projekter</DashboardPool>
             <DashboardPool v-if="store.currDashboardTab === 4" v-model="closed" admin>Færdige projekter</DashboardPool>
         </TransitionGroup>

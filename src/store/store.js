@@ -35,11 +35,13 @@ export const store = reactive({
         extraHookCount: 1,
         extraNotes: '',
         notes: '',
-        isConfirmed: false,
         source: '',
         price: 0,
         deliveryTimeFrom: 0,
         deliveryTimeTo: 0,
+        isConfirmed: false,
+        isDenied: false,
+        isComplete: false,
         sourceArr: [],
         channelsArr: [],
         formatArr: [],
@@ -70,11 +72,14 @@ export const store = reactive({
             extraHookCount: 1,
             extraNotes: '',
             notes: '',
-            isConfirmed: false,
             source: '',
             price: 0,
             deliveryTimeFrom: 0,
             deliveryTimeTo: 0,
+            isConfirmed: false,
+            isDenied: false,
+            isComplete: false,
+            status: 0,
             sourceArr: [],
             channelsArr: [],
             formatArr: [],
@@ -85,8 +90,9 @@ export const store = reactive({
         const index = this.orders.findIndex((order) => order.orderId === id)
         this.orders[index].isConfirmed = true
         this.orders[index].price = price
-        this.orders[index].deliveryTimeFrom = deliveryfrom
-        this.orders[index].deliveryTimeTo = deliveryTo
+        this.orders[index].deliveryTimeFrom = parseInt(deliveryfrom)
+        this.orders[index].deliveryTimeTo = parseInt(deliveryTo)
+        this.orders[index].status = 1
     },
 
     logOut() {
@@ -121,8 +127,11 @@ export const store = reactive({
         isConfirmed: true,
         source: 'LinkedIn',
         price: 6219,
+        status: 1,
         deliveryTimeFrom: 1,
-        deliveryTimeTo: 3
+        deliveryTimeTo: 3,
+        isDenied: false,
+        isComplete: false,
         },
         {
         orderId: 998,
@@ -148,7 +157,9 @@ export const store = reactive({
         source: 'LinkedIn',
         price: 6219,
         deliveryTimeFrom: 1,
-        deliveryTimeTo: 3
+        deliveryTimeTo: 3,
+        isDenied: false,
+        isComplete: false,
         },
         {
         orderId: 999,
@@ -171,10 +182,13 @@ export const store = reactive({
         extraNotes: 'Vægt på reviews og testimonials',
         notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
         isConfirmed: true,
+        status: 1,
         source: 'LinkedIn',
         price: 6219,
         deliveryTimeFrom: 1,
-        deliveryTimeTo: 3
+        deliveryTimeTo: 3,
+        isDenied: false,
+        isComplete: false,
         },
     ],
 })

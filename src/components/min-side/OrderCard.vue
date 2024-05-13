@@ -4,8 +4,6 @@ import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-// const props = defineProps(['order'])
-
 const route = useRoute()
 const id = parseInt(route.params.id)
 const index = store.orders.findIndex((i) => i.orderId === id)
@@ -33,6 +31,26 @@ function handleToggleContent() {
     toggleContent.value = !toggleContent.value
 }
 
+var status = ref('');
+var statusClass = ref('bg-red-500')
+switch (model.value.status) {
+    case 1:
+        status.value = 'I kø'
+        statusClass.value = 'bg-red-500'
+        break;
+    case 2:
+        status.value = 'Planlægning'
+        statusClass.value = 'bg-yellow-500'
+        break;
+    case 3:
+        status.value = 'Igangværende'
+        statusClass.value = 'bg-blue-500'
+        break;
+    case 4:
+        status.value = 'Feedback'
+        statusClass.value = 'bg-green-500'
+        break;        
+}
 </script>
 
 <template>
@@ -41,12 +59,30 @@ function handleToggleContent() {
             <h3 class="text-left m-2 bg-red-500 bg-opacity-75 rounded-md p-4 font-semibold text-xl">
                 Bestilling {{ model.orderId }}
             </h3>
-            <h3 v-if="model.isConfirmed" class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-green-500">
-                Bekræftet!
-            </h3>
-            <h3 v-else class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-orange-500">
-                Afventer bekræftelse...
-            </h3>
+            <div v-if="model.isConfirmed && !model.isDenied && !model.isComplete" class="flex">
+                <h3 class="text-left mx-2 mr-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-green-500 w-1/2">
+                    Bekræftet!
+                </h3>
+                <h3 class="text-left mx-2 ml-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold w-1/2" :class="statusClass">
+                    {{ status }}
+                </h3>
+            </div>
+            <div v-else-if="model.isConfirmed && model.isDenied && !model.isComplete">
+                <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-red-500">
+                    Annulleret...
+                </h3>
+            </div>
+            <div v-else-if="model.isConfirmed && !model.isDenied && model.isComplete">
+                <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-violet-500">
+                    Færdig!
+                </h3>
+            </div>
+            <div v-else>
+                <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-orange-500">
+                    Afventer bekræftelse...
+                </h3>
+            </div>
+            
 
             <!-- Skal være false hvis abonnement / true ellers -->
             <p @click="handleToggleContact" class="text-left pt-0 opacity-50 px-2 cursor-pointer select-none">

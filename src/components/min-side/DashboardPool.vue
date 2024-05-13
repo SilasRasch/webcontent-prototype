@@ -19,11 +19,8 @@ const props = defineProps({
             <hr class="text-white bg-white rounded-full opacity-50 h-1 mx-0.5 border-none" />
 
             <div v-if="model.length > 0">
-                <div v-if="props.admin" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                    <OrderCardMini v-for="index in model" :key="index" :order-id="index.orderId" :brand="index.brand" admin>{{ index.projectName }}</OrderCardMini>
-                </div>
-                <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                    <OrderCardMini v-for="index in model" :key="index" :order-id="index.orderId" :brand="index.brand">{{ index.projectName }}</OrderCardMini>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                    <OrderCardMini v-for="index in model" :key="index" :order-id="index.orderId" :brand="index.brand" :admin="props.admin">{{ index.projectName }}</OrderCardMini>
                 </div>
             </div>
             <div v-else>

@@ -4,13 +4,14 @@ import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import AdminConfirmView from '../views/AdminConfirmView.vue'
+import AdminProjectView from '../views/AdminProjectView.vue'
 import AdminDashboardView from '../views/AdminDashboardView.vue'
 import CreateUser from '../views/CreateUser.vue'
 import { store } from '@/store/store'
 
 // Navigation guards
 
-function auth() {
+function auth() { // Make new guard for roles
   if (!store.isLoggedIn) {
     return "/"
   }
@@ -51,6 +52,12 @@ const router = createRouter({
     {
       path: '/admin/confirm/:id',
       name: 'confirm-order',
+      beforeEnter: auth,
+      component: AdminProjectView
+    },
+    {
+      path: '/admin/projekt/:id',
+      name: 'admin-view-order',
       beforeEnter: auth,
       component: AdminConfirmView
     },
