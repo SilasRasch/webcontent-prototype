@@ -5,7 +5,7 @@ import { auth } from './store/auth';
 
 const router = useRouter()
 
-function handleLogout() {
+const handleLogout = () => {
   auth.logOut()
   router.push("/")
 }

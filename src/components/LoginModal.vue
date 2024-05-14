@@ -7,14 +7,14 @@ import { auth } from '@/store/auth';
 const email = ref('')
 const pswd = ref('')
 
-function handleLogin() {
+const handleLogin = () => {
     auth.login(email)
     store.toggleLoginModal()
 }
 
 const router = useRouter()
 
-function handleGoToCreate() {
+const handleGoToCreate = () => {
     router.push('/opret')
     store.toggleLoginModal()
 }

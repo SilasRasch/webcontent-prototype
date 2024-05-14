@@ -18,20 +18,20 @@ onBeforeRouteUpdate(async (to) => {
 let semiConfirm = ref(false)
 let rejected = ref(false)
 
-function handleConfirm() {
+const handleConfirm = () => {
     semiConfirm.value = true
 }
 
-function handleReject() {
+const handleReject = () => {
     rejected.value = true
     // Send API-request to deny (add isDenied data point?)
 }
 
-function handleCancel() {
+const handleCancel = () => {
     semiConfirm.value = false
 }
 
-function handleSend() {
+const handleSend = () => {
     store.confirmOrder(parseInt(paramId.value), 
         parseFloat(price.value), 
         parseInt(deliveryFrom.value),

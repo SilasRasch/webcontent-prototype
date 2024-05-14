@@ -15,11 +15,11 @@ const model = defineModel()
 
 let open = ref(false)
 
-function handleToggle() {
+const handleToggle = () => {
     open.value = !open.value
 }
 
-function handleRemove(item) {
+const handleRemove = (item) => {
     const index = model.value.indexOf(item)
     model.value.splice(index, 1)
 }

@@ -10,18 +10,18 @@ const props = defineProps({
     }
 })
 
-function handleStatusChange(newCategory) {
-    if (newCategory <= 4) {
+const handleStatusChange = (newCategory) => {
+    if (newCategory <= 4) { // Still in confirmed category
         model.value.status = newCategory
         model.value.isDenied = false
         model.value.isComplete = false
     } 
-    else if (newCategory === 5) {
+    else if (newCategory === 5) { // Completed
         model.value.status = 0
         model.value.isDenied = false
         model.value.isComplete = true
     } 
-    else if (newCategory === 6) {
+    else if (newCategory === 6) { // Cancelled
         model.value.status = 0
         model.value.isDenied = true
         model.value.isComplete = false

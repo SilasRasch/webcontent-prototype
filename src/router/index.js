@@ -9,25 +9,25 @@ import { auth } from '@/store/auth'
 
 // Navigation guards
 
-function user() {
+const user = () => {
   if (!auth.isLoggedIn && !auth.isUser()) {
     return "/"
   }
 }
 
-// function creator() {
+// const creator = () => {
 //   if (!auth.isLoggedIn && !auth.isCreator()) {
 //     return "/"
 //   }
 // }
 
-function admin() {
+const admin = () => {
   if (!auth.isLoggedIn && !auth.isAdmin()) {
     return "/"
   }
 }
 
-function guest() {
+const guest = () => {
   if (auth.isLoggedIn) {
     return "/"
   }

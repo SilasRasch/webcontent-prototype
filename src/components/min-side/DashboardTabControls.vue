@@ -8,7 +8,7 @@ const props = defineProps({
   }
 })
 
-function handleTabClick(item) {
+const handleTabClick = (item) => {
   store.currDashboardTab = item
 }
 </script>

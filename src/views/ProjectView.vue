@@ -22,7 +22,7 @@ onBeforeRouteUpdate(async (to) => {
 
 // Toggling status controls
 const showControls = ref(false)
-function toggleAdminControls() {
+const toggleAdminControls = () => {
     showControls.value = !showControls.value
 }
 

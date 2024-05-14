@@ -6,7 +6,7 @@ import ToolTip from '../Input/ToolTip.vue';
 
 const router = useRouter()
 
-function handleSend() {
+const handleSend = () => {
     // Push order
     store.newOrder.price = estimatedPrice.value
     store.newOrder.deliveryTimeFrom = estimatedDelivery.value

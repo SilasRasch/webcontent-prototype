@@ -17,13 +17,13 @@ let toggleContact = ref(true)
 let toggleProject = ref(true)
 let toggleContent = ref(true)
 
-function handleToggleContact() {
+const handleToggleContact = () => {
     toggleContact.value = !toggleContact.value
 }
-function handleToggleProject() {
+const handleToggleProject = () => {
     toggleProject.value = !toggleProject.value
 }
-function handleToggleContent() {
+const handleToggleContent = () => {
     toggleContent.value = !toggleContent.value
 }
 

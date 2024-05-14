@@ -6,7 +6,7 @@ const props = defineProps({
     item: String,
 })
 
-function handleAdd(item) {
+const handleAdd = (item) => {
     model.value.push(item)
 }
 

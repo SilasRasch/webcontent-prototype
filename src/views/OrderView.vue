@@ -6,7 +6,7 @@ import OrderPageTwo from '@/components/bestil/OrderPageTwo.vue';
 import OrderPageThree from '@/components/bestil/OrderPageThree.vue';
 import OrderPageFour from '@/components/bestil/OrderPageFour.vue';
 
-function arrayToString(string, array) {
+const arrayToString = (string, array) => {
     string = ''
     array.forEach((item) => {
         string += item + ", "
@@ -16,13 +16,13 @@ function arrayToString(string, array) {
     return string.slice(0, string.length - 2)
 }
 
-function updateStrings() {
+const updateStrings = () => {
     store.newOrder.source = arrayToString(store.newOrder.source, store.newOrder.sourceArr)
     store.newOrder.channels = arrayToString(store.newOrder.channels, store.newOrder.channelsArr)
     store.newOrder.format = arrayToString(store.newOrder.format, store.newOrder.formatArr)
 }
 
-function handleNext() {
+const handleNext = () => {
   if (store.currOrderPage < 4) {
     store.currOrderPage++
 
@@ -32,7 +32,7 @@ function handleNext() {
   }
 }
 
-function handleBack() {
+const handleBack = () => {
   if (store.currOrderPage > 0) {
     store.currOrderPage--
   }
