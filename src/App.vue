@@ -1,12 +1,12 @@
 <script setup>
-import { store } from './store/store.js'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import LoginModal from './components/LoginModal.vue';
+import { auth } from './store/auth';
 
 const router = useRouter()
 
 function handleLogout() {
-  store.logOut()
+  auth.logOut()
   router.push("/")
 }
 </script>
@@ -19,13 +19,13 @@ function handleLogout() {
     
 
       <div class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
-        <LoginModal v-if="!store.isLoggedIn" />
-        <RouterLink to="/kontrolpanel" v-if="store.role === 'Bruger' || store.role === 'Creator'">Guide</RouterLink>
-        <RouterLink to="/admin" v-if="store.role === 'Admin'">Bestillinger</RouterLink>
-        <RouterLink to="/kontrolpanel" v-if="store.role === 'Admin'">Kontrolpanel</RouterLink>
-        <RouterLink to="/min-side" v-if="store.role === 'Bruger' || store.role === 'Creator'">Min Side</RouterLink>
-        <RouterLink to="/bestil" v-if="store.role === 'Bruger'">Bestilling</RouterLink>
-        <span v-if="store.isLoggedIn" @click="handleLogout" class="cursor-pointer fa fa-sign-out text-xl"></span>
+        <LoginModal v-if="!auth.isLoggedIn" />
+        <RouterLink to="/kontrolpanel" v-if="auth.isUser() || auth.isCreator()">Guide</RouterLink>
+        <RouterLink to="/admin" v-if="auth.isAdmin()">Bestillinger</RouterLink>
+        <RouterLink to="/kontrolpanel" v-if="auth.isAdmin()">Kontrolpanel</RouterLink>
+        <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
+        <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
+        <span v-if="auth.isLoggedIn" @click="handleLogout" class="cursor-pointer fa fa-sign-out text-xl"></span>
       </div>
   </header>
 

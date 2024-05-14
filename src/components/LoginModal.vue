@@ -2,18 +2,13 @@
 import { ref } from 'vue';
 import { store } from '@/store/store';
 import { useRouter } from 'vue-router';
+import { auth } from '@/store/auth';
 
 const email = ref('')
 const pswd = ref('')
 
 function handleLogin() {
-    store.isLoggedIn = true
-    store.loggedInUser = {
-        email: email,
-        role: 'Bruger',
-    }
-    store.role = 'Bruger' // Old
-
+    auth.login(email)
     store.toggleLoginModal()
 }
 

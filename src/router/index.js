@@ -5,30 +5,30 @@ import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import AdminConfirmView from '../views/AdminConfirmView.vue'
 import CreateUser from '../views/CreateUser.vue'
-import { store } from '@/store/store'
+import { auth } from '@/store/auth'
 
 // Navigation guards
 
 function user() {
-  if (!store.isLoggedIn && !store.role !== "Bruger") {
+  if (!auth.isLoggedIn && !auth.isUser()) {
     return "/"
   }
 }
 
 // function creator() {
-//   if (!store.isLoggedIn && !store.role !== "Creator") {
+//   if (!auth.isLoggedIn && !auth.isCreator) {
 //     return "/"
 //   }
 // }
 
 function admin() {
-  if (store.role !== "Admin" && !store.isLoggedIn) {
+  if (!auth.isLoggedIn && !auth.isAdmin()) {
     return "/"
   }
 }
 
 function guest() {
-  if (store.isLoggedIn) {
+  if (auth.isLoggedIn) {
     return "/"
   }
 }

@@ -1,17 +1,9 @@
 <script setup>
-import { store } from '@/store/store';
+import { auth } from '@/store/auth';
 import MyDashboard from '@/components/min-side/MyDashboard.vue';
 
-function isAdmin(role) {
-    if (role === "Admin") {
-        return true
-    }
-
-    return false
-}
-
 var titles
-if (store.role === "Admin") {
+if (auth.isAdmin()) {
     titles = {
         title: "Kontrolpanel",
         subTitle: "Bestillinger"
@@ -36,7 +28,7 @@ else {
                 {{ titles.subTitle }}
             </h1>
 
-            <MyDashboard :admin="isAdmin(store.role)" />
+            <MyDashboard :admin="auth.isAdmin()" />
         </div>
     </div>    
 </template>

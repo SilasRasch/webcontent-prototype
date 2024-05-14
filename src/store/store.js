@@ -1,19 +1,11 @@
 import { reactive } from "vue";
+import { mockOrders } from "./mockData";
 
 export const store = reactive({
     currOrderPage: 0,
     currDashboardTab: 1,
-    isLoggedIn: false,
-    loggedInUser: undefined,
-    // loggedInUser: {
-    //     email: undefined,
-    //     role: undefined
-    // }
     showLoginModal: false,
-    toggleLoginModal() {
-        this.showLoginModal = !this.showLoginModal
-    },
-
+    orders: mockOrders,
     mockId: 1000,
     newOrder: {
         orderId: 0,
@@ -95,100 +87,7 @@ export const store = reactive({
         this.orders[index].status = 1
     },
 
-    logOut() {
-        store.isLoggedIn = false
-        store.loggedInUser = undefined
-        store.role = '' // Deprecated
+    toggleLoginModal() {
+        this.showLoginModal = !this.showLoginModal
     },
-
-    role: '',
-
-    orders: [
-        {
-        orderId: 997,
-        brand: 'WebContent',
-        cvr: '40791752',
-        contact: {
-            name: 'Mathias Hansen',
-            phone: '12344321',
-            email: 'info@webcontent.dk',
-        },
-        projectName: 'UGC kampagne',
-        projectType: 'User Generated Content',
-        contentCount: 5,
-        contentLength: 60,
-        channels: 'TikTok, Instagram',
-        format: '9:16, 4:5',
-        extraCreator: true,
-        extraHook: true,
-        extraHookCount: 2,
-        extraNotes: 'Vægt på reviews og testimonials',
-        notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
-        isConfirmed: true,
-        source: 'LinkedIn',
-        price: 6219,
-        status: 1,
-        deliveryTimeFrom: 1,
-        deliveryTimeTo: 3,
-        isDenied: false,
-        isComplete: false,
-        },
-        {
-        orderId: 998,
-        brand: 'WebContent',
-        cvr: '40791752',
-        contact: {
-            name: 'Mathias Hansen',
-            phone: '12344321',
-            email: 'info@webcontent.dk',
-        },
-        projectName: 'Content Cloud',
-        projectType: 'User Generated Content',
-        contentCount: 5,
-        contentLength: 60,
-        channels: 'TikTok, Instagram',
-        format: '9:16, 4:5',
-        extraCreator: true,
-        extraHook: true,
-        extraHookCount: 2,
-        extraNotes: 'Vægt på reviews og testimonials',
-        notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
-        isConfirmed: false,
-        source: 'LinkedIn',
-        price: 6219,
-        deliveryTimeFrom: 1,
-        deliveryTimeTo: 3,
-        isDenied: false,
-        isComplete: false,
-        },
-        {
-        orderId: 999,
-        brand: 'WebContent',
-        cvr: '40791752',
-        contact: {
-            name: 'Mathias Hansen',
-            phone: '12344321',
-            email: 'info@webcontent.dk',
-        },
-        projectName: 'Produkt Reklamefilm',
-        projectType: 'User Generated Content',
-        contentCount: 5,
-        contentLength: 60,
-        channels: 'TikTok, Instagram',
-        format: '9:16, 4:5',
-        extraCreator: true,
-        extraHook: true,
-        extraHookCount: 2,
-        extraNotes: 'Vægt på reviews og testimonials',
-        notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
-        isConfirmed: true,
-        status: 1,
-        source: 'LinkedIn',
-        price: 6219,
-        deliveryTimeFrom: 1,
-        deliveryTimeTo: 3,
-        isDenied: false,
-        isComplete: false,
-        },
-    ],
 })

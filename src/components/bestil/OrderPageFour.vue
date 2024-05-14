@@ -6,8 +6,6 @@ import ToolTip from '../Input/ToolTip.vue';
 
 const router = useRouter()
 
-console.log(store.newOrder);
-
 function handleSend() {
     // Push order
     store.newOrder.price = estimatedPrice.value
