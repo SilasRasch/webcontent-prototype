@@ -16,7 +16,7 @@ function user() {
 }
 
 // function creator() {
-//   if (!auth.isLoggedIn && !auth.isCreator) {
+//   if (!auth.isLoggedIn && !auth.isCreator()) {
 //     return "/"
 //   }
 // }
