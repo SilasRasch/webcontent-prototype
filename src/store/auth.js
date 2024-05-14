@@ -15,8 +15,11 @@ export const auth = reactive({
         }
     },
     logOut() {
-        this.loggedInUser.isLoggedIn = false
-        this.loggedInUser.loggedInUser = undefined
+        this.isLoggedIn = false
+        this.loggedInUser =  {
+            email: undefined,
+            role: undefined,
+        }
     },
     isAdmin() {
         return this.loggedInUser.role === "Admin" ? true : false
