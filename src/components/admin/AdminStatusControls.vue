@@ -33,8 +33,8 @@ function handleStatusChange(newCategory) {
 
 <template>
     <Transition>
-        <div v-if="model.isConfirmed && props.showControls">
-            <h3 class="text-lg font-semibold">Skift status</h3>
+        <div v-if="model.isConfirmed && props.showControls" class="bg-slate-600 mb-2 rounded-lg text-white px-4">
+            <h3 class="text-lg font-semibold my-1">Skift status</h3>
             <div class="flex justify-between gap-2">
                 <button v-if="model.status !== 1" @click="handleStatusChange(1)" class="bg-red-500 btn-control"><i class="fa fa-arrow-right"></i> I kø</button>
                 <button v-if="model.status !== 2" @click="handleStatusChange(2)"  class="bg-yellow-500 btn-control"><i class="fa fa-arrow-right"></i> Planlægning</button>
