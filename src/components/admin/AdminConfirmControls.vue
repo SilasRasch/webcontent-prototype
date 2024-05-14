@@ -15,9 +15,7 @@ let price = ref('')
 let deliveryFrom = ref()
 let deliveryTo = ref()
 
-const handleConfirm = () => {
-    semiConfirm.value = true
-}
+const handleConfirm = () => semiConfirm.value = true;
 
 const handleReject = () => {
     rejected.value = true
@@ -25,13 +23,10 @@ const handleReject = () => {
     // Send API-request to deny (add isDenied data point?)
 }
 
-const handleCancel = () => {
-    semiConfirm.value = false
-}
+const handleCancel = () => semiConfirm.value = false;
 
 const handleSend = () => {
     store.confirmOrder(model.value.orderId, price.value, deliveryFrom.value, deliveryTo.value);
-    
     router.push('/admin')
 }
 </script>

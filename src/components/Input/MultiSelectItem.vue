@@ -6,9 +6,7 @@ const props = defineProps({
     item: String,
 })
 
-const handleAdd = (item) => {
-    model.value.push(item)
-}
+const handleAdd = (item) => model.value.push(item);
 
 let showCheck = ref(false)
 </script>

@@ -15,9 +15,7 @@ const model = defineModel()
 
 let open = ref(false)
 
-const handleToggle = () => {
-    open.value = !open.value
-}
+const handleToggle = () => open.value = !open.value;
 
 const handleRemove = (item) => {
     const index = model.value.indexOf(item)
