@@ -2,7 +2,7 @@
 import { auth } from '@/store/auth';
 import MyDashboard from '@/components/min-side/MyDashboard.vue';
 
-var titles
+let titles
 if (auth.isAdmin()) {
     titles = {
         title: "Kontrolpanel",

@@ -10,7 +10,7 @@ function handleAdd(item) {
     model.value.push(item)
 }
 
-var showCheck = ref(false)
+let showCheck = ref(false)
 </script>
 
 <template>

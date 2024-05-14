@@ -15,8 +15,8 @@ onBeforeRouteUpdate(async (to) => {
     paramId.value = to
 })
 
-var semiConfirm = ref(false)
-var rejected = ref(false)
+let semiConfirm = ref(false)
+let rejected = ref(false)
 
 function handleConfirm() {
     semiConfirm.value = true
@@ -40,9 +40,9 @@ function handleSend() {
     router.push('/admin')
 }
 
-var price = ref('') // NaN parse
-var deliveryFrom = ref()
-var deliveryTo = ref()
+let price = ref('') // NaN parse
+let deliveryFrom = ref()
+let deliveryTo = ref()
 </script>
 
 <template>

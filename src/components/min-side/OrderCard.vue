@@ -9,13 +9,13 @@ const id = parseInt(route.params.id)
 const index = store.orders.findIndex((i) => i.orderId === id)
 const model = ref(store.orders[index])
 
-var status = ref('');
-var statusClass = ref('bg-red-500')
+let status = ref('');
+let statusClass = ref('bg-red-500')
 
 // Toggle switches for information
-var toggleContact = ref(true)
-var toggleProject = ref(true)
-var toggleContent = ref(true)
+let toggleContact = ref(true)
+let toggleProject = ref(true)
+let toggleContent = ref(true)
 
 function handleToggleContact() {
     toggleContact.value = !toggleContact.value

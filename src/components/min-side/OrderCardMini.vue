@@ -19,7 +19,7 @@ const props = defineProps({
     }
 })
 
-var routeTo;
+let routeTo;
 if (!props.admin) {
     routeTo = `min-side/projekt/${props.orderId}`
 } else {

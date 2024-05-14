@@ -7,13 +7,13 @@ import ToolTip from '../Input/ToolTip.vue';
 const model = defineModel()
 const router = useRouter()
 
-var semiConfirm = ref(false)
-var rejected = ref(false)
+let semiConfirm = ref(false)
+let rejected = ref(false)
 
 // Inputs
-var price = ref('')
-var deliveryFrom = ref()
-var deliveryTo = ref()
+let price = ref('')
+let deliveryFrom = ref()
+let deliveryTo = ref()
 
 function handleConfirm() {
     semiConfirm.value = true

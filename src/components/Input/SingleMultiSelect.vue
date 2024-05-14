@@ -13,7 +13,7 @@ const props = defineProps({
 
 const model = defineModel()
 
-var open = ref(false)
+let open = ref(false)
 
 function handleToggle() {
     open.value = !open.value
