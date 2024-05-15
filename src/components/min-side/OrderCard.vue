@@ -189,7 +189,7 @@ switch (model.value.status) {
                     </div>
                 </div>
 
-                <div v-if="model.extraNotes" class="text-left bg-slate-800 rounded-lg px-2 mx-2 p-2">
+                <div v-if="model.extraNotes" class="text-left bg-slate-800 rounded-lg px-2 mx-2 pb-1">
                     <div class="input text-left">
                         <p class="px-0 font-semibold">Ekstra noter</p>
                         <p class="input-value">{{ model.extraNotes }}</p>

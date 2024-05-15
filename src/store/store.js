@@ -34,6 +34,7 @@ export const store = reactive({
         isConfirmed: false,
         isDenied: false,
         isComplete: false,
+        status: 0,
         sourceArr: [],
         channelsArr: [],
         formatArr: [],
