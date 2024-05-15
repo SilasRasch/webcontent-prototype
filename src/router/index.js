@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
-import AdminConfirmView from '../views/AdminConfirmView.vue'
 import CreateUser from '../views/CreateUser.vue'
 import { auth } from '@/store/auth'
 
@@ -69,7 +68,7 @@ const router = createRouter({
       path: '/admin/projekt/:id',
       name: 'admin-view-order',
       beforeEnter: admin,
-      component: AdminConfirmView
+      component: ProjectView
     },
     {
       path: '/min-side',
