@@ -43,36 +43,36 @@ const handleBack = () => {
     <div class="grid justify-center text-center m-4">
       <!-- Order "navigation" -->
       <h1 class="text-3xl font-semibold">Bestilling</h1>
-      <div class="flex justify-center [&>*]:m-2 self-center items-center">
-        <div class="flex flex-col items-center">
+      <div class="flex justify-center [&>*]:m-2 self-center items-center cursor-pointer">
+        <div class="flex flex-col items-center" @click="store.currOrderPage = 0">
           <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 0, 'active-link': store.currOrderPage === 0 }">0</p>
           <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 0}">Start</span>
         </div>
         
         <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':store.currOrderPage <= 0}" aria-hidden="true"></i>
         
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center cursor-pointer" @click="store.currOrderPage = 1">
           <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 1, 'active-link': store.currOrderPage === 1 }">1</p>
           <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 1}">Kontakt</span>
         </div>
         
         <i class="fa fa-long-arrow-right fa-2x pb-5" :class="{'opacity-50':store.currOrderPage <= 1}" aria-hidden="true"></i>
 
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center cursor-pointer" @click="store.currOrderPage = 2">
           <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 2, 'active-link': store.currOrderPage === 2 }">2</p>  
           <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 2}">Projekt</span>
         </div>
               
         <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':store.currOrderPage <= 2}" aria-hidden="true"></i>
 
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center cursor-pointer" @click="store.currOrderPage = 3">
           <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 3, 'active-link': store.currOrderPage === 3 }">3</p>
           <span class="mt-1" :class="{'opacity-50':store.currOrderPage !== 3}">Content</span>
         </div>
 
         <i class="fa fa-long-arrow-right fa-2x pb-5"  :class="{'opacity-50':store.currOrderPage <= 3}" aria-hidden="true"></i>
 
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center cursor-pointer" @click="store.currOrderPage = 4">
           <p class="order-step w-fit" :class="{ 'inactive-link': store.currOrderPage !== 4, 'active-link': store.currOrderPage === 4 }">Bestil</p>
           <span class="opacity-0 mt-1">.</span>
         </div>

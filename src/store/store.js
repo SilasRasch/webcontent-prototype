@@ -9,29 +9,29 @@ export const store = reactive({
     mockId: 1000,
     newOrder: {
         orderId: 0,
-        brand: '',
-        cvr: '',
-        contact: {
-            name: '',
-            phone: '',
-            email: '',
+        brand: '', // * Required
+        cvr: '', // * Required
+        contact: { 
+            name: '', // * Required
+            phone: '', // * Required
+            email: '', // * Required
         },
-        projectName: '',
-        projectType: '',
+        projectName: '', // * Required
+        projectType: '', // * Required
         contentCount: 5,
         contentLength: 60,
-        channels: '',
-        format: '',
+        channels: '', // * Required
+        format: '', // * Required
         extraCreator: false,
         extraHook: false,
         extraHookCount: 1,
         extraNotes: '',
-        notes: '',
-        source: '',
+        notes: '', // * Required
+        source: '', 
         price: 0,
         deliveryTimeFrom: 0,
         deliveryTimeTo: 0,
-        isConfirmed: false,
+        isConfirmed: false, 
         isDenied: false,
         isComplete: false,
         status: 0,
@@ -91,4 +91,16 @@ export const store = reactive({
     toggleLoginModal() {
         this.showLoginModal = !this.showLoginModal
     },
+
+    // Check if input strings are empty
+    validate() {
+        if (this.newOrder.brand === '' || this.newOrder.cvr === '' || this.newOrder.contact.name === '' || 
+            this.newOrder.contact.phone === '' || this.newOrder.contact.email === '' || this.newOrder.projectName === '' || 
+            this.newOrder.projectType === '' || this.newOrder.channels === '' || this.newOrder.format === '' || this.newOrder.notes === '') 
+            {
+                return false
+            }
+        
+        return true
+    }
 })

@@ -23,18 +23,9 @@ import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
             <template v-slot:slotTwo>Telefon</template>
         </DoubleInput>
 
-        <SingleInput v-model="store.newOrder.contact.email" placeholder="Din e-mail">E-mail</SingleInput>
+        <SingleInput v-model="store.newOrder.contact.email" placeholder="Din e-mail" required>E-mail</SingleInput>
 
         <hr class="text-black bg-black h-0.5 my-6" />
-
-        <!-- <SingleInput v-model="store.newOrder.source" placeholder="F.eks. LinkedIn">Hvor har du hørt om os?</SingleInput> -->
-        
-        <!-- <div class="input text-left my-2">
-            <div class="input text-left">
-                <p class="px-0">Hvor har du hørt om os?</p>
-                <input class="input-field" v-model="store.newOrder.source" placeholder="LinkedIn">
-            </div>
-        </div> -->
 
         <SingleMultiSelect v-model="store.newOrder.sourceArr" label="Hvor har du hørt om os?" required
         :items="['LinkedIn', 'Facebook', 'Instagram', 'Mundtligt']">
