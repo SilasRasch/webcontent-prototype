@@ -11,7 +11,12 @@ const props = defineProps({
     },
     colorClass: {
         type: String,
-        required: false
+        required: false,
+        default: 'bg-red-500'
+    },
+    awaitingUser: {
+        type: Boolean,
+        default: false,
     },
     admin: {
         type: Boolean,
@@ -29,13 +34,10 @@ if (!props.admin) {
 
 <template>
     <RouterLink :to="routeTo" draggable="false">
-        <div v-if="!props.colorClass" class="bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
-            <h3 class="font-semibold text-xl px-2 p-1 bg-red-500 rounded text-white">{{ props.brand }}</h3>
-            <p class="px-1 text-white font-semibold"><slot></slot></p>
-        </div>
-        <div v-else class="bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
+        <div class="flex flex-col bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
             <h3 class="font-semibold text-xl px-2 p-1 rounded text-white" :class="props.colorClass">{{ props.brand }}</h3>
             <p class="px-1 text-white font-semibold"><slot></slot></p>
+            <span v-if="props.awaitingUser" class="text-white p-1 px-2 rounded-lg mt-auto w-fit" :class="props.colorClass">Afventer dig</span>
         </div>
     </RouterLink>
 </template>
