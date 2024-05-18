@@ -11,13 +11,13 @@ const route = useRoute()
 const router = useRouter()
 
 const id = ref(parseInt(route.params.id))
-const index = store.orders.findIndex((i) => i.orderId === id.value)
+const index = store.orders.findIndex((i) => i.id === id.value)
 const model = ref(store.orders[index])
 
 // Update order on route change
 onBeforeRouteUpdate(async (to) => {
     id.value = to
-    model.value = store.orders.find(i => i.orderId === parseInt(id.value))
+    model.value = store.orders.find(i => i.id === parseInt(id.value))
 })
 
 // Toggling status controls
@@ -34,7 +34,7 @@ const pageTitle = auth.isAdmin() ? "Administrér projekt" : "Min Side"
     <div class="grid justify-center text-center m-4">
         <div class="flex justify-center gap-2">
             <h1 class="text-3xl font-semibold">{{ pageTitle }}</h1>
-            <button v-if="auth.isAdmin() && model.isConfirmed" class="fa fa-pencil self-center bg-slate-800 p-2 text-white rounded-full opacity-95 hover:opacity-100 duration-200"
+            <button v-if="auth.isAdmin() && model.status.state !== 0" class="fa fa-pencil self-center bg-slate-800 p-2 text-white rounded-full opacity-95 hover:opacity-100 duration-200"
             @click="toggleAdminControls"></button>
         </div>
 
@@ -48,8 +48,13 @@ const pageTitle = auth.isAdmin() ? "Administrér projekt" : "Min Side"
         @click="router.back"></button>
         <!-- Order information -->
 
-        <OrderCard :key="id" @toggle-admin-controls="toggleAdminControls"/>
+        <Suspense>
+            <OrderCard :key="id" @toggle-admin-controls="toggleAdminControls"/>
 
+            <template #fallback>
+                Loading...
+            </template>
+        </Suspense>
         <!-- Confirm controls -->
         <AdminConfirmControls v-if="auth.isAdmin()" v-model="model" />
     </div>   

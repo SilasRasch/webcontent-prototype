@@ -20,7 +20,7 @@ const props = defineProps({
 
             <div v-if="model.length > 0">
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                    <OrderCardMini v-for="index in model" :key="index" :order-id="index.orderId" :brand="index.brand" :admin="props.admin">{{ index.projectName }}</OrderCardMini>
+                    <OrderCardMini v-for="index in model" :key="index.id" :order-id="index.id" :brand="index.brand" :admin="props.admin">{{ index.projectName }}</OrderCardMini>
                 </div>
             </div>
             <div v-else>

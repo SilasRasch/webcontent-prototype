@@ -1,14 +1,17 @@
 import { reactive } from "vue";
-import { mockOrders } from "./mockData";
+// import { mockOrders } from "./mockData";
+import { orderApi } from "./api/orderApi";
 
 export const store = reactive({
     currOrderPage: 0,
     currDashboardTab: 1,
     showLoginModal: false,
-    orders: mockOrders,
-    mockId: 1000,
+    orders: [],
+    sourceArr: [],
+    channelsArr: [],
+    formatArr: [],
     newOrder: {
-        orderId: 0,
+        id: 0,
         brand: '', // * Required
         cvr: '', // * Required
         contact: { 
@@ -31,61 +34,60 @@ export const store = reactive({
         price: 0,
         deliveryTimeFrom: 0,
         deliveryTimeTo: 0,
-        isConfirmed: false, 
-        isDenied: false,
-        isComplete: false,
-        status: 0,
-        sourceArr: [],
-        channelsArr: [],
-        formatArr: [],
+        status: {
+            category: 0,
+            state: 0
+        },
     },
 
     addOrder(order) {
-        this.newOrder.orderId = this.mockId++
-        this.orders.push(order)
+        orderApi.postOrder(order)
 
         // Reset newOrder
         this.newOrder = {
-            orderId: 0,
-            brand: '',
-            cvr: '',
-            contact: {
-                name: '',
-                phone: '',
-                email: '',
+            id: 0,
+            brand: '', // * Required
+            cvr: '', // * Required
+            contact: { 
+                name: '', // * Required
+                phone: '', // * Required
+                email: '', // * Required
             },
-            projectName: '',
-            projectType: '',
+            projectName: '', // * Required
+            projectType: '', // * Required
             contentCount: 5,
             contentLength: 60,
-            channels: '',
-            format: '',
+            channels: '', // * Required
+            format: '', // * Required
             extraCreator: false,
             extraHook: false,
             extraHookCount: 1,
             extraNotes: '',
-            notes: '',
-            source: '',
+            notes: '', // * Required
+            source: '', 
             price: 0,
             deliveryTimeFrom: 0,
             deliveryTimeTo: 0,
-            isConfirmed: false,
-            isDenied: false,
-            isComplete: false,
-            status: 0,
-            sourceArr: [],
-            channelsArr: [],
-            formatArr: [],
+            status: {
+                category: 0,
+                state: 0
+            },
         }
+
+        this.formatArr = []
+        this.sourceArr = []
+        this.channelsArr = []
     },
 
     confirmOrder(id, price, deliveryfrom, deliveryTo) {
-        const index = this.orders.findIndex((order) => order.orderId === id)
-        this.orders[index].isConfirmed = true
+        const index = this.orders.findIndex((order) => order.id === id)
+        this.orders[index].status.state = 1
         this.orders[index].price = price
         this.orders[index].deliveryTimeFrom = parseInt(deliveryfrom)
         this.orders[index].deliveryTimeTo = parseInt(deliveryTo)
-        this.orders[index].status = 1
+        this.orders[index].status.category = 1
+
+        orderApi.putOrder(id, this.orders[index])
     },
 
     toggleLoginModal() {

@@ -17,9 +17,9 @@ const arrayToString = (string, array) => {
 }
 
 const updateStrings = () => {
-    store.newOrder.source = arrayToString(store.newOrder.source, store.newOrder.sourceArr)
-    store.newOrder.channels = arrayToString(store.newOrder.channels, store.newOrder.channelsArr)
-    store.newOrder.format = arrayToString(store.newOrder.format, store.newOrder.formatArr)
+    store.newOrder.source = arrayToString(store.newOrder.source, store.sourceArr)
+    store.newOrder.channels = arrayToString(store.newOrder.channels, store.channelsArr)
+    store.newOrder.format = arrayToString(store.newOrder.format, store.formatArr)
 }
 
 const handleNext = () => {

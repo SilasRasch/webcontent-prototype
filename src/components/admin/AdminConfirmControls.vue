@@ -19,20 +19,20 @@ const handleConfirm = () => semiConfirm.value = true;
 
 const handleReject = () => {
     rejected.value = true
-    model.value.denied = true
+    model.value.status.state = -1
     // Send API-request to deny (add isDenied data point?)
 }
 
 const handleCancel = () => semiConfirm.value = false;
 
 const handleSend = () => {
-    store.confirmOrder(model.value.orderId, price.value, deliveryFrom.value, deliveryTo.value);
+    store.confirmOrder(model.value.id, price.value, deliveryFrom.value, deliveryTo.value);
     router.push('/admin')
 }
 </script>
 
 <template>
-    <div v-if="!model.isConfirmed" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
+    <div v-if="model.status.state === 0" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
         <TransitionGroup>
             <button v-if="!semiConfirm" @click="handleConfirm" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600">Bekræft</button>  
             <button v-if="!semiConfirm" @click="handleReject" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   

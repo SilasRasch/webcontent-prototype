@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { orderApi } from '@/store/api/orderApi';
 
 const model = defineModel()
 const router = useRouter()
@@ -12,34 +13,33 @@ const props = defineProps({
 
 const handleStatusChange = (newCategory) => {
     if (newCategory <= 4) { // Still in confirmed category
-        model.value.status = newCategory
-        model.value.isDenied = false
-        model.value.isComplete = false
+        model.value.status.category = newCategory
+        model.value.status.state = 1
     } 
     else if (newCategory === 5) { // Completed
-        model.value.status = 0
-        model.value.isDenied = false
-        model.value.isComplete = true
+        model.value.status.category = 0
+        model.value.status.state = 2
     } 
     else if (newCategory === 6) { // Cancelled
-        model.value.status = 0
-        model.value.isDenied = true
-        model.value.isComplete = false
+        model.value.status.cateogry = 0
+        model.value.status.state = -1
     }
-    
+
+    // Put new status
+    orderApi.putOrder(model.value.id, model.value)
     router.push('/admin')
 }
 </script>
 
 <template>
     <Transition>
-        <div v-if="model.isConfirmed && props.showControls" class="bg-slate-600 mb-2 rounded-lg text-white px-4">
+        <div v-if="model.status.state === 1 && props.showControls" class="bg-slate-600 mb-2 rounded-lg text-white px-4">
             <h3 class="text-lg font-semibold my-1">Skift status</h3>
             <div class="flex justify-between gap-2">
-                <button v-if="model.status !== 1" @click="handleStatusChange(1)" class="bg-red-500 btn-control"><i class="fa fa-arrow-right"></i> I kø</button>
-                <button v-if="model.status !== 2" @click="handleStatusChange(2)"  class="bg-yellow-500 btn-control"><i class="fa fa-arrow-right"></i> Planlægning</button>
-                <button v-if="model.status !== 3" @click="handleStatusChange(3)"  class="bg-blue-500 btn-control"><i class="fa fa-arrow-right"></i> I gang</button>
-                <button v-if="model.status !== 4" @click="handleStatusChange(4)"  class="bg-green-500 btn-control"><i class="fa fa-arrow-right"></i> Feedback</button>
+                <button v-if="model.status.category !== 1" @click="handleStatusChange(1)" class="bg-red-500 btn-control"><i class="fa fa-arrow-right"></i> I kø</button>
+                <button v-if="model.status.category !== 2" @click="handleStatusChange(2)"  class="bg-yellow-500 btn-control"><i class="fa fa-arrow-right"></i> Planlægning</button>
+                <button v-if="model.status.category !== 3" @click="handleStatusChange(3)"  class="bg-blue-500 btn-control"><i class="fa fa-arrow-right"></i> I gang</button>
+                <button v-if="model.status.category !== 4" @click="handleStatusChange(4)"  class="bg-green-500 btn-control"><i class="fa fa-arrow-right"></i> Feedback</button>
                 <button @click="handleStatusChange(5)"  class="bg-violet-500 btn-control"><i class="fa fa-check"></i></button>
                 <button @click="handleStatusChange(6)"  class="bg-red-500 btn-control"><i class="fa fa-trash"></i></button>
             </div>

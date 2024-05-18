@@ -260,3 +260,35 @@ export const mockOrders = [
         isComplete: true,
     },
 ]
+
+// DB template
+// obj = {
+//     _id: 1000,
+//     brand: 'WebContent',
+//     cvr: '40791752',
+//     contact: {
+//         name: 'Mathias Hansen',
+//         phone: '12344321',
+//         email: 'info@webcontent.dk',
+//     },
+//     projectName: 'Lancering',
+//     projectType: 'User Generated Content',
+//     contentCount: 5,
+//     contentLength: 60,
+//     channels: 'TikTok, Instagram',
+//     format: '9:16, 4:5',
+//     extraCreator: true,
+//     extraHook: true,
+//     extraHookCount: 1,
+//     extraNotes: 'Vægt på reviews og testimonials',
+//     notes: 'Reklamefilm til WebContents nye digitale alt-i-en platform',
+//     source: 'LinkedIn',
+//     price: 6219,
+//     deliveryTimeFrom: 1,
+//     deliveryTimeTo: 3,
+//     userId: 1,
+//     status: {
+//         state: 0,
+//         category: 0,
+//     }
+// }

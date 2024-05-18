@@ -40,7 +40,6 @@ const handleLogout = () => {
 <style scoped>
 .route-enter-from {
   opacity: 0;
-  /* transform: translateY(100px) */
 }
 
 .route-enter-active {
@@ -49,7 +48,6 @@ const handleLogout = () => {
 
 .route-leave-to {
   opacity: 0;
-  /* transform: translateY(-100px) */
 }
 
 .route-leave-active {

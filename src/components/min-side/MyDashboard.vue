@@ -3,6 +3,10 @@ import { store } from '@/store/store';
 import DashboardConfirmed from '@/components/min-side/DashboardConfirmed.vue';
 import DashboardPool from './DashboardPool.vue';
 import DashboardTabControls from './DashboardTabControls.vue';
+import { orderApi } from '@/store/api/orderApi';
+
+await orderApi.getOrders() // fetch orders
+console.log(store.orders);
 
 const props = defineProps({
   admin: {
@@ -11,9 +15,14 @@ const props = defineProps({
   }
 })
 
-const unconfirmed = store.orders.filter((i) => i.isConfirmed === false)
-const cancelled = store.orders.filter((i) => i.isDenied === true)
-const closed = store.orders.filter((i) => i.isComplete === true)
+// const unconfirmed = store.orders.filter((i) => i.isConfirmed === false)
+// const cancelled = store.orders.filter((i) => i.isDenied === true)
+// const closed = store.orders.filter((i) => i.isComplete === true)
+
+// new status
+const unconfirmed = store.orders.filter((i) => i.status.state === 0)
+const cancelled = store.orders.filter((i) => i.status.state === -1)
+const closed = store.orders.filter((i) => i.status.state === 2)
 </script>
 
 <template>

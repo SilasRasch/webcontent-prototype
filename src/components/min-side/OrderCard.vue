@@ -1,13 +1,20 @@
 <script setup>
-import { store } from '@/store/store';
+// import { store } from '@/store/store';
 import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+// import { orderApi } from '@/store/api/orderApi';
+import axios from "axios"
 
 const route = useRoute()
 const id = parseInt(route.params.id)
-const index = store.orders.findIndex((i) => i.orderId === id)
-const model = ref(store.orders[index])
+// const index = store.orders.findIndex((i) => i.id === id)
+// const model = ref(store.orders[index])
+
+const model = ref(null)
+await axios.get("http://192.168.100.201:8282/api/orders/" + id) // Make composable
+    .then(res => model.value = res.data)
+console.log(model.value);
 
 let status = ref('');
 let statusClass = ref('bg-red-500')
@@ -28,7 +35,7 @@ const handleToggleContent = () => {
 }
 
 // Compute text and colors to display
-switch (model.value.status) {
+switch (await model.value.status.category) {
     case 1:
         status.value = 'I kø'
         statusClass.value = 'bg-red-500'
@@ -52,9 +59,9 @@ switch (model.value.status) {
     <div class="grid justify-center text-center w-full mt-[-3rem] text-white">
         <div class="grid bg-slate-600 rounded-lg mt-0 md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] p-2">
             <h3 class="text-left m-2 bg-red-500 bg-opacity-75 rounded-md p-4 font-semibold text-xl">
-                Bestilling {{ model.orderId }}
+                Bestilling {{ model.id }}
             </h3>
-            <div v-if="model.isConfirmed && !model.isDenied && !model.isComplete" class="flex">
+            <div v-if="model.status.state === 1" class="flex">
                 <h3 class="text-left mx-2 mr-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-green-500 w-1/2">
                     Bekræftet!
                 </h3>
@@ -62,12 +69,12 @@ switch (model.value.status) {
                     {{ status }}
                 </h3>
             </div>
-            <div v-else-if="model.isConfirmed && model.isDenied && !model.isComplete">
+            <div v-else-if="model.status.state === -1">
                 <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-red-500">
                     Annulleret...
                 </h3>
             </div>
-            <div v-else-if="model.isConfirmed && !model.isDenied && model.isComplete">
+            <div v-else-if="model.status.state === 2">
                 <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-violet-500">
                     Færdig!
                 </h3>
@@ -204,7 +211,7 @@ switch (model.value.status) {
 
             <!-- Pricing and delivery -->
 
-            <div v-if="!model.isConfirmed" class="grid md:grid-cols-2 grid-cols-1 p-2">
+            <div v-if="model.status.state !== 0" class="grid md:grid-cols-2 grid-cols-1 p-2">
                 <div class="text-left bg-slate-800 rounded-lg px-1 mr-1">
                     <p class="font-semibold">Estimeret pris</p>
                     <p class="-mt-4">{{ model.price }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>

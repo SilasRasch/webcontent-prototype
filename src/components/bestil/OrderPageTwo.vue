@@ -35,12 +35,12 @@ import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
             </div>
         </div>
 
-        <SingleMultiSelect v-model="store.newOrder.formatArr" required
+        <SingleMultiSelect v-model="store.formatArr" required
         :items="['16:9', '9:16', '1:1', '4:5']">
             Format
         </SingleMultiSelect>
 
-        <SingleMultiSelect v-model="store.newOrder.channelsArr" required
+        <SingleMultiSelect v-model="store.channelsArr" required
         :items="['TikTok', 'Instagram', 'Facebook', 'YouTube']">
             Tiltænkte platforme
         </SingleMultiSelect>
