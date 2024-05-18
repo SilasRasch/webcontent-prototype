@@ -1,5 +1,8 @@
- import { auth } from "../auth"
+import { auth } from "../auth"
 import axios from "axios"
+import { useAxios } from "./useAxios"
+
+const axi = await useAxios()
 
 export const useOrderAPI = () => {
     const baseURL = "http://192.168.100.201:8282/api/orders"
@@ -12,9 +15,7 @@ export const useOrderAPI = () => {
             url: !auth.isAdmin() ? `?userId=${auth.loggedInUser.id}` : '/'
         }
 
-        const res = await axios(config).catch(err => console.error(err))
-        const data = await res.data
-        return data
+        return await axi.request(config)
     }
 
     const getOrder = async (id) => {
@@ -24,8 +25,7 @@ export const useOrderAPI = () => {
             url: `/${id}`
         }
 
-        const res = await axios(config).catch(err => console.error(err))
-        return await res.data
+        return await axi.request(config)
     }
 
     const putOrder = async (id, order) => {

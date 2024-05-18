@@ -42,41 +42,42 @@ export const store = reactive({
         },
     },
 
+    orderTemplate: {
+        id: 0,
+        brand: '',
+        cvr: '',
+        contact: { 
+            name: '',
+            phone: '',
+            email: '',
+        },
+        projectName: '',
+        projectType: '',
+        contentCount: 5,
+        contentLength: 60,
+        channels: '',
+        format: '',
+        extraCreator: false,
+        extraHook: false,
+        extraHookCount: 1,
+        extraNotes: '',
+        notes: '',
+        source: '', 
+        price: 0,
+        deliveryTimeFrom: 0,
+        deliveryTimeTo: 0,
+        userId: 0,
+        status: {
+            category: 0,
+            state: 0
+        },
+    },
+
     addOrder(order) {
         orderAPI.postOrder(order)
 
-        // Reset newOrder
-        this.newOrder = {
-            id: 0,
-            brand: '', // * Required
-            cvr: '', // * Required
-            contact: { 
-                name: '', // * Required
-                phone: '', // * Required
-                email: '', // * Required
-            },
-            projectName: '', // * Required
-            projectType: '', // * Required
-            contentCount: 5,
-            contentLength: 60,
-            channels: '', // * Required
-            format: '', // * Required
-            extraCreator: false,
-            extraHook: false,
-            extraHookCount: 1,
-            extraNotes: '',
-            notes: '', // * Required
-            source: '', 
-            price: 0,
-            deliveryTimeFrom: 0,
-            deliveryTimeTo: 0,
-            userId: 0,
-            status: {
-                category: 0,
-                state: 0
-            },
-        }
-
+        // Reset
+        this.newOrder = this.orderTemplate
         this.formatArr = []
         this.sourceArr = []
         this.channelsArr = []
