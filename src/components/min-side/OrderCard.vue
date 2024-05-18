@@ -30,7 +30,7 @@ const handleToggleContent = () => {
 }
 
 // Compute text and colors to display
-switch (await model.value.status.category) {
+switch (model.value.status.category) {
     case 1:
         status.value = 'I kø'
         statusClass.value = 'bg-red-500'

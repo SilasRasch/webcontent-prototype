@@ -1,7 +1,7 @@
 import { auth } from "../auth"
 import { useAxios } from "./useAxios"
 
-const axi = await useAxios()
+const axi = useAxios()
 
 export const useOrderAPI = () => {
     const baseURL = "http://192.168.100.201:8282/api/orders"
