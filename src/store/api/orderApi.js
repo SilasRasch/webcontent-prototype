@@ -1,35 +1,25 @@
-// import { useFetch } from "./useFetch"
 import { auth } from "../auth"
-import { store } from "../store"
+// import { store } from "../store"
 import axios from "axios"
 
 const baseURL = "http://192.168.100.201:8282/api/orders"
-// const { response, error, data, loading, fetch } = useFetch()
 var config = { baseURL: baseURL, method: 'get', url: '' }
 
 export const orderApi = {
     getOrders: async () => {
         config.method = 'get'
-        config.url = ''
+        config.url = !auth.isAdmin() ? `?userId=${auth.loggedInUser.id}` : '/'
 
-        const uri = !auth.isAdmin() ? `?userId=${auth.loggedInUser.id}` : '/'
-        await axios.get(baseURL + uri)
-            .then(res => {
-                store.orders = res.data
-                return res.data
-            })
-            .catch(error => console.error(error))
+        const res = await axios(config).catch(err => console.error(err))
+        const data = await res.data
+        return data
     },
     getOrder: async (id) => {
         config.method = 'get'
-        config.url = toString(id)
+        config.url = `/${id}`
 
-        const uri = '/' + id
-        await axios.get(baseURL + uri)
-            .then(res => {
-                return res
-            })
-            .catch(error => console.error(error))
+        const res = await axios(config).catch(err => console.error(err))
+        return await res.data
     },
     putOrder: async (id, order) => {
         config.method = 'put'

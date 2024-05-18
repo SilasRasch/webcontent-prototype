@@ -82,14 +82,18 @@ export const store = reactive({
     },
 
     confirmOrder(id, price, deliveryfrom, deliveryTo) {
-        const index = this.orders.findIndex((order) => order.id === id)
-        this.orders[index].status.state = 1
-        this.orders[index].price = price
-        this.orders[index].deliveryTimeFrom = parseInt(deliveryfrom)
-        this.orders[index].deliveryTimeTo = parseInt(deliveryTo)
-        this.orders[index].status.category = 1
-
-        orderApi.putOrder(id, this.orders[index])
+        var order = this.orders.find((order) => order.id === id)
+        order = {
+            ...order,
+            status: {
+                category: 1,
+                state: 1,
+            },
+            price: price,
+            deliveryTimeFrom: parseInt(deliveryfrom),
+            deliveryTimeTo: parseInt(deliveryTo),
+        }
+        orderApi.putOrder(id, order)
     },
 
     toggleLoginModal() {

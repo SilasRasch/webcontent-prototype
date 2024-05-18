@@ -3,18 +3,13 @@
 import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-// import { orderApi } from '@/store/api/orderApi';
-import axios from "axios"
+import { orderApi } from '@/store/api/orderApi';
 
 const route = useRoute()
 const id = parseInt(route.params.id)
-// const index = store.orders.findIndex((i) => i.id === id)
-// const model = ref(store.orders[index])
 
 const model = ref(null)
-await axios.get("http://192.168.100.201:8282/api/orders/" + id) // Make composable
-    .then(res => model.value = res.data)
-console.log(model.value);
+model.value = await orderApi.getOrder(id)
 
 let status = ref('');
 let statusClass = ref('bg-red-500')
