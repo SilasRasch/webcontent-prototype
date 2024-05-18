@@ -34,6 +34,7 @@ export const store = reactive({
         price: 0,
         deliveryTimeFrom: 0,
         deliveryTimeTo: 0,
+        userId: 0,
         status: {
             category: 0,
             state: 0
@@ -68,6 +69,7 @@ export const store = reactive({
             price: 0,
             deliveryTimeFrom: 0,
             deliveryTimeTo: 0,
+            userId: 0,
             status: {
                 category: 0,
                 state: 0

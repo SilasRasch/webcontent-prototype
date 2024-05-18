@@ -3,6 +3,7 @@ import { reactive } from "vue";
 export const auth = reactive({
     isLoggedIn: false,
     loggedInUser: {
+        id: 1,
         email: undefined,
         role: undefined
     },
