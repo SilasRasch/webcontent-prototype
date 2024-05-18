@@ -51,7 +51,7 @@ switch (await model.value.status.category) {
 </script>
 
 <template>
-    <div class="grid justify-center text-center w-full mt-[-3rem] text-white">
+    <div v-if="model" class="grid justify-center text-center w-full mt-[-3rem] text-white">
         <div class="grid bg-slate-600 rounded-lg mt-0 md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] p-2">
             <h3 class="text-left m-2 bg-red-500 bg-opacity-75 rounded-md p-4 font-semibold text-xl">
                 Bestilling {{ model.id }}

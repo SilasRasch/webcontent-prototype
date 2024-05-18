@@ -28,14 +28,14 @@ const handleStatusChange = (newCategory) => {
     }
 
     // Put new status
-    api.putOrder(model.value.id, model.value)
-    router.push('/admin')
+    api.putOrder(model.value.id, model.value).then(() => router.push('/admin'))
+    
 }
 </script>
 
 <template>
     <Transition>
-        <div v-if="model.status.state === 1 && props.showControls" class="bg-slate-600 mb-2 rounded-lg text-white px-4">
+        <div v-if="model.status.state !== 0 && props.showControls" class="bg-slate-600 mb-2 rounded-lg text-white px-4">
             <h3 class="text-lg font-semibold my-1">Skift status</h3>
             <div class="flex justify-between gap-2">
                 <button v-if="model.status.category !== 1" @click="handleStatusChange(1)" class="bg-red-500 btn-control"><i class="fa fa-arrow-right"></i> I kø</button>

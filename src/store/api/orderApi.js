@@ -1,5 +1,4 @@
 import { auth } from "../auth"
-import axios from "axios"
 import { useAxios } from "./useAxios"
 
 const axi = await useAxios()
@@ -36,11 +35,7 @@ export const useOrderAPI = () => {
             data: order,
         }
 
-        await axios(config)
-            .then(response => {
-                return response
-            })
-            .catch(error => console.error(error))
+        return await axi.request(config).then(() => { return axi.response })
     }
 
     const postOrder = async (order) => {
@@ -50,11 +45,7 @@ export const useOrderAPI = () => {
             data: order,
         }
 
-        await axios(config)
-            .then(res => {
-                return res
-            })
-            .catch(error => console.error(error))
+        return await axi.request(config).then(() => { return axi.response })
     }
 
     const deleteOrder = async (id) => {
@@ -63,11 +54,8 @@ export const useOrderAPI = () => {
             method: 'delete',
             url: toString(id),
         }
-        await axios(config)
-            .then(res => {
-                return res
-            })
-            .catch(error => console.error(error))
+        
+        return await axi.request(config).then(() => { return axi.response })
     }
 
     return { getOrders, getOrder, postOrder, putOrder, deleteOrder }
