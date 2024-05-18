@@ -3,6 +3,7 @@ import { store } from '../../store/store.js'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue';
 import ToolTip from '../Input/ToolTip.vue';
+import { auth } from '@/store/auth';
 
 const router = useRouter()
 
@@ -11,6 +12,7 @@ const handleSend = () => {
     store.newOrder.price = estimatedPrice.value
     store.newOrder.deliveryTimeFrom = estimatedDelivery.value
     store.newOrder.deliveryTimeTo = estimatedDelivery.value + 2
+    store.newOrder.userId = auth.loggedInUser.id
 
     store.addOrder(store.newOrder)
 
