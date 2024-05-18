@@ -1,5 +1,4 @@
 import { auth } from "../auth"
-// import { store } from "../store"
 import axios from "axios"
 
 const baseURL = "http://192.168.100.201:8282/api/orders"

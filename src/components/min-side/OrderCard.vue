@@ -1,5 +1,4 @@
 <script setup>
-// import { store } from '@/store/store';
 import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -173,7 +172,6 @@ switch (await model.value.status.category) {
                 <div class="input text-left mb-0 p-2">
                     <div class="text-left bg-slate-800 rounded-lg px-2">
                         <p class="px-0 font-semibold">Noter til indhold</p>
-                        <!-- <textarea class="w-full bg-gray-200 p-2 resize-none" v-model="store.newOrder.notes" disabled></textarea> -->
                         <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ model.notes }}</p>
                     </div>
                 </div>
@@ -197,8 +195,6 @@ switch (await model.value.status.category) {
                         <p class="input-value">{{ model.extraNotes }}</p>
                     </div>
                 </div>
-
-                <!-- <hr class="text-black bg-black opacity-50 h-0.5 my-2 mb-0 px-2" /> -->
             </div>
 
             <p class="text-left opacity-50 px-2 select-none">Pris og leveringstid</p>
@@ -232,7 +228,6 @@ switch (await model.value.status.category) {
 </template>
 
 <style scoped> 
-/* [&>*]:text-left [&>*]:mx-2 [&>*]:m-1 md:[&>*]:m-2 */
 .order-row {
     @apply bg-opacity-50 bg-red-700 rounded-md text-left
 }
