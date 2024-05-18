@@ -2,13 +2,14 @@
 import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { orderApi } from '@/store/api/orderApi';
+import { useOrderAPI } from '@/store/api/orderApi';
 
+const api = useOrderAPI()
 const route = useRoute()
 const id = parseInt(route.params.id)
 
 const model = ref(null)
-model.value = await orderApi.getOrder(id)
+model.value = await api.getOrder(id)
 
 let status = ref('');
 let statusClass = ref('bg-red-500')

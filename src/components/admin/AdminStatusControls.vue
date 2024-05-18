@@ -1,6 +1,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { orderApi } from '@/store/api/orderApi';
+import { useOrderAPI } from '@/store/api/orderApi';
+
+const api = useOrderAPI()
 
 const model = defineModel()
 const router = useRouter()
@@ -26,7 +28,7 @@ const handleStatusChange = (newCategory) => {
     }
 
     // Put new status
-    orderApi.putOrder(model.value.id, model.value)
+    api.putOrder(model.value.id, model.value)
     router.push('/admin')
 }
 </script>

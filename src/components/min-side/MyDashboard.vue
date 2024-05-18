@@ -3,9 +3,10 @@ import { store } from '@/store/store';
 import DashboardConfirmed from '@/components/min-side/DashboardConfirmed.vue';
 import DashboardPool from './DashboardPool.vue';
 import DashboardTabControls from './DashboardTabControls.vue';
-import { orderApi } from '@/store/api/orderApi';
+import { useOrderAPI } from '@/store/api/orderApi';
 
-store.orders = await orderApi.getOrders()
+const api = useOrderAPI()
+store.orders = await api.getOrders()
 
 const props = defineProps({
   admin: {

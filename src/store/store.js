@@ -1,6 +1,7 @@
 import { reactive } from "vue";
-// import { mockOrders } from "./mockData";
-import { orderApi } from "./api/orderApi";
+import { useOrderAPI } from "./api/orderApi";
+
+const orderAPI = useOrderAPI()
 
 export const store = reactive({
     currOrderPage: 0,
@@ -42,7 +43,7 @@ export const store = reactive({
     },
 
     addOrder(order) {
-        orderApi.postOrder(order)
+        orderAPI.postOrder(order)
 
         // Reset newOrder
         this.newOrder = {
@@ -93,7 +94,7 @@ export const store = reactive({
             deliveryTimeFrom: parseInt(deliveryfrom),
             deliveryTimeTo: parseInt(deliveryTo),
         }
-        orderApi.putOrder(id, order)
+        orderAPI.putOrder(id, order)
     },
 
     toggleLoginModal() {

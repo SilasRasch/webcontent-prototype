@@ -1,11 +1,11 @@
-import { auth } from "../auth"
+ import { auth } from "../auth"
 import axios from "axios"
 
-const baseURL = "http://192.168.100.201:8282/api/orders"
-var baseConfig = { baseURL: baseURL, method: 'get', url: '' }
+export const useOrderAPI = () => {
+    const baseURL = "http://192.168.100.201:8282/api/orders"
+    const baseConfig = { baseURL: baseURL, method: 'get', url: '' }
 
-export const orderApi = {
-    getOrders: async () => {
+    const getOrders = async () => {
         const config = {
             ...baseConfig,
             method: 'get',
@@ -15,8 +15,9 @@ export const orderApi = {
         const res = await axios(config).catch(err => console.error(err))
         const data = await res.data
         return data
-    },
-    getOrder: async (id) => {
+    }
+
+    const getOrder = async (id) => {
         const config = {
             ...baseConfig,
             method: 'get',
@@ -25,8 +26,9 @@ export const orderApi = {
 
         const res = await axios(config).catch(err => console.error(err))
         return await res.data
-    },
-    putOrder: async (id, order) => {
+    }
+
+    const putOrder = async (id, order) => {
         const config = {
             ...baseConfig,
             method: 'put',
@@ -39,8 +41,9 @@ export const orderApi = {
                 return response
             })
             .catch(error => console.error(error))
-    },
-    postOrder: async (order) => {
+    }
+
+    const postOrder = async (order) => {
         const config = {
             ...baseConfig,
             method: 'post',
@@ -52,8 +55,9 @@ export const orderApi = {
                 return res
             })
             .catch(error => console.error(error))
-    },
-    deleteOrder: async (id) => {
+    }
+
+    const deleteOrder = async (id) => {
         const config = {
             ...baseConfig,
             method: 'delete',
@@ -65,4 +69,6 @@ export const orderApi = {
             })
             .catch(error => console.error(error))
     }
+
+    return { getOrders, getOrder, postOrder, putOrder, deleteOrder }
 }
