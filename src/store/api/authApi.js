@@ -4,8 +4,7 @@ import { useAxios } from "./useAxios"
 const axios = useAxios()
 
 export const useAuthAPI = () => {
-    // const baseURL = "http://192.168.100.201:8383/auth/"
-    const baseURL = "http://localhost:5267/auth/"
+    const baseURL = "http://192.168.100.201:8383/auth/"
     const baseConfig = { baseURL: baseURL, method: 'post', url: '' }
     
     const login = async (email, password) => {
