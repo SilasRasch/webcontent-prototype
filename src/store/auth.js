@@ -23,6 +23,7 @@ export const auth = reactive({
             this.token = "Bearer " + token
             this.isLoggedIn = true
             return api.authenticate().then((data) => this.loggedInUser = data).then(() => {
+                localStorage.setItem("user", this.loggedInUser.id)
                 return true
             })
         }

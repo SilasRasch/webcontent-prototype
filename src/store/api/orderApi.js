@@ -6,10 +6,12 @@ export const useOrderAPI = () => {
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
     const getOrders = () => {
+        const id = auth.loggedInUser.id ? auth.loggedInUser.id : localStorage.getItem("user")
+        
         const config = {
             ...baseConfig,
             method: 'get',
-            url: !auth.isAdmin() ? `?userId=${auth.loggedInUser.id}` : '/'
+            url: !auth.isAdmin() ? `?userId=${id}` : '/'
         }
 
         // return axi.request(config)

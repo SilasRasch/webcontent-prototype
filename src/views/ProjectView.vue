@@ -13,8 +13,6 @@ const router = useRouter()
 const api = useOrderAPI()
 
 const id = ref(parseInt(route.params.id))
-// const index = store.orders.findIndex((i) => i.id === id.value)
-// const model = ref(store.orders[index])
 
 const model = ref(null)
 api.getOrder(id.value).then((data) => model.value = data)
@@ -22,7 +20,6 @@ api.getOrder(id.value).then((data) => model.value = data)
 // Update order on route change
 onBeforeRouteUpdate(async (to) => {
     id.value = to
-    // model.value = store.orders.find(i => i.id === parseInt(id.value))
     api.getOrder(id).then((data) => model.value = data)
 })
 
