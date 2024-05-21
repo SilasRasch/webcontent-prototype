@@ -11,6 +11,7 @@ export const auth = reactive({
         email: undefined,
         roles: []
     },
+
     async login(email, password) {
         await api.login(email, password) // Will return empty string if error / wrong email or password
             .then(async (data) => {
@@ -24,7 +25,7 @@ export const auth = reactive({
                 return false
             })
     },
-    
+
     logOut() {
         this.isLoggedIn = false
         this.loggedInUser =  {
@@ -36,7 +37,7 @@ export const auth = reactive({
         localStorage.removeItem("token")
     },
 
-    async getOldSession() {
+    async checkOldSession() {
         const token = localStorage.getItem("token")
         
         if (token != null) {

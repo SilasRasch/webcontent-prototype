@@ -14,7 +14,6 @@ const handleLogin = async () => {
 
     if (success) {
         store.toggleLoginModal()
-        // Reset
         email.value = ''
         password.value = ''
         error.value = ''
