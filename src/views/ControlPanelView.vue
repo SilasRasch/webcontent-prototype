@@ -9,7 +9,7 @@ import { auth } from '@/store/auth';
         </h1>
         <div class="bg-slate-600 rounded-lg text-center m-4 p-4 text-white w-[50vw]">
             <p class="font-semibold">Vælg rolle</p>
-            <select class="bg-slate-800 bg-opacity-50 p-2 rounded-lg hover:bg-opacity-75 duration-200" v-model="auth.loggedInUser.role">
+            <select class="bg-slate-800 bg-opacity-50 p-2 rounded-lg hover:bg-opacity-75 duration-200" v-model="auth.loggedInUser.roles[0]">
                 <option class="role-option">Bruger</option>
                 <option class="role-option">Creator</option>
                 <option class="role-option">Admin</option>

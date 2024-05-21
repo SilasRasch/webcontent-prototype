@@ -34,7 +34,7 @@ if (!props.admin) {
 
 <template>
     <RouterLink :to="routeTo" draggable="false">
-        <div class="flex flex-col bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 hover:cursor-pointer select-none">
+        <div class="flex flex-col bg-slate-800 p-2 py-4 rounded-lg text-left aspect-square opacity-80 hover:opacity-100 duration-200 hover:cursor-pointer select-none">
             <h3 class="font-semibold text-xl px-2 p-1 rounded text-white" :class="props.colorClass">{{ props.brand }}</h3>
             <p class="px-1 text-white font-semibold"><slot></slot></p>
             <span v-if="props.awaitingUser" class="text-white p-1 px-2 rounded-lg mt-auto w-fit" :class="props.colorClass">Afventer dig</span>

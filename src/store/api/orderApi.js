@@ -5,7 +5,7 @@ const axi = useAxios()
 
 export const useOrderAPI = () => {
     const baseURL = "http://192.168.100.201:8282/api/orders"
-    const baseConfig = { baseURL: baseURL, method: 'get', url: '' }
+    const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
     const getOrders = async () => {
         const config = {

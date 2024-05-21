@@ -4,6 +4,7 @@ import LoginModal from './components/LoginModal.vue';
 import { auth } from './store/auth';
 
 const router = useRouter()
+auth.getOldSession()
 
 const handleLogout = () => {
   auth.logOut()

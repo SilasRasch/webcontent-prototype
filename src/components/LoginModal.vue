@@ -5,10 +5,10 @@ import { useRouter } from 'vue-router';
 import { auth } from '@/store/auth';
 
 const email = ref('')
-const pswd = ref('')
+const password = ref('')
 
-const handleLogin = () => {
-    auth.login(email)
+const handleLogin = async () => {
+    await auth.login(email.value, password.value)
     store.toggleLoginModal()
 }
 
@@ -37,7 +37,7 @@ const handleGoToCreate = () => {
                         </div>
                         <div class="grid pb-2 w-full">
                             <p class="text-left p-0 py-1">Kodeord</p>
-                            <input v-model="pswd" type="password" class="input" />
+                            <input v-model="password" type="password" class="input" />
                         </div>
                         <div class="flex justify-between py-1 text-base w-full">
                             <button @click="handleLogin" class="bg-green-500 p-2 rounded-lg w-1/2 mr-1 hover:bg-green-600 duration-200">Log ind</button>
