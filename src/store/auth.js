@@ -13,7 +13,7 @@ export const auth = reactive({
     },
 
     async login(email, password) {
-        await api.login(email, password) // Will return empty string if error / wrong email or password
+        api.login(email, password) // Will return empty string if error / wrong email or password
             .then(async (data) => { return this.loginHelper(data)})
     },
 
@@ -22,8 +22,9 @@ export const auth = reactive({
             localStorage.setItem("token", token)
             this.token = "Bearer " + token
             this.isLoggedIn = true
-            this.loggedInUser = await api.authenticate()
-            return true
+            api.authenticate().then((data) => this.loggedInUser = data).then(() => {
+                return true
+            })
         }
         return false
     },

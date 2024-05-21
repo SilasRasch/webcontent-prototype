@@ -28,13 +28,7 @@ else {
                 {{ titles.subTitle }}
             </h1>
 
-            <Suspense>
-                 <MyDashboard :admin="auth.isAdmin()" />
-
-                 <template #fallback>
-                    Loading data...
-                 </template>
-            </Suspense>
+            <MyDashboard :admin="auth.isAdmin()" />
            
         </div>
     </div>    

@@ -3,8 +3,8 @@ import { RouterLink, RouterView, useRouter } from 'vue-router'
 import LoginModal from './components/LoginModal.vue';
 import { auth } from './store/auth';
 
-const router = useRouter()
 auth.checkOldSession()
+const router = useRouter()
 
 const handleLogout = () => {
   auth.logOut()

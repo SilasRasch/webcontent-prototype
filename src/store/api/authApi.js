@@ -7,7 +7,7 @@ export const useAuthAPI = () => {
     const baseURL = "http://192.168.100.201:8383/auth/"
     const baseConfig = { baseURL: baseURL, method: 'post', url: '' }
     
-    const login = async (email, password) => {
+    const login = (email, password) => {
         const config = {
             ...baseConfig,
             url: 'login',
@@ -18,10 +18,10 @@ export const useAuthAPI = () => {
             }
         }
 
-        return await axios.request(config)
+        return axios.request(config)
     }
 
-    const register = async (user) => {
+    const register = (user) => {
         const config = {
             ...baseConfig,
             url: 'register',
@@ -29,11 +29,11 @@ export const useAuthAPI = () => {
         }
 
         if (auth.isAdmin()) {
-            return await axios.request(config)
+            return axios.request(config)
         }
     }
 
-    const authenticate = async () => {
+    const authenticate = () => {
         if (auth.isLoggedIn) {
             const config = {
                 ...baseConfig,
@@ -42,11 +42,11 @@ export const useAuthAPI = () => {
                 headers: { 'Authorization': auth.token }
             }
     
-            return await axios.request(config)
+            return axios.request(config)
         }
     }
 
-    const addAdmin = async (id) => {
+    const addAdmin = (id) => {
         if (auth.isLoggedIn) {
             const config = {
                 ...baseConfig,
@@ -55,7 +55,7 @@ export const useAuthAPI = () => {
             }
             
             if (auth.isAdmin()) {
-                return await axios.request(config)
+                return axios.request(config)
             }
         }
     }

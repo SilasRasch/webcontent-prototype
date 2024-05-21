@@ -1,53 +1,59 @@
 <script setup>
 import ToolTip from '../Input/ToolTip.vue';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { useOrderAPI } from '@/store/api/orderApi';
+import { computed, ref } from 'vue';
 
-const api = useOrderAPI()
-const route = useRoute()
-const id = parseInt(route.params.id)
-
-const model = ref(null)
-model.value = await api.getOrder(id)
-
-let status = ref('');
-let statusClass = ref('bg-red-500')
+const model = defineModel()
 
 // Toggle switches for information
 let toggleContact = ref(true)
 let toggleProject = ref(true)
 let toggleContent = ref(true)
 
-const handleToggleContact = () => {
-    toggleContact.value = !toggleContact.value
-}
-const handleToggleProject = () => {
-    toggleProject.value = !toggleProject.value
-}
-const handleToggleContent = () => {
-    toggleContent.value = !toggleContent.value
-}
+const handleToggleContact = () => toggleContact.value = !toggleContact.value
+const handleToggleProject = () => toggleProject.value = !toggleProject.value
+const handleToggleContent = () => toggleContent.value = !toggleContent.value
 
 // Compute text and colors to display
-switch (model.value.status.category) {
-    case 1:
-        status.value = 'I kø'
-        statusClass.value = 'bg-red-500'
-        break;
-    case 2:
-        status.value = 'Planlægning'
-        statusClass.value = 'bg-yellow-500'
-        break;
-    case 3:
-        status.value = 'Igangværende'
-        statusClass.value = 'bg-blue-500'
-        break;
-    case 4:
-        status.value = 'Feedback'
-        statusClass.value = 'bg-green-500'
-        break;        
-}
+const status = computed(() => {
+    let tmp;
+    switch (model.value.status.category) {
+        
+        case 1:
+            tmp = 'I kø'
+            break;
+        case 2:
+            tmp = 'Planlægning'
+            break;
+        case 3:
+            tmp = 'Igangværende'
+            break;
+        case 4:
+            tmp = 'Feedback'
+            break;        
+    }
+
+    return tmp
+}) 
+
+const statusClass = computed(() => {
+    let tmp;
+    switch (model.value.status.category) {
+        case 1:
+            tmp = 'bg-red-500'
+            break;
+        case 2:
+            tmp = 'bg-yellow-500'
+            break;
+        case 3:
+            tmp = 'bg-blue-500'
+            break;
+        case 4:
+            tmp = 'bg-green-500'
+            break;        
+    }
+
+    return tmp
+}) 
 </script>
 
 <template>

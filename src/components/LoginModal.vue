@@ -10,7 +10,8 @@ const password = ref('')
 const error = ref('')
 
 const handleLogin = async () => {
-    const success = await auth.login(email.value, password.value)
+    let success
+    auth.login(email.value, password.value).then(res => success = res)
 
     if (success) {
         store.toggleLoginModal()

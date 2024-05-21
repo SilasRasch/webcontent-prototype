@@ -4,9 +4,11 @@ import DashboardConfirmed from '@/components/min-side/DashboardConfirmed.vue';
 import DashboardPool from './DashboardPool.vue';
 import DashboardTabControls from './DashboardTabControls.vue';
 import { useOrderAPI } from '@/store/api/orderApi';
+import { ref } from 'vue';
 
+const orders = ref([])
 const api = useOrderAPI()
-store.orders = await api.getOrders()
+api.getOrders().then((data) => orders.value = data).then((data) => store.orders = data)
 
 const props = defineProps({
   admin: {
@@ -15,19 +17,19 @@ const props = defineProps({
   }
 })
 
-const unconfirmed = store.orders.filter((i) => i.status.state === 0)
-const cancelled = store.orders.filter((i) => i.status.state === -1)
-const closed = store.orders.filter((i) => i.status.state === 2)
+const unconfirmed = orders.value.filter((i) => i.status.state === 0)
+const cancelled = orders.value.filter((i) => i.status.state === -1)
+const closed = orders.value.filter((i) => i.status.state === 2)
 </script>
 
 <template>
-    <div class="grid justify-center text-center w-full">
+    <div v-if="orders.length > 0" class="grid justify-center text-center w-full">
         <!-- Tabs -->
         <DashboardTabControls :admin="props.admin"/>
 
         <!-- Dashboard -->
         <TransitionGroup v-if="!props.admin" tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
-          <DashboardConfirmed v-if="store.currDashboardTab === 1" />
+          <DashboardConfirmed v-if="store.currDashboardTab === 1" v-model="orders" />
           <DashboardPool v-if="store.currDashboardTab === 2" v-model="unconfirmed" :admin="props.admin">Ubekræftede projekter</DashboardPool>
           <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled" :admin="props.admin">Annullerede projekter</DashboardPool>
           <DashboardPool v-if="store.currDashboardTab === 4" v-model="closed" :admin="props.admin">Færdige projekter</DashboardPool>
@@ -35,7 +37,7 @@ const closed = store.orders.filter((i) => i.status.state === 2)
         
         <TransitionGroup v-else tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
           <DashboardPool v-if="store.currDashboardTab === 1" v-model="unconfirmed" admin>Ubekræftede projekter</DashboardPool>
-          <DashboardConfirmed v-if="store.currDashboardTab === 2" admin/>
+          <DashboardConfirmed v-if="store.currDashboardTab === 2" v-model="orders" admin/>
           <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled" admin>Annullerede projekter</DashboardPool>
           <DashboardPool v-if="store.currDashboardTab === 4" v-model="closed" admin>Færdige projekter</DashboardPool>
         </TransitionGroup>
