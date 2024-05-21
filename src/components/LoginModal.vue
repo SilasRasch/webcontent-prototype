@@ -7,9 +7,22 @@ import { auth } from '@/store/auth';
 const email = ref('')
 const password = ref('')
 
+const error = ref('')
+
 const handleLogin = async () => {
-    await auth.login(email.value, password.value)
-    store.toggleLoginModal()
+    const success = await auth.login(email.value, password.value)
+
+    if (success) {
+        store.toggleLoginModal()
+        // Reset
+        email.value = ''
+        password.value = ''
+        error.value = ''
+    }
+    else {
+        error.value = "Forkert email eller kodeord"
+        password.value = ''
+    }
 }
 
 const router = useRouter()
@@ -42,6 +55,9 @@ const handleGoToCreate = () => {
                         <div class="flex justify-between py-1 text-base w-full">
                             <button @click="handleLogin" class="bg-green-500 p-2 rounded-lg w-1/2 mr-1 hover:bg-green-600 duration-200">Log ind</button>
                             <button @click="handleGoToCreate" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Opret</button>
+                        </div>
+                        <div v-if="error" class="text-red-600 text-base">
+                            * {{ error }}
                         </div>
                     </div>
                 </div>

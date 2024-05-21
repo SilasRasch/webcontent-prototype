@@ -12,17 +12,19 @@ export const auth = reactive({
         roles: []
     },
     async login(email, password) {
-        await api.login(email, password)
-            .then((data) => {
-                this.token = "Bearer " + data
-                localStorage.setItem("token", data)
+        await api.login(email, password) // Will return empty string if error / wrong email or password
+            .then(async (data) => {
+                if (data) {
+                    localStorage.setItem("token", data)
+                    this.token = "Bearer " + data
+                    this.isLoggedIn = true
+                    this.loggedInUser = await api.authenticate()
+                    return true
+                }
+                return false
             })
-            .then(async () => {
-                this.isLoggedIn = true
-                this.loggedInUser = await api.authenticate()
-            })
-        console.log(this.loggedInUser);
     },
+    
     logOut() {
         this.isLoggedIn = false
         this.loggedInUser =  {
@@ -48,8 +50,6 @@ export const auth = reactive({
                 this.logOut()
             }
         }
-
-        console.log(this.loggedInUser);
     },
 
     isAdmin() {
@@ -62,7 +62,7 @@ export const auth = reactive({
         return this.loggedInUser.roles.includes("Creator") ? true : false
     },
 
-    decodeJwt: (token) => {
+    decodeJwt(token) {
         const arrayToken = token.split(".")
         return JSON.parse(atob(arrayToken[1]))
     }
