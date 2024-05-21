@@ -1,7 +1,5 @@
 import { auth } from "../auth"
-import { useAxios } from "./useAxios"
-
-const axios = useAxios()
+import axios from "axios"
 
 export const useAuthAPI = () => {
     const baseURL = "http://192.168.100.201:8383/auth/"
@@ -18,7 +16,8 @@ export const useAuthAPI = () => {
             }
         }
 
-        return axios.request(config)
+        return axios(config)
+            .then((res) => { return res.data })
     }
 
     const register = (user) => {
@@ -29,7 +28,8 @@ export const useAuthAPI = () => {
         }
 
         if (auth.isAdmin()) {
-            return axios.request(config)
+            return axios(config)
+                .then((res) => { return res.data })
         }
     }
 
@@ -42,7 +42,8 @@ export const useAuthAPI = () => {
                 headers: { 'Authorization': auth.token }
             }
     
-            return axios.request(config)
+            return axios(config)
+                .then((res) => { return res.data })
         }
     }
 
@@ -55,7 +56,8 @@ export const useAuthAPI = () => {
             }
             
             if (auth.isAdmin()) {
-                return axios.request(config)
+                return axios(config)
+                    .then((res) => { return res.data })
             }
         }
     }

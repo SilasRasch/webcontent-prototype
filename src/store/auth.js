@@ -12,17 +12,17 @@ export const auth = reactive({
         roles: []
     },
 
-    async login(email, password) {
-        api.login(email, password) // Will return empty string if error / wrong email or password
-            .then(async (data) => { return this.loginHelper(data)})
+    login(email, password) {
+        return api.login(email, password) // Will return empty string if error / wrong email or password
+            .then((data) => { return this.loginHelper(data)})
     },
 
-    async loginHelper(token) {
+    loginHelper(token) {
         if (token.length > 0) {
             localStorage.setItem("token", token)
             this.token = "Bearer " + token
             this.isLoggedIn = true
-            api.authenticate().then((data) => this.loggedInUser = data).then(() => {
+            return api.authenticate().then((data) => this.loggedInUser = data).then(() => {
                 return true
             })
         }

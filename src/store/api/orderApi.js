@@ -1,7 +1,5 @@
 import { auth } from "../auth"
-import { useAxios } from "./useAxios"
-
-const axi = useAxios()
+import axios from "axios"
 
 export const useOrderAPI = () => {
     const baseURL = "http://192.168.100.201:8282/api/orders"
@@ -14,7 +12,9 @@ export const useOrderAPI = () => {
             url: !auth.isAdmin() ? `?userId=${auth.loggedInUser.id}` : '/'
         }
 
-        return axi.request(config)
+        // return axi.request(config)
+        return axios(config)
+            .then((res) => { return res.data })
     }
 
     const getOrder = (id) => {
@@ -24,7 +24,8 @@ export const useOrderAPI = () => {
             url: `/${id}`
         }
 
-        return axi.request(config)
+        return axios(config)
+            .then((res) => { return res.data })
     }
 
     const putOrder = (id, order) => {
@@ -35,7 +36,7 @@ export const useOrderAPI = () => {
             data: order,
         }
 
-        return axi.request(config).then(() => { return axi.response })
+        return axios(config)
     }
 
     const postOrder = (order) => {
@@ -45,7 +46,7 @@ export const useOrderAPI = () => {
             data: order,
         }
 
-        return axi.request(config).then(() => { return axi.response })
+        return axios(config)
     }
 
     const deleteOrder = (id) => {
@@ -55,7 +56,7 @@ export const useOrderAPI = () => {
             url: toString(id),
         }
         
-        return axi.request(config).then(() => { return axi.response })
+        return axios(config)
     }
 
     return { getOrders, getOrder, postOrder, putOrder, deleteOrder }

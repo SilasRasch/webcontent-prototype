@@ -11,18 +11,18 @@ const error = ref('')
 
 const handleLogin = async () => {
     let success
-    auth.login(email.value, password.value).then(res => success = res)
-
-    if (success) {
-        store.toggleLoginModal()
-        email.value = ''
-        password.value = ''
-        error.value = ''
-    }
-    else {
-        error.value = "Forkert email eller kodeord"
-        password.value = ''
-    }
+    auth.login(email.value, password.value).then(res => success = res).then(() => {
+        if (success) {
+            store.toggleLoginModal()
+            email.value = ''
+            password.value = ''
+            error.value = ''
+        }
+        else {
+            error.value = "Forkert email eller kodeord"
+            password.value = ''
+        }
+    })
 }
 
 const router = useRouter()
