@@ -14,7 +14,6 @@ export const useOrderAPI = () => {
             url: !auth.isAdmin() ? `?userId=${id}` : '/'
         }
 
-        // return axi.request(config)
         return axios(config)
             .then((res) => { return res.data })
     }
