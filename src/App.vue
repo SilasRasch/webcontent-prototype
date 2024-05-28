@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import UserModal from './components/modals/UserModal.vue';
+import UserModal from './components/modals/UserModal/UserModal.vue';
 import { auth } from './store/auth';
 
 auth.checkOldSession()
