@@ -1,15 +1,9 @@
 <script setup>
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 import LoginModal from './components/LoginModal.vue';
 import { auth } from './store/auth';
 
 auth.checkOldSession()
-const router = useRouter()
-
-const handleLogout = () => {
-  auth.logOut()
-  router.push("/")
-}
 </script>
 
 <template>
@@ -20,13 +14,14 @@ const handleLogout = () => {
     
 
       <div class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
-        <LoginModal v-if="!auth.isLoggedIn" />
         <RouterLink to="/kontrolpanel" v-if="auth.isUser() || auth.isCreator()">Guide</RouterLink>
         <RouterLink to="/admin" v-if="auth.isAdmin()">Bestillinger</RouterLink>
         <RouterLink to="/kontrolpanel" v-if="auth.isAdmin()">Kontrolpanel</RouterLink>
         <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
-        <span v-if="auth.isLoggedIn" @click="handleLogout" class="cursor-pointer fa fa-sign-out text-xl"></span>
+        <span v-if="auth.isLoggedIn" class="cursor-pointer fa fa-comments-o text-xl"></span>
+        <LoginModal />
+        <!-- <span v-if="auth.isLoggedIn" @click="handleLogout" class="cursor-pointer fa fa-sign-out text-xl"></span> -->
       </div>
   </header>
 

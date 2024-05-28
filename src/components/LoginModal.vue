@@ -25,6 +25,12 @@ const handleLogin = async () => {
     })
 }
 
+const handleLogout = () => {
+    store.toggleLoginModal()
+    auth.logOut()
+    router.push("/")
+}
+
 const router = useRouter()
 
 const handleGoToCreate = () => {
@@ -38,10 +44,10 @@ const handleGoToCreate = () => {
         <span @click="store.toggleLoginModal" class="cursor-pointer fa fa-user-o text-xl"></span>
 
         <Transition>
-            <div v-if="store.showLoginModal" @click.self="store.toggleLoginModal" class="z-50 absolute bg-black w-[100vw] h-[100vh] top-0 left-0 bg-opacity-60 grid justify-center items-center">
-                <div
-                class="p-2 px-4 rounded-lg text-white bg-slate-900
-                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 mb-72">
+            <div v-if="store.showLoginModal" @click.self="store.toggleLoginModal" class="z-50 absolute w-[100vw] h-[100vh] top-0 left-0">
+                <div v-if="!auth.isLoggedIn"
+                class="p-2 px-4 rounded-lg text-white bg-gray-900 
+                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 mb-72 absolute right-2 top-20 shadow-2xl shadow-black">
                     Log ind
                     <div class="grid w-full">
                         <div class="grid pt-2 w-full">
@@ -61,21 +67,48 @@ const handleGoToCreate = () => {
                         </div>
                     </div>
                 </div>
+                <div v-else
+                class="p-2 px-4 rounded-lg text-white bg-gray-800 
+                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 absolute top-[6vh] right-0 shadow-2xl shadow-black pb-4">
+                    <div class="grid w-full mt-2 gap-4">
+                        <div class="flex">
+                            <img src="https://webcontent.dk/wp-content/uploads/2024/01/cropped-logo-hjemmeside-1-32x32.png"
+                            class="mx-2" />
+                            <p class="text-left p-0 py-1">{{ auth.loggedInUser.email }}</p>
+                            <!-- <p class="text-left p-0 py-1">info@webcontent.dk</p> -->
+                        </div>
+                        <hr />
+                        <div class="grid gap-1">
+                            <div class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                                <div class="flex text-center">
+                                    <span class="cursor-pointer fa fa-cog fa-2x min-w-10"></span>
+                                    <p class="text-base mx-1">Indstillinger</p>
+                                </div>  
+                                <span class="fa fa-angle-right fa-2x"></span>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                                <div class="flex text-center">
+                                    <span class="cursor-pointer fa fa-question fa-2x min-w-10"></span>
+                                    <p class="text-base mx-1">Hjælp og spørgsmål</p>
+                                </div>  
+                                <span class="fa fa-angle-right fa-2x"></span>
+                            </div>
+                            <div @click="handleLogout" class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                                <div class="flex text-center">
+                                    <span @click="handleLogout" class="cursor-pointer fa fa-sign-out fa-2x min-w-10"></span>
+                                    <p class="text-base">Log ud</p>
+                                </div>  
+                                <span class="fa fa-angle-right fa-2x"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </Transition>
     </div>
 </template>
 
 <style scoped>
-.triangle {
-    width: 0; 
-    height: 0; 
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    border-bottom: 5px solid black;
-}
-
 .input {
     @apply rounded-lg bg-slate-600 p-1 text-lg font-normal
 }
@@ -89,7 +122,7 @@ const handleGoToCreate = () => {
 }
 
 .v-enter-active {
-  transition: all 0.4s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .v-leave-from {
@@ -102,11 +135,11 @@ const handleGoToCreate = () => {
 }
 
 .v-leave-active {
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .v-move {
     opacity: 0;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 </style>
