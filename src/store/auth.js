@@ -14,7 +14,7 @@ export const auth = reactive({
 
     login(email, password) {
         return api.login(email, password) // Will return empty string if error / wrong email or password
-            .then((data) => { return this.loginHelper(data)})
+            .then((data) => { return this.loginHelper(data) })
     },
 
     loginHelper(token) {

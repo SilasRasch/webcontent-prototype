@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import LoginModal from './components/LoginModal.vue';
+import UserModal from './components/modals/UserModal.vue';
 import { auth } from './store/auth';
 
 auth.checkOldSession()
@@ -13,15 +13,14 @@ auth.checkOldSession()
     </RouterLink>
     
 
-      <div class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
+      <div v-if="auth.isLoggedIn" class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
         <RouterLink to="/kontrolpanel" v-if="auth.isUser() || auth.isCreator()">Guide</RouterLink>
         <RouterLink to="/admin" v-if="auth.isAdmin()">Bestillinger</RouterLink>
         <RouterLink to="/kontrolpanel" v-if="auth.isAdmin()">Kontrolpanel</RouterLink>
         <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
-        <span v-if="auth.isLoggedIn" class="cursor-pointer fa fa-comments-o text-xl"></span>
-        <LoginModal />
-        <!-- <span v-if="auth.isLoggedIn" @click="handleLogout" class="cursor-pointer fa fa-sign-out text-xl"></span> -->
+        <span class="cursor-pointer fa fa-comments-o text-xl"></span>
+        <UserModal />
       </div>
   </header>
 

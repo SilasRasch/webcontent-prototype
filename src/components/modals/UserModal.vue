@@ -1,0 +1,200 @@
+<script setup>
+import { ref } from 'vue';
+import { store } from '@/store/store';
+import { useRouter } from 'vue-router';
+import { auth } from '@/store/auth';
+
+const currTab = ref(0)
+
+const handleLogout = () => {
+    store.toggleLoginModal()
+    auth.logOut()
+    router.push("/")
+}
+
+const router = useRouter()
+
+const showDisplayNameSetting = ref(false)
+const showEmailSetting = ref(false)
+const showPasswordSetting = ref(false)
+
+const newPswd = ref('')
+const newPswdConfirm = ref('')
+</script>
+
+<template>
+    <div>
+        <span @click="store.toggleLoginModal" class="cursor-pointer fa fa-user-o text-xl"></span>
+
+        <Transition>
+            <div v-if="store.showLoginModal" @click.self="store.toggleLoginModal" class="z-30 absolute w-[100vw] h-[100vh] top-0 left-0">
+                <div v-if="currTab === 0"
+                class="p-2 px-4 rounded-lg text-white bg-gray-800 
+                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 absolute md:top-[78px] top-[112px] right-0 shadow-2xl shadow-black pb-4">
+                    <div class="grid w-full mt-2 gap-4">
+                        <div class="flex">
+                            <img src="https://webcontent.dk/wp-content/uploads/2024/01/cropped-logo-hjemmeside-1-32x32.png"
+                            class="mx-2" />
+                            <p class="text-left p-0 py-1">{{ auth.loggedInUser.email }}</p>
+                        </div>
+                        <hr />
+                        <div class="grid gap-2">
+                            <div class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
+                            @click="currTab = 1">
+                                <div class="flex text-center">
+                                    <span class="cursor-pointer fa fa-cog fa-2x min-w-10"></span>
+                                    <p class="text-base mx-1">Indstillinger</p>
+                                </div>  
+                                <span class="fa fa-angle-right fa-2x"></span>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
+                            @click="currTab = 2">
+                                <div class="flex text-center">
+                                    <span class="cursor-pointer fa fa-question fa-2x min-w-10"></span>
+                                    <p class="text-base mx-1">Hjælp og spørgsmål</p>
+                                </div>  
+                                <span class="fa fa-angle-right fa-2x"></span>
+                            </div>
+                            <div @click="handleLogout" class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-red-500 duration-500 cursor-pointer">
+                                <div class="flex text-center">
+                                    <span @click="handleLogout" class="cursor-pointer fa fa-sign-out fa-2x min-w-10"></span>
+                                    <p class="text-base">Log ud</p>
+                                </div>  
+                                <span class="fa fa-angle-right fa-2x"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings page -->
+
+                <div v-else-if="currTab === 1"
+                class="p-2 px-4 rounded-lg text-white bg-gray-800 
+                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 absolute top-[6vh] right-0 shadow-2xl shadow-black pb-4">
+                    <div class="grid w-full mt-2 gap-4">
+                        <div class="flex cursor-pointer" @click="currTab = 0">
+                            <span class="fa fa-angle-left fa-2x"></span>
+                            <p class="text-left p-0 py-1 mx-3">Tilbage</p>
+                        </div>
+                        <hr />
+                        <div class="grid gap-2">
+                            <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                                <div class="flex justify-between w-full" @click="showDisplayNameSetting = !showDisplayNameSetting">
+                                    <div class="flex text-center">
+                                        <span class="cursor-pointer fa fa-id-card-o fa-2x min-w-10"></span>
+                                        <p class="text-base">Skift brugernavn</p>
+                                    </div>  
+                                    <span class="fa fa-angle-down fa-2x"></span>
+                                </div>
+                                <div v-if="showDisplayNameSetting" class="flex">
+                                    <input placeholder="Indast nyt brugernavn" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                                    <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
+                                </div>
+                            </div>
+                            <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                                <div class="flex justify-between w-full" @click="showEmailSetting = !showEmailSetting">
+                                    <div class="flex text-center">
+                                        <span class="cursor-pointer fa fa-envelope-o fa-2x min-w-10"></span>
+                                        <p class="text-base">Skift email</p>
+                                    </div>  
+                                    <span class="fa fa-angle-down fa-2x"></span>
+                                </div>
+                                <div v-if="showEmailSetting" class="flex">
+                                    <input placeholder="Indast ny e-mail" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                                    <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
+                                </div>
+                            </div>
+                            <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                                <div class="flex justify-between w-full" @click="showPasswordSetting = !showPasswordSetting">
+                                    <div class="flex text-center">
+                                        <span class="cursor-pointer fa fa-lock fa-2x min-w-10"></span>
+                                        <p class="text-base">Skift kodeord</p>
+                                    </div>  
+                                    <span class="fa fa-angle-down fa-2x"></span>
+                                </div>
+                                <div v-if="showPasswordSetting" class="grid">
+                                    <div class="flex">
+                                        <input v-model="newPswd" type="password" placeholder="Indast nyt kodeord" class="w-full p-2 mt-2 rounded-xl text-base text-black" />
+                                    </div>
+                                    <div class="flex">
+                                        <input v-model="newPswdConfirm" type="password" placeholder="Gentag nyt kodeord" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                                        <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200" 
+                                        :disabled="newPswd.length === 0 || newPswd !== newPswdConfirm"
+                                        @click="() => console.log('Confirmed')"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+
+                <div v-else-if="currTab === 2"
+                class="p-2 px-4 rounded-lg text-white bg-gray-800
+                min-w-fit w-[21rem] min-h-fit md:mb-96 absolute top-[6vh] right-0 shadow-2xl shadow-black pb-4">
+                    <div class="grid w-full mt-2 gap-4">
+                        <div class="flex cursor-pointer" @click="currTab = 0">
+                            <span class="fa fa-angle-left fa-2x"></span>
+                            <p class="text-left p-0 py-1 mx-3">Tilbage</p>
+                        </div>
+                        <hr />
+                        <div class="grid gap-2 md:max-w-[400px]">
+                            <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3">
+                                <p class="text-base">Kan jeg regne med den estimerede pris?</p>
+                                <p class="text-left text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, tempora dolor?</p>
+                            </div>
+                            <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3">
+                                <p class="text-base">Kan jeg regne med den estimerede pris?</p>
+                                <p class="text-left text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, tempora dolor?</p>
+                            </div>
+                            <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3">
+                                <p class="text-base">Kan jeg regne med den estimerede pris?</p>
+                                <p class="text-left text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, tempora dolor?</p>
+                            </div>
+                            <div class="flex flex-col bg-red-500 p-2 rounded-lg px-3 cursor-pointer hover:bg-red-600 duration-200">
+                                <p class="text-base text-center">Vis flere</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </Transition>
+    </div>
+</template>
+
+<style scoped>
+.input {
+    @apply rounded-lg bg-slate-600 p-1 text-lg font-normal
+}
+
+.v-enter-from {
+  opacity: 0;
+}
+
+.v-enter-to {
+  opacity: 1;
+}
+
+.v-enter-active {
+  transition: all 0.2s ease-in-out;
+}
+
+.v-leave-from {
+    z-index: -100;
+    opacity: 0;
+}
+
+.v-leave-to {
+    opacity: 0;
+}
+
+.v-leave-active {
+    transition: all 0.2s ease-in-out;
+}
+
+.v-move {
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+</style>
