@@ -2,8 +2,6 @@
 import { computed, ref } from 'vue';
 import MyModal from '../MyModal.vue';
 
-const showChat = ref(false)
-
 const chats = ref([
     { message: "Hej", direction: "in" },
     { message: "Hvordan går det?", direction: "out" },
@@ -25,6 +23,16 @@ const sendChat = () => {
     if (message.value !== '') {
         chats.value.push({ message: message.value, direction: "out" })
         message.value = ''
+    }
+}
+
+const selectedContact = ref(undefined)
+
+const selectContact = (contact) => {
+    if (selectedContact.value !== contact) {
+        selectedContact.value = contact
+    } else {
+        selectedContact.value = ''
     }
 }
 
@@ -57,7 +65,7 @@ const shownContacts = computed(() => {
                         <!-- User Card -->
                         
                         <div v-for="contact, index in shownContacts" :key="index"  class="h-fit flex items-center justify-between min-w-72 bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
-                        @click="showChat = !showChat">
+                        @click="selectContact(contact)">
                             <div class="flex">
                                 <img src="https://webcontent.dk/wp-content/uploads/2024/01/cropped-logo-hjemmeside-1-32x32.png" class="mr-2" height="56" width="56" />
                                 <div class="flex flex-col mx-1">
@@ -65,28 +73,29 @@ const shownContacts = computed(() => {
                                     <p class="text-left p-0 pb-1 text-sm">{{ contact.company }}</p>
                                 </div>
                             </div>  
-                            <span class="fa fa-angle-right fa-2x"></span>
+                            <span v-if="selectedContact" class="fa fa-2x" :class="selectedContact === contact ? 'fa-angle-left': 'fa-angle-right'"></span>
+                            <span v-else class="fa fa-angle-right fa-2x"></span>
                         </div>
                     </div>
                 </div>
 
-                <div v-show="showChat" class="grid content-between w-full mt-2 min-w-[350px] scrollbar">
+                <div v-if="selectedContact" class="grid content-between w-full mt-2 min-w-[350px] scrollbar">
                     <div class="grid gap-4">
-                        <p class="m-0 p-0">Mathias H.</p>
-                        <p class="-mt-4 p-0 text-sm">WebContent</p>
+                        <p class="m-0 p-0">{{ selectedContact.name }}</p>
+                        <p class="-mt-4 p-0 text-sm">{{ selectedContact.company }}</p>
                         <hr>
                     </div>
                     
                     <!-- Chats -->
                     <div class="flex flex-col gap-2 mt-4">
                         
-                        <div class="flex flex-col gap-2">
+                        <div class="flex flex-col gap-2 mb-12">
                             <span v-for="chat, index in chats" :key="index"
                             :class="chat.direction === 'in' ? 'chat-in' : 'chat-out'">
                                 {{ chat.message }}
                             </span>
                         </div>
-                        <div class="flex items-center bg-gray-900 rounded-lg relative">
+                        <div class="flex items-center bg-gray-900 rounded-lg absolute bottom-4 right-6 min-w-[342px]">
                             <input @keyup.enter="sendChat" v-model="message" class="input" placeholder="Hvad vil du sige?">
                             <span @click="sendChat" class="fa fa-paper-plane-o mr-3 cursor-pointer"></span>
                         </div>
@@ -106,11 +115,11 @@ const shownContacts = computed(() => {
 }
 
 .chat-in {
-    @apply bg-gray-900 w-fit p-2 px-4 text-base rounded-full
+    @apply bg-gray-900 w-fit p-2 px-4 text-base rounded-2xl break-words max-w-[280px] text-left
 }
 
 .chat-out {
-    @apply self-end bg-red-500 w-fit p-2 px-4 text-base rounded-full
+    @apply self-end bg-red-500 w-fit p-2 px-4 text-base rounded-2xl break-words max-w-[280px] text-left
 }
 
 .scrollbar {
