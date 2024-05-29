@@ -2,7 +2,8 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useOrderAPI = () => {
-    const baseURL = "http://192.168.100.201:8282/api/orders"
+    // const baseURL = "http://192.168.100.201:8282/api/orders"
+    const baseURL = "https://wc-data-api.nobitches.win/api/orders"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
     const getOrders = () => {

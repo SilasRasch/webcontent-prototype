@@ -2,7 +2,8 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useAuthAPI = () => {
-    const baseURL = "http://192.168.100.201:8383/auth/"
+    // const baseURL = "http://192.168.100.201:8383/auth/"
+    const baseURL = "https://wc-auth-api.nobitches.win/auth/"
     const baseConfig = { baseURL: baseURL, method: 'post', url: '' }
     
     const login = (email, password) => {
