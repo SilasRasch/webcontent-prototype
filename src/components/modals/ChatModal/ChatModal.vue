@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import MyModal from '../MyModal.vue';
 
 const showChat = ref(false)
@@ -28,6 +28,12 @@ const sendChat = () => {
     }
 }
 
+const searchTerm = ref('')
+
+const shownContacts = computed(() => {
+    return searchTerm.value === '' ? contacts.value : contacts.value.filter(x => x.name.toLowerCase().includes(searchTerm.value.toLowerCase()))
+})
+
 </script>
 
 <template>
@@ -44,13 +50,13 @@ const sendChat = () => {
                     
                     <div class="grid gap-2 min-h-96 content-start">
                         <div class="flex items-center bg-gray-900 rounded-lg h-fit">
-                            <input class="input" placeholder="Søg efter en person...">
+                            <input v-model="searchTerm" class="input" placeholder="Søg efter en person...">
                             <span class="fa fa-search mr-3"></span>
                         </div>
 
                         <!-- User Card -->
                         
-                        <div v-for="contact, index in contacts" :key="index"  class="h-fit flex items-center justify-between min-w-72 bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
+                        <div v-for="contact, index in shownContacts" :key="index"  class="h-fit flex items-center justify-between min-w-72 bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
                         @click="showChat = !showChat">
                             <div class="flex">
                                 <img src="https://webcontent.dk/wp-content/uploads/2024/01/cropped-logo-hjemmeside-1-32x32.png" class="mr-2" height="56" width="56" />
