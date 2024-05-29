@@ -79,7 +79,7 @@ const shownContacts = computed(() => {
                     </div>
                 </div>
 
-                <div v-if="selectedContact" class="grid content-between w-full mt-2 min-w-[350px] scrollbar">
+                <div v-if="selectedContact" class="grid content-between w-full mt-2 min-w-[350px]">
                     <div class="grid gap-4">
                         <p class="m-0 p-0">{{ selectedContact.name }}</p>
                         <p class="-mt-4 p-0 text-sm">{{ selectedContact.company }}</p>
@@ -87,18 +87,19 @@ const shownContacts = computed(() => {
                     </div>
                     
                     <!-- Chats -->
-                    <div class="flex flex-col gap-2 mt-4">
+                    <div class="flex flex-col gap-2 mt-4 mb-12 scrollbar">
                         
-                        <div class="flex flex-col gap-2 mb-12">
+                        <div class="flex flex-col gap-2">
                             <span v-for="chat, index in chats" :key="index"
                             :class="chat.direction === 'in' ? 'chat-in' : 'chat-out'">
                                 {{ chat.message }}
                             </span>
                         </div>
-                        <div class="flex items-center bg-gray-900 rounded-lg absolute bottom-4 right-6 min-w-[342px]">
-                            <input @keyup.enter="sendChat" v-model="message" class="input" placeholder="Hvad vil du sige?">
-                            <span @click="sendChat" class="fa fa-paper-plane-o mr-3 cursor-pointer"></span>
-                        </div>
+                        
+                    </div>
+                    <div class="flex items-center bg-gray-900 rounded-lg absolute bottom-4 right-4 min-w-[350px]">
+                        <input @keyup.enter="sendChat" v-model="message" class="input" placeholder="Hvad vil du sige?">
+                        <span @click="sendChat" class="fa fa-paper-plane-o mr-3 cursor-pointer"></span>
                     </div>
                 </div>
             </div>
@@ -111,7 +112,7 @@ const shownContacts = computed(() => {
 
 <style scoped>
 .input {
-    @apply bg-gray-900 text-base p-2 pl-3 font-normal w-full rounded-lg
+    @apply bg-gray-900 text-base p-2 pl-3 font-normal w-full rounded-l-lg
 }
 
 .chat-in {
