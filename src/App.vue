@@ -1,7 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import UserModal from './components/modals/UserModal/UserModal.vue';
+import UserModalV2 from './components/modals/UserModal/UserModalV2.vue';
 import { auth } from './store/auth';
+import ChatModal from './components/modals/ChatModal/ChatModal.vue';
 
 auth.checkOldSession()
 </script>
@@ -19,8 +20,8 @@ auth.checkOldSession()
         <RouterLink to="/kontrolpanel" v-if="auth.isAdmin()">Kontrolpanel</RouterLink>
         <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
-        <span class="cursor-pointer fa fa-comments-o text-xl"></span>
-        <UserModal />
+        <ChatModal />
+        <UserModalV2 />
       </div>
   </header>
 
