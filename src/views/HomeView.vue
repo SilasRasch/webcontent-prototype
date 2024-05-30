@@ -1,4 +1,5 @@
 <script setup>
+import ToolTip from '@/components/Input/ToolTip.vue';
 import { auth } from '@/store/auth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -40,7 +41,7 @@ const handleGoToCreate = () => router.push('/opret')
         <div class="p-2 px-4 rounded-lg text-white bg-gray-900 min-w-[300px] max-w-lg shadow-black shadow-lg">
           <div class="grid w-full">
               <div class="grid pt-2 w-full">
-                  <p class="text-left p-0 py-1">E-mail</p>
+                  <p class="text-left p-0 py-1">E-mail <ToolTip class="bg-gray-800" label="i">Test credentials <br> Brugernavn: admin <br> Kodeord: test</ToolTip> </p>
                   <input v-model="email" type="email" class="input" />
               </div>
               <div class="grid pb-2 w-full">
@@ -49,7 +50,7 @@ const handleGoToCreate = () => router.push('/opret')
               </div>
               <div class="flex justify-between py-1 text-base w-full">
                   <button @click="handleLogin" class="bg-green-500 p-2 rounded-lg w-1/2 mr-1 hover:bg-green-600 duration-200">Log ind</button>
-                  <button @click="handleGoToCreate" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Opret</button>
+                  <button @click="handleGoToCreate" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</button>
               </div>
               <div class="text-base cursor-pointer hover:text-blue-500 duration-300">Glemt kodeord?</div>
               <div v-if="error" class="text-red-600 text-base">
