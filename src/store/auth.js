@@ -44,14 +44,11 @@ export const auth = reactive({
     async refreshToken() {
         const id = localStorage.getItem("user")
         
-        // let success
         if (id !== null) {
             api.refreshToken(id).then((data) => {
                 this.token = data
                 this.loginHelper(data)
             }).catch(() => this.logOut())
-
-            // if (!success) this.logOut()
         }
     },
 
