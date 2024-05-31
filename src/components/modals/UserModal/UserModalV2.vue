@@ -117,6 +117,19 @@ const newPswdConfirm = ref('')
                             </div>
                         </div>
                     </div>
+                    <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                        <div class="flex justify-between w-full">
+                            <div class="flex text-center">
+                                <span class="cursor-pointer fa fa-key fa-2x min-w-10"></span>
+                                <p class="text-base">Skift rolle</p>
+                            </div>  
+                            <select class="bg-slate-800 bg-opacity-50 p-2 rounded-lg hover:bg-opacity-75 duration-200" v-model="auth.loggedInUser.roles[0]">
+                                <option class="role-option">Bruger</option>
+                                <option class="role-option">Creator</option>
+                                <option class="role-option">Admin</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -154,6 +167,10 @@ const newPswdConfirm = ref('')
 <style scoped>
 .input {
     @apply bg-slate-600 text-base p-1 px-2 font-normal w-full rounded-lg
+}
+
+.role-option {
+    @apply bg-slate-800 bg-opacity-50
 }
 
 .v-enter-from {

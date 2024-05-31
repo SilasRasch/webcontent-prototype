@@ -19,7 +19,6 @@ export const auth = reactive({
 
     loginHelper(token) {
         if (token.length > 0) {
-            // localStorage.setItem("token", token)
             this.setCookie("token", token, 1)
             this.token = "Bearer " + token
             this.isLoggedIn = true
@@ -39,12 +38,11 @@ export const auth = reactive({
             roles: [],
         }
 
-        localStorage.removeItem("token")
+        localStorage.removeItem("user")
         this.eraseCookie("token")
     },
 
     async checkOldSession() {
-        // const token = localStorage.getItem("token")
         const token = this.getCookie("token")
         
         if (token != null) {
@@ -73,13 +71,11 @@ export const auth = reactive({
         return JSON.parse(atob(arrayToken[1]))
     },
 
-    setCookie(name, value, days) {
-        var expires = ''
-        var date = new Date()
-        date.setTime(date.getTime() + (days*24*60*60*1000))
-        expires = "; expires=" + date.toUTCString()
-
-        document.cookie = name + "=" + (value || "") + expires + "; path=/; httpOnly; SameSite=strict"
+    setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/; Secure; SameSite=Strict";
     },
 
     getCookie(cname) {
@@ -87,13 +83,13 @@ export const auth = reactive({
         let decodedCookie = decodeURIComponent(document.cookie);
         let ca = decodedCookie.split(';');
         for(let i = 0; i <ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
     },
 
