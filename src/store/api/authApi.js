@@ -2,15 +2,16 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useAuthAPI = () => {
-    // const baseURL = "http://192.168.100.201:8383/auth/"
-    const baseURL = "https://api.nobitches.win/auth/"
-    const baseConfig = { baseURL: baseURL, method: 'post', url: '' }
+    const baseURL = "http://localhost:5267/auth/" // Local Test
+    // const baseURL = "https://api.nobitches.win/auth/" // Public Prod
+    const baseConfig = { baseURL: baseURL, method: 'post', url: '' } 
     
     const login = (email, password) => {
         const config = {
             ...baseConfig,
             url: 'login',
             method: 'post',
+            withCredentials: true,
             data: {
                 email: email,
                 password: password,
@@ -63,5 +64,16 @@ export const useAuthAPI = () => {
         }
     }
 
-    return { login, register, authenticate, addAdmin }
+    const refreshToken = (id) => {
+        const config = {
+            ...baseConfig,
+            url: `refresh?id=${id}`,
+            withCredentials: true
+        }
+        
+        return axios(config)
+            .then((res) => { return res.data })
+    }
+
+    return { login, register, authenticate, addAdmin, refreshToken }
 }

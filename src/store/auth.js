@@ -19,7 +19,6 @@ export const auth = reactive({
 
     loginHelper(token) {
         if (token.length > 0) {
-            this.setCookie("token", token, 1)
             this.token = "Bearer " + token
             this.isLoggedIn = true
             return api.authenticate().then((data) => this.loggedInUser = data).then(() => {
@@ -39,20 +38,20 @@ export const auth = reactive({
         }
 
         localStorage.removeItem("user")
-        this.eraseCookie("token")
+        this.eraseCookie("_WCRefreshToken")
     },
 
-    async checkOldSession() {
-        const token = this.getCookie("token")
+    async refreshToken() {
+        const id = localStorage.getItem("user")
         
-        if (token != null) {
-            const decoded = auth.decodeJwt(token)
-            if (decoded.exp * 1000 > Date.now()) {
-                this.loginHelper(token)
-            }
-            else {
-                this.logOut()
-            }
+        // let success
+        if (id !== null) {
+            api.refreshToken(id).then((data) => {
+                this.token = data
+                this.loginHelper(data)
+            }).catch(() => this.logOut())
+
+            // if (!success) this.logOut()
         }
     },
 
@@ -69,28 +68,6 @@ export const auth = reactive({
     decodeJwt(token) {
         const arrayToken = token.split(".")
         return JSON.parse(atob(arrayToken[1]))
-    },
-
-    setCookie(cname, cvalue, exdays) {
-        const d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        let expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/; Secure; SameSite=Strict";
-    },
-
-    getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
     },
 
     eraseCookie(name) {   

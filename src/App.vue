@@ -4,7 +4,7 @@ import UserModalV2 from './components/modals/UserModal/UserModalV2.vue';
 import { auth } from './store/auth';
 import ChatModal from './components/modals/ChatModal/ChatModal.vue';
 
-auth.checkOldSession()
+// auth.refreshToken()
 </script>
 
 <template>
