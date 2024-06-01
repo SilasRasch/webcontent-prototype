@@ -32,7 +32,7 @@ import ToolTip from '../Input/ToolTip.vue';
             </div>
             <div class="input text-left w-full ml-1 mb-2">
                 <p class="px-0">Ekstra creator 
-                    <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker mere end én creator på dit projekt (+ 1500 kr)</ToolTip>
+                    <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker mere end én creator på dit projekt (+ 1500,-)</ToolTip>
                 </p>
                 <button class="toggle-btn" 
                 :class="{'bg-red-500 fa fa-times':!store.newOrder.extraCreator, 'bg-green-500 fa fa-check':store.newOrder.extraCreator}"
@@ -45,7 +45,7 @@ import ToolTip from '../Input/ToolTip.vue';
         <Transition>
             <div v-if="store.newOrder.extraHook" class="mb-0">
                 <div class="input text-left mb-0">
-                    <p class="px-0">Hvor mange videoer m. ekstra hook?</p>
+                    <p class="px-0">Hvor mange videoer m. ekstra hook? <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker ekstra hooks <br> (+ 250,- per video)</ToolTip></p>
                     <div class="flex flex-col justify-center mr-1">
                         <input v-model="store.newOrder.extraHookCount" class="" type="range" min="1" :max="store.newOrder.contentCount" step="1"/>
                         <span class="text-center opacity-50">{{ store.newOrder.extraHookCount }} stk</span>

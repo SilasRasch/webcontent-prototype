@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import { store } from '@/store/store';
 import { useRouter } from 'vue-router';
 import ToolTip from '../Input/ToolTip.vue';
+import { auth } from '@/store/auth';
+// import { computed } from 'vue';
 
 const model = defineModel()
 const router = useRouter()
@@ -29,10 +31,20 @@ const handleSend = () => {
     store.confirmOrder(model.value.id, price.value, deliveryFrom.value, deliveryTo.value);
     router.push('/admin')
 }
+
+const handleUserConfirm = () => {
+    if (model.value.status.category === 2) {
+        store.handleStatusChange(model.value, 3)
+        router.push("/admin")
+    } else if (model.value.status.category === 4) {
+        store.handleStatusChange(model.value, 5)
+        router.push("/admin")
+    }
+}
 </script>
 
 <template>
-    <div v-if="model.status.state === 0" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
+    <div v-if="model.status.state === 0 && auth.isAdmin()" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
         <TransitionGroup>
             <button v-if="!semiConfirm" @click="handleConfirm" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600">Bekræft</button>  
             <button v-if="!semiConfirm" @click="handleReject" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   
@@ -58,6 +70,15 @@ const handleSend = () => {
             <button v-if="semiConfirm" @click="handleSend" class="mx-2 mr-1 btn-conf bg-green-600 m-0 sm:mb-2">Send</button>  
             <button v-if="semiConfirm" @click="handleCancel" class="mx-2 ml-1 btn-conf bg-red-600 m-0 sm:mb-2">Annuller</button> 
         </TransitionGroup> 
+    </div>
+
+    <div v-else-if="(model.status.category === 2 || model.status.category) && auth.isUser()"
+    class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] bg-slate-600 rounded-lg text-white px-2 mt-2">
+        <TransitionGroup>
+            <button v-if="!semiConfirm" @click="handleUserConfirm()" class="btn-conf my-1 sm:my-2 bg-green-600 w-full">
+                Bekræft {{ model.status.category === 2 ? 'scripts' : 'videoer' }}
+            </button>    
+        </TransitionGroup>
     </div>
 </template>
 

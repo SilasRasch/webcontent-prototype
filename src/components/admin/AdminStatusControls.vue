@@ -1,8 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { useOrderAPI } from '@/store/api/orderApi';
-
-const api = useOrderAPI()
+import { store } from '@/store/store';
 
 const model = defineModel()
 const router = useRouter()
@@ -14,22 +12,8 @@ const props = defineProps({
 })
 
 const handleStatusChange = (newCategory) => {
-    if (newCategory <= 4) { // Still in confirmed category
-        model.value.status.category = newCategory
-        model.value.status.state = 1
-    } 
-    else if (newCategory === 5) { // Completed
-        model.value.status.category = 0
-        model.value.status.state = 2
-    } 
-    else if (newCategory === 6) { // Cancelled
-        model.value.status.cateogry = 0
-        model.value.status.state = -1
-    }
-
-    // Put new status
-    api.putOrder(model.value.id, model.value).then(() => router.push('/admin'))
-    
+    store.handleStatusChange(model.value, newCategory)
+    router.push('/admin')
 }
 </script>
 

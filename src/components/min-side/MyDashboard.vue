@@ -6,9 +6,18 @@ import DashboardTabControls from './DashboardTabControls.vue';
 import { useOrderAPI } from '@/store/api/orderApi';
 import { ref } from 'vue';
 
-const orders = ref([])
 const api = useOrderAPI()
-api.getOrders().then((data) => orders.value = data).then((data) => store.orders = data)
+
+const orders = ref(null)
+const unconfirmed = ref(null)
+const cancelled = ref(null)
+const closed = ref(null)
+
+api.getOrders().then((data) => orders.value = data).then((data) => store.orders = data).then(() => {
+  unconfirmed.value = store.orders.filter((i) => i.status.state === 0)
+  cancelled.value = store.orders.filter((i) => i.status.state === -1)
+  closed.value = store.orders.filter((i) => i.status.state === 2)
+})
 
 const props = defineProps({
   admin: {
@@ -17,13 +26,10 @@ const props = defineProps({
   }
 })
 
-const unconfirmed = orders.value.filter((i) => i.status.state === 0)
-const cancelled = orders.value.filter((i) => i.status.state === -1)
-const closed = orders.value.filter((i) => i.status.state === 2)
 </script>
 
 <template>
-    <div v-if="orders.length > 0" class="grid justify-center text-center w-full">
+    <div v-if="unconfirmed && cancelled && closed && orders" class="grid justify-center text-center w-full">
         <!-- Tabs -->
         <DashboardTabControls :admin="props.admin"/>
 

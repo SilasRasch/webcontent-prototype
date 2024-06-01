@@ -23,7 +23,8 @@ export const useOrderAPI = () => {
         const config = {
             ...baseConfig,
             method: 'get',
-            url: `/${id}`
+            url: `/${id}`,
+            headers: { 'Authorization': auth.token } 
         }
 
         return axios(config)
@@ -36,6 +37,7 @@ export const useOrderAPI = () => {
             method: 'put',
             url: `/${id}`,
             data: order,
+            headers: { 'Authorization': auth.token } 
         }
 
         return axios(config)
@@ -46,6 +48,7 @@ export const useOrderAPI = () => {
             ...baseConfig,
             method: 'post',
             data: order,
+            headers: { 'Authorization': auth.token } 
         }
 
         return axios(config)
@@ -56,6 +59,7 @@ export const useOrderAPI = () => {
             ...baseConfig,
             method: 'delete',
             url: toString(id),
+            headers: { 'Authorization': auth.token } 
         }
         
         return axios(config)

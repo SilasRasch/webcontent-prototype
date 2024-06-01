@@ -98,6 +98,24 @@ export const store = reactive({
         orderAPI.putOrder(id, order)
     },
 
+    handleStatusChange(order, newCategory) {
+        if (newCategory <= 4) { // Confirmed
+            order.status.category = newCategory
+            order.status.state = 1
+        } 
+        else if (newCategory === 5) { // Completed
+            order.status.category = 0
+            order.status.state = 2
+        } 
+        else if (newCategory === 6) { // Cancelled
+            order.status.cateogry = 0
+            order.status.state = -1
+        }
+    
+        // Put new status
+        orderAPI.putOrder(order.id, order)
+    },
+
     toggleLoginModal() {
         this.showLoginModal = !this.showLoginModal
     },

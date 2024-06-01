@@ -8,7 +8,8 @@ const props = defineProps({
         type: String,
         default: 'Vælg én'
     },
-    required: Boolean
+    required: Boolean,
+    other: Boolean
 })
 
 const model = defineModel()
@@ -20,27 +21,33 @@ const handleToggle = () => open.value = !open.value;
 const handleRemove = () => {
     model.value = ''
 }
+
+const mouseOver = ref(false)
 </script>
 
 <template>
     <div class="box-border mb-2">
         <p class="px-0 text-left"><slot></slot> <strong v-if="props.required" :class="{'text-red-500': model.length < 1}">*</strong></p>
         <div class="flex justify-between select-btn text-left input-field p-2 cursor-pointer select-none items-center min-h-10"
-        @click.self="handleToggle"
+        @click.self="handleToggle" @mouseenter="mouseOver = true" @mouseleave="mouseOver = false"
         >
-            <span v-if="model.length < 1" class="btn-text text-left opacity-40" @click.self="handleToggle">{{ props.placeholder }}</span>
+            <span v-if="model.length < 1" class="btn-text text-left opacity-40" @click.self="handleToggle">
+                {{ props.placeholder }}
+            </span>
+
             <div v-else class="flex z-50">
                 <button
-                class="opacity-100 hover:opacity-50 bg-red-500 rounded-lg px-2 font-semibold text-white flex items-center duration-200 mx-0.5"
+                class="opacity-100 hover:opacity-50 flex items-center duration-200 mx-0.5"
                 @click="handleRemove()"
-                >{{ model }} <i class="fa fa-times text-xs pl-1"></i></button>
+                >{{ model }} <i v-show="mouseOver" class="fa fa-times text-xs pl-1"></i></button>
             </div>
             <span class="arrow-down fa fa-chevron-down px-2 opacity-80" @click.self="handleToggle"></span>
         </div>
         
         <Transition>
-            <ul v-if="open" class="list-items my-1 text-left md:z-50 md:absolute">
+            <ul v-if="open" class="list-items my-1 text-left md:z-50 md:absolute bg-white rounded-xl">
                 <SingleSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" />
+                <SingleSelectItem v-show="props.other" v-model="model" item="Andet" custom />
             </ul>
         </Transition>
     </div>

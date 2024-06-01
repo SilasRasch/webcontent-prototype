@@ -46,7 +46,7 @@ export const auth = reactive({
         
         if (id !== null) {
             api.refreshToken(id).then((data) => {
-                this.token = data
+                this.token = "Bearer " + data
                 this.loginHelper(data)
             }).catch(() => this.logOut())
         }

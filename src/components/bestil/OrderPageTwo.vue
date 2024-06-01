@@ -9,28 +9,9 @@ import SingleSelect from '../Input/SingleSelect.vue';
     <div class="text-center w-full p-2">
         <p class="text-xl font-semibold m-2">Information om dit projekt</p>
         
-
-        <!-- <DoubleInput v-model:firstInput="store.newOrder.projectName" v-model:secondInput="store.newOrder.projectType"
-        placeholder-one="Helst noget beskrivende..." placeholder-two="User Generated Content...">
-            <template v-slot:slotOne>Projektnavn</template>
-            <template v-slot:slotTwo>Projekttype</template>
-        </DoubleInput> -->
-        
         <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
             <SingleInput class="input mr-1" v-model="store.newOrder.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
-            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['UGC', 'Unboxing', 'Andet']">Projekttype</SingleSelect>
-            <!-- <div class="text-left w-full input ml-1">
-                <p class="px-0">Projekttype</p>
-                <div class="input-field p-2">
-                    <select class="bg-white w-full" :class="{'opacity-50':store.newOrder.projectType === ''}" v-model="store.newOrder.projectType">
-                        <option disabled hidden selected value="">Vælg type</option>
-                        <option>User Generated Content</option>
-                        <option>Unboxing</option>
-                        <option>Testimonial</option>
-                    </select>
-                </div>
-                
-            </div> -->
+            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required other :items="['UGC', 'Unboxing', 'Statics']">Projekttype</SingleSelect>
         </div>
         
         
@@ -55,13 +36,13 @@ import SingleSelect from '../Input/SingleSelect.vue';
             </div>
         </div>
 
-        <SingleMultiSelect v-model="store.formatArr" required
-        :items="['16:9', '9:16', '1:1', '4:5', 'Andet']">
+        <SingleMultiSelect v-model="store.formatArr" required other
+        :items="['16:9', '9:16', '1:1', '4:5']">
             Format
         </SingleMultiSelect>
 
-        <SingleMultiSelect v-model="store.channelsArr" required
-        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube', 'Andet']">
+        <SingleMultiSelect v-model="store.channelsArr" required other
+        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube']">
             Tiltænkte platforme
         </SingleMultiSelect>
     </div>

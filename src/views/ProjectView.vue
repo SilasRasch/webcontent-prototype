@@ -47,13 +47,20 @@ const pageTitle = auth.isAdmin() ? "Administrér projekt" : "Min Side"
         <AdminStatusControls v-if="auth.isAdmin()" v-model="model" :show-controls="showControls" />
 
         <!-- Back button -->
-        <button class="fa fa-arrow-left fa-2x rounded-full bg-slate-600 w-fit p-2 text-white relative -left-14 hover:bg-slate-800 duration-200"
+        <button class="fa fa-arrow-left fa-2x rounded-full bg-slate-600 w-fit p-2 text-white relative -left-12 hover:bg-slate-800 duration-200"
         @click="router.back"></button>
+
+        <div class="flex justify-evenly items-start gap-2">
+            <!-- Order information -->
+            <OrderCard v-model="model" :key="id" @toggle-admin-controls="toggleAdminControls"/>
+            <div v-if="model.status.category > 1" class="grid gap-2 bg-slate-600 -mt-12 p-4 rounded-lg min-w-32 text-white font-semibold ">
+                <p class="p-4 bg-red-500 rounded-lg">Links</p>
+                <a v-for="n in 5" :key="n" href="https://google.com" target="_blank" class="p-4 bg-blue-500 rounded-lg">Script {{ n }}</a>
+            </div>
+        </div>
         
-        <!-- Order information -->
-        <OrderCard v-model="model" :key="id" @toggle-admin-controls="toggleAdminControls"/>
-        
+
         <!-- Confirm controls -->
-        <AdminConfirmControls v-if="auth.isAdmin()" v-model="model" />
+        <AdminConfirmControls v-model="model" />
     </div>   
 </template>

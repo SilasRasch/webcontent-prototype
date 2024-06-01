@@ -20,3 +20,11 @@ const model = defineModel()
         </div>
     </div>
 </template>
+
+<style scoped>
+input:focus {
+    outline: none;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    @apply border-2 border-gray-300
+}</style>

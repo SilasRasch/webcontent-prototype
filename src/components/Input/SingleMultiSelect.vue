@@ -8,7 +8,8 @@ const props = defineProps({
         type: String,
         default: 'Vælg en til flere'
     },
-    required: Boolean
+    required: Boolean,
+    other: Boolean
 })
 
 const model = defineModel()
@@ -42,6 +43,7 @@ const handleRemove = (item) => {
         <Transition>
             <ul v-if="open" class="list-items my-1 text-left">
                 <MultiSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" />
+                <MultiSelectItem v-show="props.other" v-model="model" item="Andet" custom />
             </ul>
         </Transition>
     </div>

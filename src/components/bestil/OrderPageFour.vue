@@ -200,7 +200,11 @@ const estimatedDelivery = computed(() => {
                 Send
             </button>
         </div>
-        
+        <ToolTip label="Hvordan regnes prisen ud?" class="opacity-90">
+            Pris per video <br> 1 video: 1500,- <br> 2-16 videoer: 750,- <br><br>
+            Længde <br> 20-45 sekunder: 100% <br> 46-90 sekunder: +12,5% <br> 91-120 sekunder: +25% <br><br>
+            Ekstra <br> Ekstra hook: 250,- (per video) <br> Ekstra creator: 1500,- (per ordre)
+        </ToolTip>
         <p v-if="!store.validate()" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
     </div>
 </template>
