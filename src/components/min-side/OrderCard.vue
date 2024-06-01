@@ -1,6 +1,7 @@
 <script setup>
 import ToolTip from '../Input/ToolTip.vue';
 import { computed, ref } from 'vue';
+import ConfirmControls from '../admin/ConfirmControls.vue';
 
 const model = defineModel()
 
@@ -54,67 +55,93 @@ const statusClass = computed(() => {
 
     return tmp
 }) 
+
+const minifyCard = ref(false)
+
+const toggleMinimize = () => {
+    minifyCard.value ? miniToMaxi() : maxiToMini()
+}
+
+const miniToMaxi = () => {
+    minifyCard.value = false
+    toggleContact.value = true
+    toggleContent.value = true
+    toggleProject.value = true
+}
+
+const maxiToMini = () => {
+    minifyCard.value = true
+    toggleContact.value = false
+    toggleContent.value = false
+    toggleProject.value = false
+}
 </script>
 
 <template>
     <div v-if="model" class="grid justify-center text-center w-full mt-[-3rem] text-white">
-        <div class="grid bg-slate-600 rounded-lg mt-0 md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] p-2">
-            <h3 class="text-left m-2 bg-red-500 bg-opacity-75 rounded-md p-4 font-semibold text-xl">
-                Bestilling {{ model.id }}
-            </h3>
+        <div class="break-words" :class="minifyCard ? 'minimized' : 'maximized'">
+            <div class="flex items-center justify-between text-left m-2 bg-red-500 bg-opacity-75 rounded-md p-4 font-semibold text-xl">
+                <h3>Bestilling {{ model.id }}</h3>
+                <i v-if="!minifyCard" @click="toggleMinimize()" class="fa fa-angle-double-left hover:text-gray-300 duration-200 cursor-pointer"></i>
+                <i v-else @click="toggleMinimize()" class="fa fa-angle-double-right hover:text-gray-300 duration-200 cursor-pointer"></i>
+            </div>
+            
             <div v-if="model.status.state === 1" class="flex">
-                <h3 class="text-left mx-2 mr-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-green-500 w-1/2">
+                <h3 class="text-left text-base mx-2 mr-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-green-500 w-1/2">
                     Bekræftet!
                 </h3>
-                <h3 class="text-left mx-2 ml-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold w-1/2" :class="statusClass">
+                <h3 class="text-left text-base mx-2 ml-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold w-1/2" :class="statusClass">
                     {{ status }}
                 </h3>
             </div>
             <div v-else-if="model.status.state === -1">
-                <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-red-500">
+                <h3 class="text-left text-base mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-red-500">
                     Annulleret...
                 </h3>
             </div>
             <div v-else-if="model.status.state === 2">
-                <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-violet-500">
+                <h3 class="text-left text-base mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-violet-500">
                     Færdig!
                 </h3>
             </div>
             <div v-else>
-                <h3 class="text-left mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-orange-500">
+                <h3 class="text-left text-base mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-orange-500">
                     Afventer bekræftelse...
                 </h3>
             </div>
             
-
-            <!-- Skal være false hvis abonnement / true ellers -->
-            <p @click="handleToggleContact" class="text-left pt-0 opacity-50 px-2 cursor-pointer select-none">
-                Kontakt <i class="fa fa-chevron-down text-xs"></i>
-            </p>
+            <div @click="handleToggleContact" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
+                <p class="pr-1.5">
+                    Kontakt 
+                </p>
+                <i class="fa fa-chevron-down text-xs mt-1"></i>
+            </div>
             <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
+
+           
 
             <div v-if="toggleContact" class="-mb-1"> 
                 <div class="grid md:grid-cols-2 grid-cols-1 p-2">
-                    <div class="text-left mr-1 bg-slate-800 rounded-lg px-2">
+                    <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:my-0 my-1">
                         <p class="px-0 font-semibold">Brand</p>
                         <p class="input-value" >{{ model.brand }}</p>
                     </div>
-                    <div class="text-left ml-1 bg-slate-800 rounded-lg px-2">
+                    <div class="text-left md:ml-1 bg-slate-800 rounded-lg px-2 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">CVR</p>
                         <p class="input-value">{{ model.cvr }}</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 p-2">
-                    <div class="text-left mr-1 bg-slate-800 rounded-lg px-2">
+                    <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:mb-0 mb-1">
                         <p class="px-0 font-semibold">Kontaktperson</p>
                         <p class="input-value" >{{ model.contact.name }}</p>
                     </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 mx-1 ">
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mx-1 md:my-0 my-1">
                         <p class="px-0 font-semibold">Telefon</p>
                         <p class="input-value">{{ model.contact.phone }}</p>
                     </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 ml-1 ">
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">E-mail</p>
                         <p class="input-value">{{ model.contact.email }}</p>
                     </div>
@@ -128,33 +155,37 @@ const statusClass = computed(() => {
                 </div>
             </div>
             
-            <p @click="handleToggleProject" class="text-left pt-1 opacity-50 px-2 cursor-pointer select-none">
-                Projekt <i class="fa fa-chevron-down text-xs"></i>
-            </p>
+            <div @click="handleToggleProject" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
+                <p class="pr-1.5">
+                    Projekt 
+                </p>
+                <i class="fa fa-chevron-down text-xs mt-1"></i>
+            </div>
+            
             <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
             <div v-if="toggleProject" class="-mb-1">
                 <div class="grid md:grid-cols-2 grid-cols-1 p-2">
-                    <div class="text-left bg-slate-800 rounded-lg px-2 mr-1">
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mr-1 md:my-0 my-1">
                         <p class="px-0 font-semibold">Projektnavn</p>
                         <p class="input-value">{{ model.projectName }}</p>
                     </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 ml-1">
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">Projekttype</p>
                         <p class="input-value">{{ model.projectType }}</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 mb-0 p-2">
-                    <div class="text-left bg-slate-800 rounded-lg px-2 mr-1">
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mr-1 md:mb-0 mb-1">
                         <p class="px-0 font-semibold">Mængde af indhold</p>
                         <p class="input-value">{{ model.contentCount }} stk</p>
                     </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 mx-1"> 
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mx-1 md:my-0 my-1"> 
                         <p class="px-0 font-semibold">Længde af indhold</p>
                         <p class="input-value">{{ model.contentLength }} sekunder</p>
                     </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 ml-1"> 
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1"> 
                         <p class="px-0 font-semibold">Format</p>
                         <p class="input-value">{{ model.format }}</p>
                     </div>
@@ -169,10 +200,12 @@ const statusClass = computed(() => {
             </div>
 
             <!-- Content -->
-
-            <p @click="handleToggleContent" class="text-left pt-1 opacity-50 px-2 cursor-pointer select-none">
-                Content <i class="fa fa-chevron-down text-xs"></i>
-            </p>
+            <div @click="handleToggleContent" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
+                <p class="pr-1.5">
+                    Content 
+                </p>
+                <i class="fa fa-chevron-down text-xs mt-1"></i>
+            </div>
             <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
             <div v-if="toggleContent" class="">
@@ -204,12 +237,12 @@ const statusClass = computed(() => {
                 </div>
             </div>
 
-            <p class="text-left opacity-50 px-2 select-none">Pris og leveringstid</p>
+            <p class="text-left text-base opacity-50 px-2 select-none">Pris og leveringstid</p>
             <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
             <!-- Pricing and delivery -->
 
-            <div v-if="model.status.state !== 0" class="grid md:grid-cols-2 grid-cols-1 p-2">
+            <div v-if="model.status.state === 0" class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
                 <div class="text-left bg-slate-800 rounded-lg px-1 mr-1">
                     <p class="font-semibold">Estimeret pris</p>
                     <p class="-mt-4">{{ model.price }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
@@ -219,17 +252,20 @@ const statusClass = computed(() => {
                     <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi estimerer derfor i intervaller. Husk dog stadig at det er et estimat.</ToolTip></p>
                 </div>
             </div>
-            <div v-else class="grid md:grid-cols-2 grid-cols-1 p-2">
-                <div class="text-left bg-slate-800 rounded-lg px-1 mr-1">
-                    <p class="font-semibold">Pris</p>
-                    <p class="-mt-4">{{ model.price }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
+            <div v-else class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
+                <div class="text-left bg-slate-800 rounded-lg px-1 md:mr-1 my-1">
+                    <p class="font-semibold text-base">Pris <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
+                    <p class="-mt-4">{{ model.price }} kr ekskl. moms </p>
                 </div>
-                <div class="text-left bg-slate-800 rounded-lg px-1 ml-1">
-                    <p class="font-semibold">Leveringstid</p>
-                    <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi giver derfor et interval.</ToolTip></p>
+                <div class="text-left bg-slate-800 rounded-lg px-1 md:ml-1 my-1">
+                    <p class="font-semibold text-base">Leveringstid <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi giver derfor et interval.</ToolTip></p>
+                    <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage </p>
                 </div>
             </div>
         </div>
+
+        <!-- Confirm controls -->
+        <ConfirmControls v-model="model" />
     </div>
     
 </template>
@@ -239,8 +275,15 @@ const statusClass = computed(() => {
     @apply bg-opacity-50 bg-red-700 rounded-md text-left
 }
 
-
 .input-value {
     @apply px-0 -mt-4
+}
+
+.maximized {
+    @apply grid bg-slate-600 rounded-lg mt-0 lg:min-w-[35rem] w-[50rem] max-w-[50rem] p-2
+}
+
+.minimized {
+    @apply grid bg-slate-600 rounded-lg mt-0 md:w-[45vw] sm:w-[30w] w-[35vw] md:max-w-[30rem] min-w-[20rem] p-2 text-sm
 }
 </style>

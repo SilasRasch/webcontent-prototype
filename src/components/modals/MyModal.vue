@@ -1,11 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-
-// const model = defineModel()
-
 const showModal = ref(false) 
-
 </script>
 
 <template>

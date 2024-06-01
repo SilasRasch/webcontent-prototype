@@ -36,9 +36,9 @@ const props = defineProps({
         <!-- Dashboard -->
         <TransitionGroup v-if="!props.admin" tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
           <DashboardConfirmed v-if="store.currDashboardTab === 1" v-model="orders" />
-          <DashboardPool v-if="store.currDashboardTab === 2" v-model="unconfirmed" :admin="props.admin">Ubekræftede projekter</DashboardPool>
-          <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled" :admin="props.admin">Annullerede projekter</DashboardPool>
-          <DashboardPool v-if="store.currDashboardTab === 4" v-model="closed" :admin="props.admin">Færdige projekter</DashboardPool>
+          <DashboardPool v-if="store.currDashboardTab === 2" v-model="unconfirmed">Ubekræftede projekter</DashboardPool>
+          <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled">Annullerede projekter</DashboardPool>
+          <DashboardPool v-if="store.currDashboardTab === 4" v-model="closed">Færdige projekter</DashboardPool>
         </TransitionGroup>
         
         <TransitionGroup v-else tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
