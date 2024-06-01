@@ -1,6 +1,5 @@
 <script setup>
 import MyModal from '../MyModal.vue';
-
 import { ref } from 'vue';
 import { store } from '@/store/store';
 import { useRouter } from 'vue-router';
@@ -123,7 +122,7 @@ const newPswdConfirm = ref('')
                                 <span class="cursor-pointer fa fa-key fa-2x min-w-10"></span>
                                 <p class="text-base">Skift rolle</p>
                             </div>  
-                            <select class="bg-slate-800 bg-opacity-50 p-2 rounded-lg hover:bg-opacity-75 duration-200" v-model="auth.loggedInUser.roles[0]">
+                            <select class="bg-slate-800 text-base text-center bg-opacity-50 p-2 rounded-lg hover:bg-opacity-75 duration-200" v-model="auth.loggedInUser.roles[0]">
                                 <option class="role-option">Bruger</option>
                                 <option class="role-option">Creator</option>
                                 <option class="role-option">Admin</option>
