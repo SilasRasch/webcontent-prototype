@@ -6,13 +6,13 @@ const props = defineProps({
     item: String,
 })
 
-const handleAdd = (item) => model.value.push(item);
+const handleAdd = (item) => model.value = item
 
 let showCheck = ref(false)
 </script>
 
 <template>
-    <li class="item bg-red-300 rounded-lg p-2 input-field hover:opacity-100 cursor-pointer my-1"
+    <li class="item bg-red-300 rounded-lg p-2 input-field hover:opacity-100 cursor-pointer my-1 md:min-w-[17rem]"
     v-if="!model.includes(props.item)"
     @click="handleAdd(props.item)"
     >

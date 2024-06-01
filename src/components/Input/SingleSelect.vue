@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-import MultiSelectItem from './MultiSelectItem.vue';
+import SingleSelectItem from './SingleSelectItem.vue';
 
 const props = defineProps({
     items: Array,
     placeholder: {
         type: String,
-        default: 'Vælg en til flere'
+        default: 'Vælg én'
     },
     required: Boolean
 })
@@ -17,9 +17,8 @@ let open = ref(false)
 
 const handleToggle = () => open.value = !open.value;
 
-const handleRemove = (item) => {
-    const index = model.value.indexOf(item)
-    model.value.splice(index, 1)
+const handleRemove = () => {
+    model.value = ''
 }
 </script>
 
@@ -31,17 +30,17 @@ const handleRemove = (item) => {
         >
             <span v-if="model.length < 1" class="btn-text text-left opacity-40" @click.self="handleToggle">{{ props.placeholder }}</span>
             <div v-else class="flex z-50">
-                <button v-for="item in model" :key="item"
+                <button
                 class="opacity-100 hover:opacity-50 bg-red-500 rounded-lg px-2 font-semibold text-white flex items-center duration-200 mx-0.5"
-                @click="handleRemove(item)"
-                >{{ item }} <i class="fa fa-times text-xs pl-1"></i></button>
+                @click="handleRemove()"
+                >{{ model }} <i class="fa fa-times text-xs pl-1"></i></button>
             </div>
             <span class="arrow-down fa fa-chevron-down px-2 opacity-80" @click.self="handleToggle"></span>
         </div>
         
         <Transition>
-            <ul v-if="open" class="list-items my-1 text-left">
-                <MultiSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" />
+            <ul v-if="open" class="list-items my-1 text-left md:z-50 md:absolute">
+                <SingleSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" />
             </ul>
         </Transition>
     </div>

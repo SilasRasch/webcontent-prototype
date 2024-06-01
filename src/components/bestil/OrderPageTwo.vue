@@ -1,7 +1,8 @@
 <script setup>
 import { store } from '../../store/store.js'
-import DoubleInput from '../Input/DoubleInput.vue';
+import SingleInput from '../Input/SingleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
+import SingleSelect from '../Input/SingleSelect.vue';
 </script>
 
 <template>
@@ -9,11 +10,18 @@ import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
         <p class="text-xl font-semibold m-2">Information om dit projekt</p>
         
 
-        <DoubleInput v-model:firstInput="store.newOrder.projectName" v-model:secondInput="store.newOrder.projectType"
+        <!-- <DoubleInput v-model:firstInput="store.newOrder.projectName" v-model:secondInput="store.newOrder.projectType"
         placeholder-one="Helst noget beskrivende..." placeholder-two="User Generated Content...">
             <template v-slot:slotOne>Projektnavn</template>
             <template v-slot:slotTwo>Projekttype</template>
-        </DoubleInput>
+        </DoubleInput> -->
+        
+        <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
+            <SingleInput class="input mr-1" v-model="store.newOrder.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
+            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['UGC', 'Unboxing', 'Andet']">Projekttype</SingleSelect>
+        </div>
+        
+        
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
@@ -36,12 +44,12 @@ import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
         </div>
 
         <SingleMultiSelect v-model="store.formatArr" required
-        :items="['16:9', '9:16', '1:1', '4:5']">
+        :items="['16:9', '9:16', '1:1', '4:5', 'Andet']">
             Format
         </SingleMultiSelect>
 
         <SingleMultiSelect v-model="store.channelsArr" required
-        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube']">
+        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube', 'Andet']">
             Tiltænkte platforme
         </SingleMultiSelect>
     </div>
