@@ -4,7 +4,7 @@ import { ref } from 'vue';
 // import { store } from '@/store/store';
 import { auth } from '@/store/auth';
 import OrderCard from '@/components/min-side/OrderCard.vue';
-import AdminConfirmControls from '@/components/admin/AdminConfirmControls.vue';
+import AdminConfirmControls from '@/components/admin/ConfirmControls.vue';
 import AdminStatusControls from '@/components/admin/AdminStatusControls.vue';
 import { useOrderAPI } from '@/store/api/orderApi';
 
