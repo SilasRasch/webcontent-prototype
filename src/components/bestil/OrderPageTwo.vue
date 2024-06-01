@@ -19,6 +19,18 @@ import SingleSelect from '../Input/SingleSelect.vue';
         <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
             <SingleInput class="input mr-1" v-model="store.newOrder.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
             <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['UGC', 'Unboxing', 'Andet']">Projekttype</SingleSelect>
+            <!-- <div class="text-left w-full input ml-1">
+                <p class="px-0">Projekttype</p>
+                <div class="input-field p-2">
+                    <select class="bg-white w-full" :class="{'opacity-50':store.newOrder.projectType === ''}" v-model="store.newOrder.projectType">
+                        <option disabled hidden selected value="">Vælg type</option>
+                        <option>User Generated Content</option>
+                        <option>Unboxing</option>
+                        <option>Testimonial</option>
+                    </select>
+                </div>
+                
+            </div> -->
         </div>
         
         
