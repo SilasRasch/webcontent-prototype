@@ -6,9 +6,9 @@ import ConfirmControls from '../admin/ConfirmControls.vue';
 const model = defineModel()
 
 // Toggle switches for information
-let toggleContact = ref(true)
+let toggleContact = ref(model.value.status.category > 0 ? false : true)
 let toggleProject = ref(true)
-let toggleContent = ref(true)
+let toggleContent = ref(model.value.status.category > 0 ? false : true)
 
 const handleToggleContact = () => toggleContact.value = !toggleContact.value
 const handleToggleProject = () => toggleProject.value = !toggleProject.value
@@ -109,51 +109,8 @@ const maxiToMini = () => {
                     Afventer bekræftelse...
                 </h3>
             </div>
-            
-            <div @click="handleToggleContact" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
-                <p class="pr-1.5">
-                    Kontakt 
-                </p>
-                <i class="fa fa-chevron-down text-xs mt-1"></i>
-            </div>
-            <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
-           
-
-            <div v-if="toggleContact" class="-mb-1"> 
-                <div class="grid md:grid-cols-2 grid-cols-1 p-2">
-                    <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:my-0 my-1">
-                        <p class="px-0 font-semibold">Brand</p>
-                        <p class="input-value" >{{ model.brand }}</p>
-                    </div>
-                    <div class="text-left md:ml-1 bg-slate-800 rounded-lg px-2 md:mt-0 mt-1">
-                        <p class="px-0 font-semibold">CVR</p>
-                        <p class="input-value">{{ model.cvr }}</p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 p-2">
-                    <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:mb-0 mb-1">
-                        <p class="px-0 font-semibold">Kontaktperson</p>
-                        <p class="input-value" >{{ model.contact.name }}</p>
-                    </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mx-1 md:my-0 my-1">
-                        <p class="px-0 font-semibold">Telefon</p>
-                        <p class="input-value">{{ model.contact.phone }}</p>
-                    </div>
-                    <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
-                        <p class="px-0 font-semibold">E-mail</p>
-                        <p class="input-value">{{ model.contact.email }}</p>
-                    </div>
-                </div>
-
-                <div v-if="model.source" class="input text-left -mt-2 p-2">
-                    <div class="text-left bg-slate-800 rounded-lg px-2">
-                        <p class="px-0 font-semibold">Hvor har du hørt om os?</p>
-                        <p class="input-value">{{ model.source }}</p>
-                    </div>
-                </div>
-            </div>
+            <!-- Projekt info -->
             
             <div @click="handleToggleProject" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
                 <p class="pr-1.5">
@@ -199,7 +156,8 @@ const maxiToMini = () => {
                 </div>
             </div>
 
-            <!-- Content -->
+            <!-- Content info -->
+
             <div @click="handleToggleContent" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
                 <p class="pr-1.5">
                     Content 
@@ -233,6 +191,51 @@ const maxiToMini = () => {
                     <div class="input text-left">
                         <p class="px-0 font-semibold">Ekstra noter</p>
                         <p class="input-value">{{ model.extraNotes }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div @click="handleToggleContact" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
+                <p class="pr-1.5">
+                    Kontakt 
+                </p>
+                <i class="fa fa-chevron-down text-xs mt-1"></i>
+            </div>
+            <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
+
+            <!-- Contact info -->
+
+            <div v-if="toggleContact" class="-mb-1"> 
+                <div class="grid md:grid-cols-2 grid-cols-1 p-2">
+                    <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:my-0 my-1">
+                        <p class="px-0 font-semibold">Brand</p>
+                        <p class="input-value" >{{ model.brand }}</p>
+                    </div>
+                    <div class="text-left md:ml-1 bg-slate-800 rounded-lg px-2 md:mt-0 mt-1">
+                        <p class="px-0 font-semibold">CVR</p>
+                        <p class="input-value">{{ model.cvr }}</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 p-2">
+                    <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:mb-0 mb-1">
+                        <p class="px-0 font-semibold">Kontaktperson</p>
+                        <p class="input-value" >{{ model.contact.name }}</p>
+                    </div>
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mx-1 md:my-0 my-1">
+                        <p class="px-0 font-semibold">Telefon</p>
+                        <p class="input-value">{{ model.contact.phone }}</p>
+                    </div>
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
+                        <p class="px-0 font-semibold">E-mail</p>
+                        <p class="input-value">{{ model.contact.email }}</p>
+                    </div>
+                </div>
+
+                <div v-if="model.source" class="input text-left -mt-2 p-2">
+                    <div class="text-left bg-slate-800 rounded-lg px-2">
+                        <p class="px-0 font-semibold">Hvor har du hørt om os?</p>
+                        <p class="input-value">{{ model.source }}</p>
                     </div>
                 </div>
             </div>

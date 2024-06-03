@@ -77,7 +77,7 @@ export const store = reactive({
         orderAPI.postOrder(order)
 
         // Reset
-        this.newOrder = this.orderTemplate
+        this.newOrder = JSON.parse(JSON.stringify(this.orderTemplate)) // Deep copy
         this.formatArr = []
         this.sourceArr = []
         this.channelsArr = []
@@ -100,6 +100,20 @@ export const store = reactive({
         // Generate scripts
         for (let i = 0; i < order.contentCount; i++) {
             order.scripts.push({ name: `Script ${i + 1}`, link: ''})
+        }
+
+        orderAPI.putOrder(id, order)
+    },
+
+    rejectOrder(id) {
+        var order = this.orders.find((order) => order.id === id)
+
+        order = {
+            ...order,
+            status: {
+                category: 0,
+                state: -1,
+            }
         }
 
         orderAPI.putOrder(id, order)
