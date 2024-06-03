@@ -63,7 +63,7 @@ const handleConfirm = () => {
 
 <template>
     <a v-if="auth.isAdmin()" class="p-4 rounded-lg cursor-pointer text-nowrap" :class="link === '' ? 'bg-blue-500' : 'bg-green-500'" @click="handleToggle">{{ props.name }}</a>
-    <a v-else class="p-4 rounded-lg cursor-pointer text-nowrap" :class="link === '' ? 'bg-blue-500' : 'bg-green-500'" :href="link">{{ props.name }}</a>
+    <a v-else class="p-4 rounded-lg cursor-pointer text-nowrap" :class="link === '' ? 'bg-blue-500' : 'bg-green-500'" :href="link" target="_blank">{{ props.name }}</a>
 
     <Transition>
             <div v-show="showModal" @click.self="handleToggle" class="z-50 absolute bg-black bg-opacity-50 w-[100vw] h-[100vh] top-0 left-0">
