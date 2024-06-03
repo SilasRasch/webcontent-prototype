@@ -72,7 +72,7 @@ const handleUserConfirm = () => {
         </TransitionGroup> 
     </div>
 
-    <div v-else-if="(model.status.category === 2 || model.status.category) && auth.isUser()"
+    <div v-else-if="(model.status.category === 2 || model.status.category === 4) && auth.isUser()"
     class="bg-slate-600 rounded-lg text-white px-2 mt-2">
         <TransitionGroup>
             <button v-if="!semiConfirm" @click="handleUserConfirm()" class="btn-conf my-1 sm:my-2 bg-green-600 w-full">
