@@ -1,29 +1,48 @@
 <script setup>
+import { auth } from '@/store/auth';
+import { store } from '@/store/store';
 import { ref } from 'vue';
 
 const props = defineProps({
     name: {
         type: String,
         required: true
+    },
+    link: {
+        type: String,
+        required: true
+    },
+    index: {
+        type: Number,
+        required: true
     }
 })
 
+const model = defineModel()
 const showModal = ref(false)
 
-const link = ref('')
+const link = ref(props.link)
 const name = ref(props.name)
 const linkError = ref('')
 const nameError = ref('')
 
 const handleToggle = () => {
+    if (auth.isAdmin()) {
     showModal.value = !showModal.value
     linkError.value = ''
     nameError.value = ''
+    }
 }
 
 const handleConfirm = () => {
-    if (link.value.startsWith('https://docs.google.com/') && name.value.length > 2) {
+    if (link.value.startsWith('https://docs.google.com/') && (name.value.length > 2 && name.value.length <= 16)) {
         showModal.value = false
+
+        // First change state
+        model.value.scripts[props.index] = { name: name.value, link: link.value }
+
+        // Then change database
+        store.updateScript(model.value.id, props.index, name.value, link.value)
     }
     
     if (!link.value.startsWith('https://docs.google.com/')) {
@@ -34,6 +53,8 @@ const handleConfirm = () => {
 
     if (name.value.length < 2) {
         nameError.value = "Navnet skal være minimum 2 karaktere"
+    } else if (name.value.length > 16) {
+        nameError.value = 'Navnet skal være maximum 16 karaktere'
     } else {
         nameError.value = ''
     }
@@ -41,7 +62,8 @@ const handleConfirm = () => {
 </script>
 
 <template>
-    <a class="p-4 bg-blue-500 rounded-lg cursor-pointer" @click="handleToggle">{{ props.name }}</a>
+    <a v-if="auth.isAdmin()" class="p-4 rounded-lg cursor-pointer text-nowrap" :class="link === '' ? 'bg-blue-500' : 'bg-green-500'" @click="handleToggle">{{ props.name }}</a>
+    <a v-else class="p-4 rounded-lg cursor-pointer text-nowrap" :class="link === '' ? 'bg-blue-500' : 'bg-green-500'" :href="link">{{ props.name }}</a>
 
     <Transition>
             <div v-show="showModal" @click.self="handleToggle" class="z-50 absolute bg-black bg-opacity-50 w-[100vw] h-[100vh] top-0 left-0">
@@ -51,18 +73,27 @@ const handleConfirm = () => {
 
                         <p v-if="nameError !== ''" class="text-red-600 p-0 m-0 mt-2">* {{ nameError }}</p>
                         <p class="text-left p-0 m-0">Navn</p>
-                        <input placeholder="Navn på scriptet" class="input" v-model="name" type="text" />
+                        <input placeholder="Navn på scriptet" class="input rounded-lg" v-model="name" type="text" />
 
                         <p v-if="linkError !== ''" class="text-red-600 p-0 m-0 mt-2">* {{ linkError }}</p>
                         <p class="text-left p-0 m-0">Link til dokument</p>
-                        <input placeholder="Link til dokumentet" class="input" v-model="link" />
+                        <!-- If model.status.category > 1 -->
+                        <!-- <input placeholder="Link til dokumentet" class="input rounded-lg" v-model="link" /> -->
+                        <div class="flex items-center">
+                            <input placeholder="Link til dokumentet" class="input rounded-l-lg" v-model="link" />
+                            <a :href="link" class="fa fa-external-link bg-red-500 p-2 px-2.5 rounded-r-lg hover:bg-red-400 duration-200 text-base cursor-pointer"></a>
+                        </div>
 
                         <hr class="mt-2">
-
-                        <button class="rounded-lg p-2 bg-green-600 hover:bg-green-500 duration-200 mx-0.5 mt-2" @click="handleConfirm()">
-                            Bekræft
-                        </button>
                         
+                        <div class="w-full flex justify-center">
+                            <button class="rounded-lg p-2 bg-green-600 hover:bg-green-500 duration-200 mx-0.5 mt-2 w-full" @click="handleConfirm()">
+                                Bekræft <i class="fa fa-check"></i>
+                            </button>
+                            <button class="rounded-lg p-2 bg-red-600 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full" @click="showModal = false">
+                                Annullér <i class="fa fa-times"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,7 +102,7 @@ const handleConfirm = () => {
 
 <style scoped>
 .input {
-    @apply bg-gray-900 text-base p-2 font-normal w-full rounded-lg
+    @apply bg-gray-900 text-base p-2 font-normal w-full
 }
 
 .v-enter-from {

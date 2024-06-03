@@ -73,7 +73,7 @@ const handleUserConfirm = () => {
     </div>
 
     <div v-else-if="(model.status.category === 2 || model.status.category) && auth.isUser()"
-    class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] bg-slate-600 rounded-lg text-white px-2 mt-2">
+    class="bg-slate-600 rounded-lg text-white px-2 mt-2">
         <TransitionGroup>
             <button v-if="!semiConfirm" @click="handleUserConfirm()" class="btn-conf my-1 sm:my-2 bg-green-600 w-full">
                 Bekræft {{ model.status.category === 2 ? 'scripts' : 'videoer' }}

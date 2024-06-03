@@ -50,10 +50,9 @@ const toggleAdminControls = () => {
         <div class="sm:flex grid justify-evenly items-start gap-2">
             <!-- Order information -->
             <OrderCard v-model="model" :key="id" @toggle-admin-controls="toggleAdminControls"/>
-            <div v-if="model.status.category > 1" class="grid gap-4 bg-slate-600 sm:-mt-12 p-4 rounded-lg min-w-32 text-white font-semibold ">
+            <div v-if="model.status.category > 1 || (auth.isAdmin() && model.status.state > 0)" class="grid gap-4 bg-slate-600 sm:-mt-12 p-4 rounded-lg w-fit max-w-40 text-white font-semibold ">
                 <p class="p-4 bg-red-500 rounded-lg text-lg bg-opacity-75">Scripts</p>
-                <!-- <a v-for="n in model.contentCount" :key="n" href="https://google.com" target="_blank" class="p-4 bg-blue-500 rounded-lg">Script {{ n }}</a> -->
-                <ScriptModal v-for="n in model.contentCount" :key="n" :name="'Script ' + n" />
+                <ScriptModal v-for="script, index in model.scripts" :key="index" :index="index" :name="script.name" :link="script.link" v-model="model" />
             </div>
         </div>
     </div>   

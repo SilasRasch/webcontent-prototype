@@ -94,7 +94,14 @@ export const store = reactive({
             price: price,
             deliveryTimeFrom: parseInt(deliveryfrom),
             deliveryTimeTo: parseInt(deliveryTo),
+            scripts: []
         }
+
+        // Generate scripts
+        for (let i = 0; i < order.contentCount; i++) {
+            order.scripts.push({ name: `Script ${i + 1}`, link: ''})
+        }
+
         orderAPI.putOrder(id, order)
     },
 
@@ -114,6 +121,14 @@ export const store = reactive({
     
         // Put new status
         orderAPI.putOrder(order.id, order)
+    },
+
+    updateScript(orderId, scriptIndex, name, link) {
+        var order = this.orders.find((order) => order.id === orderId)
+
+        order.scripts[scriptIndex] = { name: name, link: link}
+
+        orderAPI.putOrder(orderId, order)
     },
 
     toggleLoginModal() {
