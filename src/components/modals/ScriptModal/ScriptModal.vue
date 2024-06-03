@@ -78,9 +78,9 @@ const handleConfirm = () => {
                         <p v-if="linkError !== ''" class="text-red-600 p-0 m-0 mt-2">* {{ linkError }}</p>
                         <p class="text-left p-0 m-0">Link til dokument</p>
                         <!-- If model.status.category > 1 -->
-                        <!-- <input placeholder="Link til dokumentet" class="input rounded-lg" v-model="link" /> -->
-                        <div class="flex items-center">
-                            <input placeholder="Link til dokumentet" class="input rounded-l-lg" v-model="link" />
+                        <input v-if="model.status.category === 1" placeholder="https://docs.google.com/..." class="input rounded-lg" v-model="link" />
+                        <div v-else class="flex items-center">
+                            <input placeholder="https://docs.google.com/..." class="input rounded-l-lg" v-model="link" />
                             <a :href="link" class="fa fa-external-link bg-red-500 p-2 px-2.5 rounded-r-lg hover:bg-red-400 duration-200 text-base cursor-pointer"></a>
                         </div>
 
