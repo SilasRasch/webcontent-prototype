@@ -42,11 +42,15 @@ const shownContacts = computed(() => {
     return searchTerm.value === '' ? contacts.value : contacts.value.filter(x => x.name.toLowerCase().includes(searchTerm.value.toLowerCase()))
 })
 
+const resetContext = () => {
+    selectedContact.value = undefined
+}
+
 </script>
 
 <template>
     <MyModal>
-        <template #trigger><span class="fa fa-comments-o text-xl"></span></template>
+        <template #trigger><span class="fa fa-comments-o text-xl" @click="resetContext"></span></template>
         <template #default>
             <div class="flex gap-2 min-h-fit max-h-[80vh]">
                 <div class="grid content-start w-full mt-2 gap-4">

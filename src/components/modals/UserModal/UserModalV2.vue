@@ -21,11 +21,20 @@ const showPasswordSetting = ref(false)
 
 const newPswd = ref('')
 const newPswdConfirm = ref('')
+
+const resetTabs = () => {
+    currTab.value = 0
+    showDisplayNameSetting.value = false
+    showEmailSetting.value = false
+    showPasswordSetting.value = false
+    newPswd.value = ''
+    newPswdConfirm.value = ''
+}
 </script>
 
 <template>
     <MyModal>
-        <template #trigger><span class="fa fa-user-o text-xl"></span></template>
+        <template #trigger><span class="fa fa-user-o text-xl" @click="resetTabs"></span></template>
         <template #default>
             <div v-show="currTab === 0" class="grid w-full mt-2 gap-4">
                 <div class="flex">
