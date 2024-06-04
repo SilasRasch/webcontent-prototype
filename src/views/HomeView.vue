@@ -71,20 +71,20 @@ const handleGoToCreate = () => router.push('/opret')
         </RouterLink>
       </section>
 
-      <div class="sm:text-2xl font-semibold text-white grid justify-center">
-        <div class="flex justify-center items-center md:w-[50rem] bg-slate-900 rounded-xl py-6 sm:px-2">
+      <div class="font-semibold text-white grid justify-center">
+        <div class="flex justify-center items-center md:w-[50rem] bg-slate-900 rounded-xl py-6 px-4">
           <div class="flow-element">📝
             <p class="sm:text-xl text-center mt-2">Bestil</p>
           </div>
-          <i class="fa fa-2x fa-long-arrow-right"></i>
+          <i class="fa md:text-5xl text-3xl fa-long-arrow-right"></i>
           <div class="flow-element">👍
             <p class="sm:text-xl text-center mt-2">Bekræft</p>
           </div>
-          <i class="fa fa-2x fa-long-arrow-right"></i>
+          <i class="fa md:text-5xl text-3xl fa-long-arrow-right"></i>
           <div class="flow-element">💬
             <p class="sm:text-xl text-center mt-2">Feedback</p>
           </div>
-          <i class="fa fa-2x fa-long-arrow-right"></i>
+          <i class="fa md:text-5xl text-3xl fa-long-arrow-right"></i>
           <div class="flow-element">📦
             <p class="sm:text-xl text-center mt-2">Produkt</p>
           </div>
@@ -92,9 +92,9 @@ const handleGoToCreate = () => router.push('/opret')
       </div>
 
       <div class="py-8 pb-16 sm:px-2 text-white bg-slate-950 grid justify-center">
-        <h3 class="sm:text-2xl font-semibold">Bliv inspireret ✨</h3>
+        <h3 class="text-2xl font-semibold">Bliv inspireret ✨</h3>
         <div class="grid p-8 rounded-lg text-white bg-slate-900 mt-8 md:w-[50rem]">
-          <div class="sm:text-xl font-semibold text-left grid justify-center min-w-full">
+          <div class="text-xl font-semibold text-left grid justify-center min-w-full">
             <h1 class="text-left">🔥 Populære creators</h1>
             <div class="grid md:grid-cols-5 grid-cols-3 mt-4 max-w-fit gap-6 max-h-[174px] overflow-hidden">
               <div v-for="n in 5" :key="n" class="flex flex-col">
@@ -107,7 +107,7 @@ const handleGoToCreate = () => router.push('/opret')
           </div>
           
 
-          <div class="sm:text-xl font-semibold text-left grid justify-center min-w-full">
+          <div class="text-xl font-semibold text-left grid justify-center min-w-full">
             <h1 class="text-left my-4">🔥 Populært content</h1>
             <div class="grid md:grid-cols-3 sm:grid-cols-2 md:gap-12 gap-4 grid-cols-1 sm:max-h-[270px] overflow-hidden">
               <div v-for="n in 3" :key="n" class="flex flex-col">
@@ -120,21 +120,18 @@ const handleGoToCreate = () => router.push('/opret')
           </div>
         </div>
       </div>
-      
-      
-
     </div>
   </main>
 </template>
 
 <style scoped>
 .flow-element {
-  @apply grid justify-center bg-slate-950 rounded-lg sm:px-2 py-2 sm:min-w-[8rem] sm:text-4xl text-sm
+  @apply grid justify-center bg-slate-950 rounded-lg sm:px-2 py-2 md:min-w-[8rem] min-w-[4rem] md:text-4xl text-lg sm:text-xl
 }
 
 
 i {
-  @apply sm:px-2 lg:px-4 xl:px-8
+  @apply sm:px-4 px-2
 }
 
 .input {
