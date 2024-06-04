@@ -16,6 +16,14 @@ const handleToggleContact = () => toggleContact.value = !toggleContact.value
 const handleToggleProject = () => toggleProject.value = !toggleProject.value
 const handleToggleContent = () => toggleContent.value = !toggleContent.value
 
+const isVideo = computed(() => {
+    if (model.value.projectType !== 'Statics' && model.value.projectType !== 'Stilbilleder' && model.value.projectType !== '') {
+        return true
+    }
+
+    return false
+})
+
 // Compute text and colors to display
 const status = computed(() => {
     let tmp;
@@ -135,7 +143,7 @@ const maxiToMini = () => {
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 mb-0 p-2">
+                <div v-if="isVideo" class="grid md:grid-cols-3 grid-cols-1 -mt-2 mb-0 p-2">
                     <div class="text-left bg-slate-800 rounded-lg px-2 md:mr-1 md:mb-0 mb-1">
                         <p class="px-0 font-semibold">Mængde af indhold</p>
                         <p class="input-value">{{ model.contentCount }} stk</p>
@@ -145,6 +153,16 @@ const maxiToMini = () => {
                         <p class="input-value">{{ model.contentLength }} sekunder</p>
                     </div>
                     <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1"> 
+                        <p class="px-0 font-semibold">Format</p>
+                        <p class="input-value">{{ model.format }}</p>
+                    </div>
+                </div>
+                <div v-else class="grid md:grid-cols-2 grid-cols-1 p-2">
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:mr-1 md:my-0 my-1">
+                        <p class="px-0 font-semibold">Mængde af indhold</p>
+                        <p class="input-value">{{ model.contentCount }} stk</p>
+                    </div>
+                    <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">Format</p>
                         <p class="input-value">{{ model.format }}</p>
                     </div>
@@ -176,7 +194,7 @@ const maxiToMini = () => {
                     </div>
                 </div>
 
-                <div class="flex input text-left p-2 -mt-2">
+                <div v-if="isVideo" class="flex input text-left p-2 -mt-2">
                     <div class="text-left bg-slate-800 rounded-lg px-2 w-full mr-1">
                         <p class="px-0 font-semibold">Ekstra hook</p>
                         <p v-if="model.extraHook" class="input-value">{{ model.extraHookCount }} stk</p>

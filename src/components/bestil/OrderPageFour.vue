@@ -7,11 +7,19 @@ import { auth } from '@/store/auth';
 
 const router = useRouter()
 
+const isVideo = computed(() => {
+    if (store.newOrder.projectType !== 'Statics' && store.newOrder.projectType !== 'Stilbilleder' && store.newOrder.projectType !== '') {
+        return true
+    }
+
+    return false
+})
+
 const handleSend = () => {
     // Push order
     store.newOrder.price = estimatedPrice.value
-    store.newOrder.deliveryTimeFrom = estimatedDelivery.value
-    store.newOrder.deliveryTimeTo = estimatedDelivery.value + 2
+    // store.newOrder.deliveryTimeFrom = 2
+    // store.newOrder.deliveryTimeTo = 3
     store.newOrder.userId = auth.loggedInUser.id
 
     store.addOrder(store.newOrder)
@@ -24,43 +32,23 @@ const handleSend = () => {
 }
 
 const estimatedPrice = computed(() => {
-    var base = 750
-    var price = 1500; // 1-2 videoer
-
-    var mulitply = 1;
-
-    if (store.newOrder.contentLength <= 45) {
-        mulitply = 1
-    }
-    else if (store.newOrder.contentLength > 45 && store.newOrder.contentLength <= 90) {
-        mulitply = 1.125
-    }
-    else {
-        mulitply = 1.25
-    }
-
-    if (store.newOrder.contentCount > 1) {
-        price = (price + (base * (store.newOrder.contentCount - 2))) * mulitply
-    }
-    else {
-        price = (price + (base * (store.newOrder.contentCount - 1))) * mulitply
-    }
+    var price;
     
-    if (store.newOrder.extraCreator) {
-        price += 1500
+    if (store.newOrder.projectType === 'User Generated Content' || store.newOrder.projectType === 'Testimonials') {
+        price = store.newOrder.contentCount <= 8 ? 2000 : 3500
+        price += store.newOrder.extraHook ? 200 * store.newOrder.extraHookCount : 0
+        price += store.newOrder.extraCreator ? store.newOrder.contentCount <= 8 ? 2000 : 3500 : 0
     }
-
-    // Per extra hook video
-    if (store.newOrder.extraHook) {
-        price += 250 * store.newOrder.extraHookCount
+    else {
+        price = 3000
     }
 
     return parseFloat(Math.round(price))
 })
 
-const estimatedDelivery = computed(() => {
-    return parseInt(store.newOrder.contentCount)
-})
+// const estimatedDelivery = computed(() => {
+//     return parseInt(store.newOrder.contentCount)
+// })
 
 </script>
 
@@ -100,14 +88,6 @@ const estimatedDelivery = computed(() => {
                 <p class="input-value">{{ store.newOrder.contact.email }}</p>
             </div>
         </div>
-
-
-        <div class="input text-left my-2">
-            <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">Hvor har du hørt om os? <!--<strong :class="{'text-red-500': store.newOrder.source === ''}">*</strong>--></p>
-                <p class="input-value">{{ store.newOrder.source }}</p>
-            </div>
-        </div>
         
         <p class="text-left px-0 pt-0 opacity-50">Projekt</p>
         <hr class="text-black bg-black opacity-50 h-0.5 mb-0" />
@@ -129,7 +109,7 @@ const estimatedDelivery = computed(() => {
                 <p class="px-0 font-semibold">Mængde af indhold</p>
                 <p class="input-value">{{ store.newOrder.contentCount }} stk</p>
             </div>
-            <div class="input text-left mb-0"> 
+            <div v-if="isVideo" class="input text-left mb-0"> 
                 <p class="px-0 font-semibold">Længde af indhold</p>
                 <p class="input-value">{{ store.newOrder.contentLength }} sekunder</p>
             </div>
@@ -186,11 +166,11 @@ const estimatedDelivery = computed(() => {
         <div class="grid md:grid-cols-2 grid-cols-1">
             <div class="input text-left">
                 <p class="font-semibold">Estimeret pris</p>
-                <p>{{ estimatedPrice }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ estimatedPrice * 1.25 }} kr inkl. moms</ToolTip></p>
+                <p>{{ estimatedPrice }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ estimatedPrice * 1.25 }} kr inkl. moms (pr. optagedag)</ToolTip></p>
             </div>
             <div class="input text-left">
                 <p class="font-semibold">Estimeret leveringstid</p>
-                <p class="">{{ estimatedDelivery }}-{{ estimatedDelivery + 2 }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi estimerer derfor i intervaller. Husk dog stadig at det er et estimat.</ToolTip></p>
+                <p class="">{{ store.newOrder.deliveryTimeFrom }}-{{ store.newOrder.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Leveringstiden er angivet i dage efter optagedagen. <br> Husk at det blot er et estimat.</ToolTip></p>
             </div>
         </div>
         <div class="grid">
@@ -200,10 +180,13 @@ const estimatedDelivery = computed(() => {
                 Send
             </button>
         </div>
-        <ToolTip label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
-            Pris per video <br> 1 video: 1500,- <br> 2-16 videoer: 750,- <br><br>
-            Længde <br> 20-45 sekunder: 100% <br> 46-90 sekunder: +12,5% <br> 91-120 sekunder: +25% <br><br>
-            Ekstra <br> Ekstra hook: 250,- (per video) <br> Ekstra creator: 1500,- (per ordre)
+        <ToolTip v-if="isVideo" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
+            Pris per optagedag (UGC og Testimonials)<br> 1-8 videoer: 2500,- <br> 9-16 videoer: 3500,- <br><br>
+            Ekstra hook: 200,- (per video) <br> Ekstra creator: <br> 1-8 videoer: 2000,- <br> 9-16 videoer: 3500 (per ordre) <br><br>
+            Alle priser er ekskl. moms
+        </ToolTip>
+        <ToolTip v-else label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
+            Pris per optagedag: 3000,- eksl. moms <br>(Prisen vil blive højere, hvis der er mere end én optagedag)
         </ToolTip>
         <p v-if="!store.validate()" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
     </div>

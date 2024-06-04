@@ -1,8 +1,18 @@
 <script setup>
+import { computed } from 'vue';
 import { store } from '../../store/store.js'
 import SingleInput from '../Input/SingleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 import SingleSelect from '../Input/SingleSelect.vue';
+
+const isVideo = computed(() => {
+    if (store.newOrder.projectType !== 'Statics' && store.newOrder.projectType !== 'Stilbilleder' && store.newOrder.projectType !== '') {
+        return true
+    }
+
+    return false
+})
+
 </script>
 
 <template>
@@ -11,7 +21,7 @@ import SingleSelect from '../Input/SingleSelect.vue';
         
         <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
             <SingleInput class="input mr-1" v-model="store.newOrder.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
-            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required other :items="['UGC', 'Unboxing', 'Statics']">Projekttype</SingleSelect>
+            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organism SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
         </div>
         
         
@@ -19,22 +29,25 @@ import SingleSelect from '../Input/SingleSelect.vue';
         <hr class="text-black bg-black h-0.5 my-6" />
 
         <!-- Sliders! -->
-        <div class="grid md:grid-cols-2 grid-cols-1 mb-0">
-            <div class="input text-left mb-0">
-                <p class="px-0">Mængde af indhold</p>
-                <div class="flex flex-col justify-center mr-1">
-                    <input class="" v-model="store.newOrder.contentCount" type="range" min="1" max="16" step="1"/>
-                    <span class="text-center opacity-50">{{ store.newOrder.contentCount }} stk</span>
+        <Transition>
+            <div v-if="store.newOrder.projectType"
+            class="grid md:grid-cols-2 grid-cols-1 mb-0">
+                <div class="input text-left mb-0">
+                    <p class="px-0">Mængde af indhold</p>
+                    <div class="flex flex-col justify-center mr-1">
+                        <input class="" v-model="store.newOrder.contentCount" type="range" :min="isVideo ? 1 : 1" :max="isVideo ? 16 : 50" step="1"/>
+                        <span class="text-center opacity-50">{{ store.newOrder.contentCount }} stk</span>
+                    </div>
+                </div>
+                <div class="input text-left mb-0"  v-if="isVideo"> 
+                    <p class="px-0">Længde af indhold</p>
+                    <div class="flex flex-col justify-center ml-1">
+                        <input v-model="store.newOrder.contentLength" type="range" min="20" max="120" step="5"/>
+                        <span class="text-center opacity-50">{{ store.newOrder.contentLength }} sekunder</span>
+                    </div>
                 </div>
             </div>
-            <div class="input text-left mb-0"> 
-                <p class="px-0">Længde af indhold</p>
-                <div class="flex flex-col justify-center ml-1">
-                    <input v-model="store.newOrder.contentLength" type="range" min="20" max="120" step="5"/>
-                    <span class="text-center opacity-50">{{ store.newOrder.contentLength }} sekunder</span>
-                </div>
-            </div>
-        </div>
+        </Transition>
 
         <SingleMultiSelect v-model="store.formatArr" required other
         :items="['16:9', '9:16', '1:1', '4:5']">
@@ -67,8 +80,41 @@ input[type="range"]::-webkit-slider-thumb {
     @apply h-[18px] w-[18px] bg-white rounded-full -mt-[5px];
 }
 
-
 input[type="range"]::-moz-range-track {
     @apply bg-red-400 h-2 rounded p-0
 } 
+
+.v-enter-from {
+  opacity: 0;
+  transform: translateY(-10px)
+}
+
+.v-enter-to {
+  opacity: 1;
+  transform: translateY(0)
+}
+
+.v-enter-active {
+  transition: all 0.4s ease-in-out;
+}
+
+.v-leave-from {
+    z-index: -100;
+    opacity: 0;
+    transform: translateY(0)
+}
+
+.v-leave-to {
+    opacity: 0;
+    transform: translateY(-5px)
+}
+
+.v-leave-active {
+    transition: all 0.2s ease-in-out;
+}
+
+.v-move {
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
 </style>

@@ -31,10 +31,9 @@ export const store = reactive({
         extraHookCount: 1,
         extraNotes: '',
         notes: '', // * Required
-        source: '', 
         price: 0,
-        deliveryTimeFrom: 0,
-        deliveryTimeTo: 0,
+        deliveryTimeFrom: 2,
+        deliveryTimeTo: 3,
         userId: 0,
         status: {
             category: 0,
@@ -62,10 +61,9 @@ export const store = reactive({
         extraHookCount: 1,
         extraNotes: '',
         notes: '',
-        source: '', 
         price: 0,
-        deliveryTimeFrom: 0,
-        deliveryTimeTo: 0,
+        deliveryTimeFrom: 2,
+        deliveryTimeTo: 3,
         userId: 0,
         status: {
             category: 0,
@@ -174,5 +172,5 @@ export const store = reactive({
             }
         
         return true
-    }
+    },
 })
