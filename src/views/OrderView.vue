@@ -89,10 +89,10 @@ const handleBack = () => {
 
       <div class="flex justify-between w-full">
         <button @click="handleBack" class="px-2">
-          <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': store.currOrderPage !== 0}" aria-hidden="true"></i>
+          <i class="fa fa-arrow-left fa-2x" :class="store.currOrderPage !== 0 ? 'arrow' : 'text-slate-800'" aria-hidden="true"></i>
         </button>
         <button @click="handleNext" class="px-2">
-            <i class="fa fa-arrow-right fa-2x text-white" :class="store.currOrderPage !== 4 ? 'arrow' : 'text-slate-800'" aria-hidden="true"></i>
+            <i class="fa fa-arrow-right fa-2x" :class="store.currOrderPage !== 4 ? 'arrow' : 'text-slate-800'" aria-hidden="true"></i>
         </button>
       </div>
     </div>
