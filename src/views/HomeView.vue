@@ -60,7 +60,7 @@ const handleGoToCreate = () => router.push('/opret')
         </div>
       </section>
 
-      <section v-else class="flex flex-col justify-center items-center text-center gap-8 py-16">
+      <section v-else class="flex flex-col justify-center items-center text-center gap-8 py-24">
         <h1 class="md:text-5xl sm:text-3xl text-2xl text-red-500 font-bold max-w-[48rem]">WebContents platform er en all-in-one content løsning.</h1>
         <h3 class="md:text-2xl sm:text-lg text-white font-bold">Lad os komme i gang!</h3>
         <RouterLink v-if="auth.isUser()" to="/bestil" class="flex justify-center">
