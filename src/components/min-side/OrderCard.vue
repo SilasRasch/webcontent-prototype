@@ -283,7 +283,7 @@ const maxiToMini = () => {
 }
 
 .maximized {
-    @apply grid bg-slate-600 rounded-lg mt-0 lg:min-w-[35rem] w-[50rem] max-w-[50rem] p-2
+    @apply grid bg-slate-600 rounded-lg mt-0 lg:min-w-[35rem] sm:w-[40rem] sm:max-w-[40rem] p-2 w-[80vw]
 }
 
 .minimized {

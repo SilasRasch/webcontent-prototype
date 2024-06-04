@@ -17,7 +17,7 @@ const handleLogin = async () => {
             email.value = ''
             password.value = ''
             error.value = ''
-            auth.isAdmin() ? router.push("/admin") : router.push("min-side")
+            // auth.isAdmin() ? router.push("/admin") : router.push("min-side")
         }
         else {
             error.value = "Forkert email eller kodeord"
@@ -32,14 +32,14 @@ const handleGoToCreate = () => router.push('/opret')
 <template>
   <main class="bg-slate-950">
     <div class="text-center">
-      <section v-if="!auth.isLoggedIn" class="flex justify-center gap-2 md:gap-8 items-center py-8 h-[75vh]">
+      <section v-if="!auth.isLoggedIn" class="flex justify-center gap-2 md:gap-8 items-center py-32">
         <div class="text-red-500 text-left">
           <h1 class="text-2xl font-semibold">WebContent</h1>
           <p class="text-lg font-semibold text-white p-0 m-0 py-2">Alt-i-en platform til content!</p>
         </div>
 
         <div class="p-2 px-4 rounded-lg text-white bg-gray-900 min-w-[300px] max-w-lg shadow-black shadow-lg">
-          <div class="grid w-full">
+          <div class="grid w-full" @keyup.enter="handleLogin">
               <div class="grid pt-2 w-full">
                   <p class="text-left p-0 py-1">E-mail <ToolTip class="bg-gray-800" label="i">Test credentials <br> Brugernavn: admin <br> Kodeord: test</ToolTip> </p>
                   <input v-model="email" type="email" class="input" />
@@ -59,23 +59,20 @@ const handleGoToCreate = () => router.push('/opret')
           </div>
         </div>
       </section>
-      <section v-else>
-        <div class="relative">
-          <img alt="logo" class="w-screen max-h-[50vh] object-cover object-top filter brightness-50 pointer-events-none" src="https://webcontent.dk/wp-content/uploads/2024/01/kal-visuals-DqmXihYx5UE-unsplash-scaled.jpg" />
-          <div class="z-10 grid justify-center absolute top-[50%] left-2/4 -translate-x-1/2 -translate-y-1/2 drop-shadow-2xl max-w-[40vw]">
-            <h1 class="md:text-5xl sm:text-3xl text-2xl text-red-500 font-bold">Velkommen til WebContents all-in-one platform!</h1>
-            <h3 class="md:text-2xl sm:text-lg text-white font-bold sm:mt-8 my-2">Lad os komme i gang!</h3>
-            <div class="flex justify-center items-center">
-              <RouterLink to="/bestil">
-                <p class="btn-red sm:mt-8 mt-2 mx-1 w-40">Gå til bestilling!</p>
-              </RouterLink>
-            </div>
-          </div>
-        </div>
+
+      <section v-else class="flex flex-col justify-center items-center text-center gap-8 py-16">
+        <h1 class="md:text-5xl sm:text-3xl text-2xl text-red-500 font-bold max-w-[48rem]">WebContents platform er en all-in-one content løsning.</h1>
+        <h3 class="md:text-2xl sm:text-lg text-white font-bold">Lad os komme i gang!</h3>
+        <RouterLink v-if="auth.isUser()" to="/bestil" class="flex justify-center">
+          <p class="p-2 px-4 text-white bg-red-500 rounded-full font-semibold hover:bg-red-600 duration-200">Opret nyt projekt</p>
+        </RouterLink>
+        <RouterLink v-if="auth.isAdmin()" to="/admin" class="flex justify-center">
+          <p class="p-2 px-4 text-white bg-red-500 rounded-full font-semibold hover:bg-red-600 duration-200">Gå til dashboard</p>
+        </RouterLink>
       </section>
 
-      <div class="sm:text-2xl font-semibold py-10 sm:px-2 bg-slate-800 text-white">
-        <div class="flex justify-center items-center">
+      <div class="sm:text-2xl font-semibold text-white grid justify-center">
+        <div class="flex justify-center items-center md:w-[50rem] bg-slate-900 rounded-xl py-6 sm:px-2">
           <div class="flow-element">📝
             <p class="sm:text-xl text-center mt-2">Bestil</p>
           </div>
@@ -93,13 +90,46 @@ const handleGoToCreate = () => router.push('/opret')
           </div>
         </div>
       </div>
+
+      <div class="py-8 pb-16 sm:px-2 text-white bg-slate-950 grid justify-center">
+        <h3 class="sm:text-2xl font-semibold">Bliv inspireret ✨</h3>
+        <div class="grid p-8 rounded-lg text-white bg-slate-900 mt-8 md:w-[50rem]">
+          <div class="sm:text-xl font-semibold text-left grid justify-center min-w-full">
+            <h1 class="text-left">🔥 Populære creators</h1>
+            <div class="grid md:grid-cols-5 grid-cols-3 mt-4 max-w-fit gap-6 max-h-[174px] overflow-hidden">
+              <div v-for="n in 5" :key="n" class="flex flex-col">
+                <div class="w-[120px] h-[150px] bg-gray-500 rounded-md flex justify-center items-center">
+                  <i class="fa-4x fa fa-user text-gray-400"></i>
+                </div>
+                <p class="text-base text-left p-0 m-0">Creatornavn</p>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="sm:text-xl font-semibold text-left grid justify-center min-w-full">
+            <h1 class="text-left my-4">🔥 Populært content</h1>
+            <div class="grid md:grid-cols-3 sm:grid-cols-2 md:gap-12 gap-4 grid-cols-1 sm:max-h-[270px] overflow-hidden">
+              <div v-for="n in 3" :key="n" class="flex flex-col">
+                <div class="sm:w-[200px] sm:h-[250px] w-[400px] h-[500px] bg-gray-500 rounded-md flex justify-center items-center">
+                  <i class="fa-3x fa fa-play text-gray-400"></i>
+                </div>
+                <p class="text-sm opacity-35 text-left p-0 m-0">_K views via Socialt medie</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
     </div>
   </main>
 </template>
 
 <style scoped>
 .flow-element {
-  @apply grid justify-center bg-slate-900 rounded-lg sm:px-2 py-2 sm:min-w-[15vw] lg:min-w-[12rem] sm:text-4xl text-sm
+  @apply grid justify-center bg-slate-950 rounded-lg sm:px-2 py-2 sm:min-w-[8rem] sm:text-4xl text-sm
 }
 
 

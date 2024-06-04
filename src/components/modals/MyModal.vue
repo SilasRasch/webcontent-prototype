@@ -11,10 +11,10 @@ const showModal = ref(false)
         </div>
 
         <Transition>
-            <div v-show="showModal" @click.self="showModal = !showModal" class="z-50 absolute w-[100vw] h-[100vh] top-0 left-0">
+            <div v-show="showModal" @click.self="showModal = !showModal" class="z-50 absolute w-full h-full top-0 left-0">
                 <div
                 class="p-2 px-4 rounded-lg text-white bg-gray-800 
-                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 absolute md:top-[78px] top-[112px] right-0 shadow-2xl shadow-black pb-4">
+                min-w-fit w-[21rem] text-center min-h-fit md:mb-96 absolute md:top-[78px] top-[112px] right-2 shadow-2xl shadow-black pb-4">
                     <div class="grid w-full mt-2 gap-4">
                         <slot></slot>
                     </div>

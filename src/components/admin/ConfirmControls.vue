@@ -33,7 +33,7 @@ const handleConfirm = () => {
 </script>
 
 <template>
-    <div v-if="model.status.state === 0 && auth.isAdmin()" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[50rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
+    <div v-if="model.status.state === 0 && auth.isAdmin()" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[40rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
         <TransitionGroup v-if="!semiConfirm && !semiCancel">
             <button @click="semiConfirm = true" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600">Bekræft</button>  
             <button @click="semiCancel = true" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   
@@ -60,14 +60,14 @@ const handleConfirm = () => {
             <button @click="semiConfirm = false" class="mx-2 ml-1 btn-conf bg-red-600 m-0 sm:mb-2">Annuller</button> 
         </TransitionGroup> 
         <TransitionGroup v-else-if="semiCancel">
-            <button v-if="semiCancel" @click="handleReject()" class="m-2 mr-1 btn-conf bg-red-600 font-semibold">Ja, annullér</button> 
+            <button v-if="semiCancel" @click="handleReject()" class="m-2 mr-1 btn-conf bg-red-600 font-semibold">Ja, afslå</button> 
             <button v-if="semiCancel" @click="semiCancel = false" class="m-2 ml-1 btn-conf bg-green-600">Fortryd</button> 
         </TransitionGroup>
     </div>
     <div v-else-if="((model.status.category === 2 || model.status.category === 4) && auth.isUser())"
     class="bg-slate-600 rounded-lg text-white px-2 mt-2">
         <TransitionGroup>
-            <button v-if="!semiConfirm" @click="handleConfirm()" class="btn-conf my-1 sm:my-2 bg-green-600 w-full">
+            <button v-if="!semiConfirm" @click="handleConfirm()" class="btn-conf my-2 bg-green-600 w-full">
                 Bekræft {{ model.status.category === 2 ? 'scripts' : 'videoer' }}
             </button>    
         </TransitionGroup>
@@ -75,7 +75,7 @@ const handleConfirm = () => {
     <div v-else-if="((model.status.category === 1 || model.status.category === 3) && auth.isAdmin())"
     class="bg-slate-600 rounded-lg text-white px-2 mt-2">
         <TransitionGroup>
-            <button v-if="!semiConfirm" @click="handleConfirm()" class="btn-conf my-1 sm:my-2 bg-green-600 w-full">
+            <button v-if="!semiConfirm" @click="handleConfirm()" class="btn-conf my-2 bg-green-600 w-full">
                 Send til {{ model.status.category === 1 ? 'Planlægning' : 'Feedback' }}
             </button>    
         </TransitionGroup>
