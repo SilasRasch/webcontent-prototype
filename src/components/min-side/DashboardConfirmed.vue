@@ -20,7 +20,7 @@ const feedback = confirmedOrders.filter((i) => i.status.category === 4)
 </script>
 
 <template>
-    <div v-if="model.length > 0" class="grid rounded-xl mt-0 w-[90vw]">
+    <div v-if="model" class="grid rounded-xl mt-0 w-[90vw]">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 rounded-xl mt-0">
             <!-- Queued -->
             <div class="flex flex-col gap-2">
