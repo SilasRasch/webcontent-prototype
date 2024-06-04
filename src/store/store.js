@@ -124,7 +124,7 @@ export const store = reactive({
             order.status.state = 1
         } 
         else if (newCategory === 5) { // Completed
-            order.status.category = 0
+            order.status.category = 4
             order.status.state = 2
         } 
         else if (newCategory === 6) { // Cancelled
