@@ -53,7 +53,7 @@ const estimatedPrice = computed(() => {
 </script>
 
 <template>
-    <div class="text-center w-full p-2 bg-gray-200 rounded-2xl mb-2 px-4">
+    <div class="text-center w-full p-2 bg-slate-900 rounded-2xl mb-2 px-4">
         <p class="text-xl font-semibold m-2">Tjek information</p>
 
         <p class="text-left px-0 pt-0 opacity-50">Kontakt</p>

@@ -45,7 +45,7 @@ const mouseOver = ref(false)
         </div>
         
         <Transition>
-            <ul v-if="open" class="list-items my-1 text-left md:z-50 md:absolute bg-white rounded-xl">
+            <ul v-if="open" class="list-items my-1 text-left md:z-50 md:absolute rounded-xl">
                 <SingleSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" />
                 <SingleSelectItem v-show="props.other" v-model="model" item="Andet" custom />
             </ul>

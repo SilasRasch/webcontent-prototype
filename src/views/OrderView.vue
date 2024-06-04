@@ -40,7 +40,8 @@ const handleBack = () => {
 </script>
 
 <template>
-    <div class="grid justify-center text-center m-4">
+  <div class="flex justify-center">
+    <div class="grid justify-center text-center m-4 bg-slate-800 rounded-lg w-fit p-4">
       <!-- Order "navigation" -->
       <h1 class="text-3xl font-semibold">Bestilling</h1>
       <div class="flex justify-center [&>*]:m-2 self-center items-center cursor-pointer">
@@ -91,11 +92,11 @@ const handleBack = () => {
           <i class="fa fa-arrow-left fa-2x text-white" :class="{'arrow': store.currOrderPage !== 0}" aria-hidden="true"></i>
         </button>
         <button @click="handleNext" class="px-2">
-            <i class="fa fa-arrow-right fa-2x text-white" :class="{'arrow': store.currOrderPage !== 4}" aria-hidden="true"></i>
+            <i class="fa fa-arrow-right fa-2x text-white" :class="store.currOrderPage !== 4 ? 'arrow' : 'text-slate-800'" aria-hidden="true"></i>
         </button>
       </div>
     </div>
-
+  </div>
 </template>
 
 <style scoped>

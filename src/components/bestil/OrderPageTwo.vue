@@ -72,6 +72,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 input[type="range"] {
     -webkit-appearance: none;
+    @apply bg-slate-800;
 }
 
 input[type="range"]::-webkit-slider-thumb {

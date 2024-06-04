@@ -32,7 +32,7 @@ import ChatModal from './components/modals/ChatModal/ChatModal.vue';
   </RouterView>
 </template>
 
-<style scoped>
+<style>
 .route-enter-from {
   opacity: 0;
 }
@@ -49,4 +49,7 @@ import ChatModal from './components/modals/ChatModal/ChatModal.vue';
   transition: all 0.3s ease-in
 }
 
+body {
+  @apply bg-slate-950 text-white
+}
 </style>

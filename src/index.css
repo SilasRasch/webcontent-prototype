@@ -28,7 +28,7 @@
     }
 
     .input-field {
-        @apply border-gray-300 rounded-xl border-2 w-full p-0 m-0
+        @apply border-slate-800 rounded-xl border-2 w-full p-0 m-0 bg-slate-900
     }
 
     /* Tooltip container */

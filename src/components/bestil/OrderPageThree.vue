@@ -55,7 +55,7 @@ const isVideo = computed(() => {
             <div v-if="store.newOrder.extraHook" class="mb-0">
                 <div class="input text-left mb-0">
                     <p class="px-0">Hvor mange videoer m. ekstra hook? <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker ekstra hooks <br> (+ 200,- per video)</ToolTip></p>
-                    <div class="flex flex-col justify-center mr-1">
+                    <div class="flex flex-col justify-center">
                         <input v-model="store.newOrder.extraHookCount" class="" type="range" min="1" :max="store.newOrder.contentCount" step="1"/>
                         <span class="text-center opacity-50">{{ store.newOrder.extraHookCount }} stk</span>
                     </div>
@@ -69,7 +69,12 @@ const isVideo = computed(() => {
 
 <style scoped>
 .toggle-btn {
-    @apply border-gray-300 rounded-xl border-2 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
+    @apply rounded-xl border-2 border-slate-700 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    @apply bg-slate-800;
 }
 
 /* Chrome */
