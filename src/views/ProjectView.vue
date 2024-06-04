@@ -49,13 +49,6 @@ const toggleAdminControls = () => {
         <div class="sm:flex grid justify-evenly items-start gap-2">
             <!-- Order information -->
             <OrderCard v-model="model" :key="id" @toggle-admin-controls="toggleAdminControls"/>
-            
-            <!-- <div v-if="model.status.category > 1 || (auth.isAdmin() && model.status.state > 0)" class="flex gap-4 bg-slate-600 sm:-mt-12 p-4 rounded-lg w-fit text-white font-semibold ">
-                <div class="grid gap-4">
-                    <p class="p-4 bg-red-500 rounded-lg text-lg bg-opacity-75">Scripts</p>
-                    <ScriptModal v-for="script, index in model.scripts" :key="index" :index="index" :name="script.name" :link="script.link" v-model="model" />
-                </div>
-            </div> -->
         </div>
     </div>   
 </template>

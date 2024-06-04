@@ -28,7 +28,7 @@ else {
                 {{ titles.subTitle }}
             </h1>
 
-            <MyDashboard :admin="auth.isAdmin()" />
+            <MyDashboard />
            
         </div>
     </div>    
