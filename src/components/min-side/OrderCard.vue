@@ -2,6 +2,8 @@
 import ToolTip from '../Input/ToolTip.vue';
 import { computed, ref } from 'vue';
 import ConfirmControls from '../admin/ConfirmControls.vue';
+import LinkModal from '../modals/LinkModal.vue';
+import { auth } from '@/store/auth';
 
 const model = defineModel()
 
@@ -266,6 +268,13 @@ const maxiToMini = () => {
                 </div>
             </div>
         </div>
+        
+        <div v-if="(model.links) && (model.links && model.status.category > 1 && auth.isUser()) || (model.links && auth.isAdmin())" class="flex justify-evenly gap-2 w-full mt-2 bg-slate-600 p-2 rounded-lg">
+            <LinkModal name="Scripts" v-model="model.links.scripts" :id="model.id" />
+            <LinkModal v-if="(model.status.category > 2 && auth.isAdmin()) || (model.status.category > 3 && auth.isUser())" name="Content" v-model="model.links.content" :id="model.id" />
+            <LinkModal name="Andet" v-model="model.links.other" :id="model.id" />
+        </div>
+        
 
         <!-- Confirm controls -->
         <ConfirmControls v-model="model" />

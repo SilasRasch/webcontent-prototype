@@ -116,7 +116,8 @@ const newPswdConfirm = ref('')
                             </div>
                         </div>
                     </div>
-                    <div v-show="auth.loggedInUser.email === 'admin'" class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                    <!-- v-show="auth.loggedInUser.email === 'admin'" -->
+                    <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
                         <div class="flex justify-between w-full">
                             <div class="flex text-center">
                                 <span class="cursor-pointer fa fa-key fa-2x min-w-10"></span>

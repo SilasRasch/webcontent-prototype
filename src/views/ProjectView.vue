@@ -6,7 +6,6 @@ import { auth } from '@/store/auth';
 import OrderCard from '@/components/min-side/OrderCard.vue';
 import AdminStatusControls from '@/components/admin/AdminStatusControls.vue';
 import { useOrderAPI } from '@/store/api/orderApi';
-import ScriptModal from '@/components/modals/ScriptModal/ScriptModal.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -50,10 +49,13 @@ const toggleAdminControls = () => {
         <div class="sm:flex grid justify-evenly items-start gap-2">
             <!-- Order information -->
             <OrderCard v-model="model" :key="id" @toggle-admin-controls="toggleAdminControls"/>
-            <div v-if="model.status.category > 1 || (auth.isAdmin() && model.status.state > 0)" class="grid gap-4 bg-slate-600 sm:-mt-12 p-4 rounded-lg w-fit max-w-40 text-white font-semibold ">
-                <p class="p-4 bg-red-500 rounded-lg text-lg bg-opacity-75">Scripts</p>
-                <ScriptModal v-for="script, index in model.scripts" :key="index" :index="index" :name="script.name" :link="script.link" v-model="model" />
-            </div>
+            
+            <!-- <div v-if="model.status.category > 1 || (auth.isAdmin() && model.status.state > 0)" class="flex gap-4 bg-slate-600 sm:-mt-12 p-4 rounded-lg w-fit text-white font-semibold ">
+                <div class="grid gap-4">
+                    <p class="p-4 bg-red-500 rounded-lg text-lg bg-opacity-75">Scripts</p>
+                    <ScriptModal v-for="script, index in model.scripts" :key="index" :index="index" :name="script.name" :link="script.link" v-model="model" />
+                </div>
+            </div> -->
         </div>
     </div>   
 </template>

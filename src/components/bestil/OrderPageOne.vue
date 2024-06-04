@@ -2,7 +2,7 @@
 import { store } from '../../store/store.js'
 import DoubleInput from '../Input/DoubleInput.vue';
 import SingleInput from '../Input/SingleInput.vue';
-import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
+// import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 </script>
 
 <template>
@@ -25,11 +25,11 @@ import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 
         <SingleInput v-model="store.newOrder.contact.email" placeholder="Din e-mail" required>E-mail</SingleInput>
 
-        <hr class="text-black bg-black h-0.5 my-6" />
-
+        <!-- <hr class="text-black bg-black h-0.5 my-6" /> -->
+<!-- 
         <SingleMultiSelect v-model="store.sourceArr" label="Hvor har du hørt om os?" required
         :items="['LinkedIn', 'Facebook', 'Instagram', 'Mundtligt']">
-            Hvor har du hørt om os?</SingleMultiSelect>
+            Hvor har du hørt om os?</SingleMultiSelect> -->
     </div>
 </template>
 

@@ -35,20 +35,20 @@ const handleConfirm = () => {
 <template>
     <div v-if="model.status.state === 0 && auth.isAdmin()" class="md:w-[85vw] sm:w-[80vw] w-[70vw] max-w-[40rem] grid md:grid-cols-2 bg-slate-600 rounded-lg text-white mt-2">
         <TransitionGroup v-if="!semiConfirm && !semiCancel">
-            <button @click="semiConfirm = true" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600">Bekræft</button>  
-            <button @click="semiCancel = true" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2">Afslå</button>   
+            <button @click="semiConfirm = true" class="mx-2 mr-1 btn-conf my-1 sm:my-2 bg-green-600" :key="1">Bekræft</button>  
+            <button @click="semiCancel = true" class="mx-2 ml-1 btn-conf bg-red-600 my-1 sm:my-2" :key="2">Afslå</button>   
         </TransitionGroup>
 
         <!-- Confirm buttons -->
         <TransitionGroup v-if="semiConfirm">
-            <div class="order-row mx-2 mr-1 my-1 sm:my-2">
+            <div class="order-row mx-2 mr-1 my-1 sm:my-2" :key="1">
                 <p class="m-1 pb-0">Pris</p>
                 <div class="flex justify-start">
                     <input v-model="price" type="number" class="order-row mt-1 p-2 w-1/2 m-2 mr-1" placeholder="ekskl. moms" />
                     <p class="order-row mt-1 p-2 w-1/2 m-2 ml-1">{{ price * 1.25 }} inkl. moms</p>
                 </div>
             </div>
-            <div class="order-row mx-2 ml-1 my-1 sm:my-2">
+            <div class="order-row mx-2 ml-1 my-1 sm:my-2" :key="4">
                 <p class="m-1 pb-0">Leveringstid <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Angivet i hverdage</ToolTip></p>
                 <div class="flex justify-start">
                     <input v-model="deliveryFrom" type="number" class="order-row mt-1 p-2 w-1/2 m-2 mr-1" placeholder="Fra" />
@@ -56,12 +56,12 @@ const handleConfirm = () => {
                 </div>
                 
             </div>
-            <button @click="handleConfirm()" class="mx-2 mr-1 btn-conf bg-green-600 m-0 sm:mb-2">Send</button>  
-            <button @click="semiConfirm = false" class="mx-2 ml-1 btn-conf bg-red-600 m-0 sm:mb-2">Annuller</button> 
+            <button @click="handleConfirm()" class="mx-2 mr-1 btn-conf bg-green-600 m-0 sm:mb-2" :key="2">Send</button>  
+            <button @click="semiConfirm = false" class="mx-2 ml-1 btn-conf bg-red-600 m-0 sm:mb-2" :key="3">Annuller</button> 
         </TransitionGroup> 
         <TransitionGroup v-else-if="semiCancel">
-            <button v-if="semiCancel" @click="handleReject()" class="m-2 mr-1 btn-conf bg-red-600 font-semibold">Ja, afslå</button> 
-            <button v-if="semiCancel" @click="semiCancel = false" class="m-2 ml-1 btn-conf bg-green-600">Fortryd</button> 
+            <button v-if="semiCancel" @click="handleReject()" class="m-2 mr-1 btn-conf bg-red-600 font-semibold" :key="1">Ja, afslå</button> 
+            <button v-if="semiCancel" @click="semiCancel = false" class="m-2 ml-1 btn-conf bg-green-600" :key="2">Fortryd</button> 
         </TransitionGroup>
     </div>
     <div v-else-if="((model.status.category === 2 || model.status.category === 4) && auth.isUser())"

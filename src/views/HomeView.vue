@@ -72,7 +72,7 @@ const handleGoToCreate = () => router.push('/opret')
           <RouterLink v-if="auth.isUser()" to="/bestil" class="flex justify-center">
             <p class="p-2 px-4 text-white bg-red-500 rounded-full font-semibold hover:bg-red-600 duration-200">Opret nyt projekt</p>
           </RouterLink>
-          <RouterLink v-if="auth.isAdmin()" to="/admin" class="flex justify-center">
+          <RouterLink v-else-if="auth.isAdmin()" to="/admin" class="flex justify-center">
             <p class="p-2 px-4 text-white bg-red-500 rounded-full font-semibold hover:bg-red-600 duration-200">Gå til dashboard</p>
           </RouterLink>
           <div v-else class="flex justify-center gap-2">
