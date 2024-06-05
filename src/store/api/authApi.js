@@ -6,7 +6,7 @@ export const useAuthAPI = () => {
     const env = import.meta.env.WC_ENVIRONMENT
     if (env === "production") {
         baseURL = "https://api.wcp.dk/auth/" // Public Prod
-    } else if (env === "devlopment") {
+    } else if (env === "development") {
         baseURL = "https://api.nobitches.win/auth/" 
     } else {
         baseURL = "https://localhost:7216/auth/"
