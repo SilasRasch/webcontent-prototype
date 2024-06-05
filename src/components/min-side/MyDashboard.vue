@@ -36,14 +36,14 @@ api.getOrders().then((data) => orders.value = data).then((data) => store.orders 
         <DashboardTabControls />
 
         <!-- Dashboard -->
-        <TransitionGroup v-if="auth.isAdmin()" tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
+        <TransitionGroup v-if="auth.isUser()" tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
           <DashboardConfirmed v-if="store.currDashboardTab === 1" v-model="orders" />
           <DashboardPool v-if="store.currDashboardTab === 2" v-model="unconfirmed">Ubekræftede projekter</DashboardPool>
           <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled">Annullerede projekter</DashboardPool>
           <DashboardPool v-if="store.currDashboardTab === 4" v-model="closed">Færdige projekter</DashboardPool>
         </TransitionGroup>
         
-        <TransitionGroup v-else-if="auth.isUser()" tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
+        <TransitionGroup v-else-if="auth.isAdmin()" tag="div" class="flex justify-center bg-slate-600 rounded-lg [&>*]:max-w-[50rem]" name="dashboard">
           <DashboardPool v-if="store.currDashboardTab === 1" v-model="unconfirmed" admin>Ubekræftede projekter</DashboardPool>
           <DashboardConfirmed v-if="store.currDashboardTab === 2" v-model="orders" admin/>
           <DashboardPool v-if="store.currDashboardTab === 3" v-model="cancelled" admin>Annullerede projekter</DashboardPool>

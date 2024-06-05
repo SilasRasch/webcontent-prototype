@@ -14,11 +14,11 @@ const user = () => {
   }
 }
 
-// const creator = () => {
-//   if (!auth.isLoggedIn && !auth.isCreator()) {
-//     return "/"
-//   }
-// }
+const creator = () => {
+  if (!auth.isLoggedIn && !auth.isCreator()) {
+    return "/"
+  }
+}
 
 const admin = () => {
   if (!auth.isLoggedIn && !auth.isAdmin()) {
@@ -73,13 +73,13 @@ const router = createRouter({
     {
       path: '/min-side',
       name: 'min-side',
-      beforeEnter: user,
+      beforeEnter: [user, creator],
       component: DashboardView,
     },
     {
       path: '/min-side/projekt/:id',
       name: 'projekt',
-      beforeEnter: user,
+      beforeEnter: [user, creator],
       component: ProjectView,
     },
     {

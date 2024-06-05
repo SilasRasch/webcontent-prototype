@@ -1,7 +1,9 @@
 import { reactive } from "vue";
 import { useOrderAPI } from "./api/orderApi";
+// import { useCreatorAPI } from "./api/creatorApi";
 
 const orderAPI = useOrderAPI()
+// const creatorAPI = useCreatorAPI()
 
 export const store = reactive({
     currOrderPage: 0,
@@ -75,6 +77,7 @@ export const store = reactive({
         orderAPI.postOrder(order)
 
         // Reset
+        this.newOrder.creators = []
         this.newOrder = JSON.parse(JSON.stringify(this.orderTemplate)) // Deep copy
         this.formatArr = []
         this.sourceArr = []

@@ -6,20 +6,35 @@ import { auth } from '@/store/auth';
 import OrderCard from '@/components/min-side/OrderCard.vue';
 import AdminStatusControls from '@/components/admin/AdminStatusControls.vue';
 import { useOrderAPI } from '@/store/api/orderApi';
+import { useCreatorAPI } from '@/store/api/creatorApi';
 
 const route = useRoute()
 const router = useRouter()
 const api = useOrderAPI()
+const creatorAPI = useCreatorAPI()
 
 const id = ref(parseInt(route.params.id))
 
 const model = ref(null)
-api.getOrder(id.value).then((data) => model.value = data)
+
+const fetchOrder = () => {
+    api.getOrder(id.value).then((data) => {
+        model.value = data
+    
+        creatorAPI.getCreatorsByOrder(model.value.id).then(data => {
+            if (data) {
+                model.value.creatorList = data
+            }
+        })
+    })
+}
+
+fetchOrder()
 
 // Update order on route change
 onBeforeRouteUpdate(async (to) => {
     id.value = to
-    api.getOrder(id).then((data) => model.value = data)
+    fetchOrder()
 })
 
 // Toggling status controls
@@ -48,7 +63,7 @@ const toggleAdminControls = () => {
 
         <div class="sm:flex grid justify-evenly items-start gap-2">
             <!-- Order information -->
-            <OrderCard v-model="model" :key="id" @toggle-admin-controls="toggleAdminControls"/>
+            <OrderCard v-model="model" :key="id" @refetch="fetchOrder" />
         </div>
     </div>   
 </template>

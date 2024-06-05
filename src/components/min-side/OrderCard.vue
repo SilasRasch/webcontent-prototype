@@ -4,8 +4,13 @@ import { computed, ref } from 'vue';
 import ConfirmControls from '../admin/ConfirmControls.vue';
 import LinkModal from '../modals/LinkModal.vue';
 import { auth } from '@/store/auth';
+import AddCreatorModal from '../modals/ScriptModal/AddCreatorModal.vue';
+import CreatorModal from '../modals/ScriptModal/CreatorModal.vue';
+import { useOrderAPI } from '@/store/api/orderApi';
 
 const model = defineModel()
+const emit = defineEmits(["refetch"])
+const api = useOrderAPI()
 
 // Toggle switches for information
 let toggleContact = ref(model.value.status.category > 0 ? false : true)
@@ -16,6 +21,12 @@ const handleToggleContact = () => toggleContact.value = !toggleContact.value
 const handleToggleProject = () => toggleProject.value = !toggleProject.value
 const handleToggleContent = () => toggleContent.value = !toggleContent.value
 
+const handleRemoveCreator = (id) => {
+    model.value.creators = model.value.creators.filter(x => x.id === id)
+    console.log(model.value.creators);
+    api.putOrder(model.value.id, model.value).then(() => emit("refetch"))
+}
+
 const isVideo = computed(() => {
     if (model.value.projectType !== 'Statics' && model.value.projectType !== 'Stilbilleder' && model.value.projectType !== '') {
         return true
@@ -23,6 +34,8 @@ const isVideo = computed(() => {
 
     return false
 })
+
+console.log(model.value.creatorList);
 
 // Compute text and colors to display
 const status = computed(() => {
@@ -292,8 +305,15 @@ const maxiToMini = () => {
             <LinkModal v-if="(model.status.category > 2 && auth.isAdmin()) || (model.status.category > 3 && auth.isUser())" name="Content" v-model="model.links.content" :id="model.id" />
             <LinkModal name="Andet" v-model="model.links.other" :id="model.id" />
         </div>
-        
 
+
+        <div v-if="(model.status.state > 0) && ((model.status.category > 1 && auth.isUser()) || auth.isAdmin())" class="flex flex-col justify-center w-full mt-2 bg-slate-600 p-2 rounded-lg">
+            <p class="font-semibold text-lg">Creators</p>
+            <div class="flex w-full mt-2 bg-slate-800 rounded-lg" :class="{'justify-center':!auth.isAdmin()}">
+                <CreatorModal v-for="creator in model.creatorList" :key="creator.id" :creator="creator" @remove-creator="(n) => handleRemoveCreator(n)" />
+                <AddCreatorModal v-model="model" @refetch="$emit('refetch')" />
+            </div>
+        </div>
         <!-- Confirm controls -->
         <ConfirmControls v-model="model" />
     </div>

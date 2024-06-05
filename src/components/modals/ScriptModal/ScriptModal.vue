@@ -66,7 +66,7 @@ const handleConfirm = () => {
     <a v-else class="p-4 rounded-lg cursor-pointer text-nowrap w-full" :class="link === '' ? 'bg-slate-800' : 'bg-green-600'" :href="link" target="_blank">{{ props.name }}</a>
 
     <Transition>
-            <div v-show="showModal" @click.self="handleToggle" class="z-50 absolute bg-black bg-opacity-50 w-[100vw] h-[100vh] top-0 left-0">
+            <div v-show="showModal" @click.self="handleToggle" class="z-50 absolute bg-black bg-opacity-50 w-full h-full top-0 left-0">
                 <div class="p-2 px-4 rounded-lg text-white min-w-[20rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
                     <div class="grid w-full mt-2 gap-2">
                         <p>Redigér link til {{ props.name }}</p>
