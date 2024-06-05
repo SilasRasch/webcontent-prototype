@@ -24,14 +24,17 @@ api.getOrders().then((data) => orders.value = data).then((data) => store.orders 
     production.value = store.orders.filter((i) => i.status.state === 1 && i.status.category === 3)
   }
   else {
+    cancelled.value = store.orders.filter((i) => i.status.state === -1)
+    closed.value = store.orders.filter((i) => i.status.state === 2)
     production.value = store.orders.filter((i) => i.status.state === 1 && i.status.category === 3)
+    console.log(store.orders);
   }
 })
 
 </script>
 
 <template>
-    <div v-if="unconfirmed && cancelled && closed && orders" class="grid justify-center text-center w-full">
+    <div v-if="cancelled && closed && orders" class="grid justify-center text-center w-full">
         <!-- Tabs -->
         <DashboardTabControls />
 

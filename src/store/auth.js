@@ -36,11 +36,11 @@ export const auth = reactive({
             email: undefined,
             roles: [],
         }
-
-        api.revoke().then(() => {
-            localStorage.removeItem("user")
-            this.eraseCookie("_WCRefreshToken")
-        })
+            
+        localStorage.removeItem("user")
+        this.eraseCookie("_WCRefreshToken")
+        
+        api.revoke()
     },
 
     async refreshToken() {

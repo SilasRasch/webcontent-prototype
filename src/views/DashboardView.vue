@@ -9,10 +9,16 @@ if (auth.isAdmin()) {
         subTitle: "Bestillinger"
     }
 }
-else {
+else if (auth.isUser()) {
     titles = {
         title: "Min side",
         subTitle: "Mine bestillinger"
+    }
+}
+else {
+    titles = {
+        title: "Min side",
+        subTitle: "Mine projekter"
     }
 }
 </script>

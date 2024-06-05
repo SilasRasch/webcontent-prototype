@@ -9,11 +9,21 @@ export const useOrderAPI = () => {
 
     const getOrders = () => {
         const id = auth.loggedInUser.id ? auth.loggedInUser.id : localStorage.getItem("user")
-        
+        let url;
+        if (auth.isAdmin()) {
+            url = '/'
+        }
+        else if (auth.isUser()) {
+            url = `?userId=${id}`
+        }
+        else if (auth.isCreator()) {
+            url = `?creatorId=${id}`
+        }
+
         const config = {
             ...baseConfig,
             method: 'get',
-            url: !auth.isAdmin() ? `?userId=${id}` : '/'
+            url: url
         }
 
         return axios(config)

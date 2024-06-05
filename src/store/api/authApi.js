@@ -26,6 +26,7 @@ export const useAuthAPI = () => {
         const config = {
             ...baseConfig,
             url: 'register',
+            headers: { 'Authorization': auth.token },
             data: user
         }
 
@@ -79,6 +80,7 @@ export const useAuthAPI = () => {
         const config = {
             ...baseConfig,
             url: `revoke`,
+            headers: { 'Authorization': auth.token }
         }
         
         return axios(config)

@@ -30,8 +30,7 @@ const handleToggle = () => {
 
                         <div class="flex items-center justify-center gap-2">
                             <div @click="handleToggle" class="w-24 h-32 rounded-lg bg-slate-950 flex flex-col justify-center m-2 mr-0">
-                                <i class="fa fa-user text-5xl opacity-65 h-2/3 flex justify-center items-center"></i>
-                                <p class="p-0 m-0 opacity-65">{{ creator.handle }}</p>
+                                <i class="fa fa-user text-5xl opacity-65 flex justify-center items-center"></i>
                             </div>
                             <div>
                                 <p class="text-left p-0 m-0">{{ props.creator.name }}</p>

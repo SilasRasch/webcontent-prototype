@@ -104,12 +104,12 @@ const maxiToMini = () => {
     <div v-if="model" class="grid justify-center text-center w-full mt-[-3rem] text-white">
         <div class="break-words" :class="minifyCard ? 'minimized' : 'maximized'">
             <div class="flex items-center justify-between text-left m-2 bg-red-500 bg-opacity-75 rounded-md p-4 font-semibold text-xl">
-                <h3>Bestilling {{ model.id }}</h3>
+                <h3>{{ auth.isCreator() ? model.projectName : `Bestilling ${model.id}` }}</h3>
                 <i v-if="!minifyCard" @click="toggleMinimize()" class="fa fa-angle-double-left hover:text-gray-300 duration-200 cursor-pointer"></i>
                 <i v-else @click="toggleMinimize()" class="fa fa-angle-double-right hover:text-gray-300 duration-200 cursor-pointer"></i>
             </div>
             
-            <div v-if="model.status.state === 1" class="flex">
+            <div v-if="model.status.state === 1 && !auth.isCreator()" class="flex">
                 <h3 class="text-left text-base mx-2 mr-1 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-green-500 w-1/2">
                     Bekræftet!
                 </h3>
@@ -117,17 +117,17 @@ const maxiToMini = () => {
                     {{ status }}
                 </h3>
             </div>
-            <div v-else-if="model.status.state === -1">
+            <div v-else-if="model.status.state === -1 && !auth.isCreator()">
                 <h3 class="text-left text-base mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-red-500">
                     Annulleret...
                 </h3>
             </div>
-            <div v-else-if="model.status.state === 2">
+            <div v-else-if="model.status.state === 2 && !auth.isCreator()">
                 <h3 class="text-left text-base mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-violet-500">
                     Færdig!
                 </h3>
             </div>
-            <div v-else>
+            <div v-else-if="!auth.isCreator()">
                 <h3 class="text-left text-base mx-2 mb-2 bg-opacity-50 rounded-md px-4 py-2 font-semibold bg-orange-500">
                     Afventer bekræftelse...
                 </h3>
@@ -228,17 +228,17 @@ const maxiToMini = () => {
                 </div>
             </div>
 
-            <div @click="handleToggleContact" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
+            <div v-if="!auth.isCreator()" @click="handleToggleContact" class="flex items-center opacity-50 text-left text-base pr-2 cursor-pointer select-none">
                 <p class="pr-1.5">
                     Kontakt 
                 </p>
                 <i class="fa fa-chevron-down text-xs mt-1"></i>
             </div>
-            <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
+            <hr v-if="!auth.isCreator()" class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
             <!-- Contact info -->
 
-            <div v-if="toggleContact" class="-mb-1"> 
+            <div v-if="toggleContact && !auth.isCreator()" class="-mb-1"> 
                 <div class="grid md:grid-cols-2 grid-cols-1 p-2">
                     <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:my-0 my-1">
                         <p class="px-0 font-semibold">Brand</p>
@@ -273,12 +273,12 @@ const maxiToMini = () => {
                 </div>
             </div>
 
-            <p class="text-left text-base opacity-50 px-2 select-none">Pris og leveringstid</p>
-            <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
+            <p v-if="!auth.isCreator()" class="text-left text-base opacity-50 px-2 select-none">Pris og leveringstid</p>
+            <hr v-if="!auth.isCreator()" class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
             <!-- Pricing and delivery -->
 
-            <div v-if="model.status.state === 0" class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
+            <div v-if="model.status.state === 0 && !auth.isCreator()" class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
                 <div class="text-left bg-slate-800 rounded-lg px-1 mr-1">
                     <p class="font-semibold">Estimeret pris</p>
                     <p class="-mt-4">{{ model.price }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
@@ -288,7 +288,7 @@ const maxiToMini = () => {
                     <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi estimerer derfor i intervaller. Husk dog stadig at det er et estimat.</ToolTip></p>
                 </div>
             </div>
-            <div v-else class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
+            <div v-else-if="!auth.isCreator()" class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
                 <div class="text-left bg-slate-800 rounded-lg px-1 md:mr-1 my-1">
                     <p class="font-semibold text-base">Pris <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
                     <p class="-mt-4">{{ model.price }} kr ekskl. moms </p>
@@ -300,14 +300,14 @@ const maxiToMini = () => {
             </div>
         </div>
         
-        <div v-if="(model.links) && (model.links && model.status.category > 1 && auth.isUser()) || (model.links && auth.isAdmin())" class="flex justify-evenly gap-2 w-full mt-2 bg-slate-600 p-2 rounded-lg">
+        <div v-if="(model.links) && (model.links && model.status.category > 1 && auth.isUser()) || (model.links && auth.isAdmin() || auth.isCreator())" class="flex justify-evenly gap-2 w-full mt-2 bg-slate-600 p-2 rounded-lg">
             <LinkModal name="Scripts" v-model="model.links.scripts" :id="model.id" />
-            <LinkModal v-if="(model.status.category > 2 && auth.isAdmin()) || (model.status.category > 3 && auth.isUser())" name="Content" v-model="model.links.content" :id="model.id" />
+            <LinkModal v-if="(model.status.category > 2 && auth.isAdmin()) || (model.status.category > 3 && auth.isUser()) || auth.isCreator()" name="Content" v-model="model.links.content" :id="model.id" />
             <LinkModal name="Andet" v-model="model.links.other" :id="model.id" />
         </div>
 
 
-        <div v-if="(model.status.state > 0) && ((model.status.category > 1 && auth.isUser()) || auth.isAdmin())" class="flex flex-col justify-center w-full mt-2 bg-slate-600 p-2 rounded-lg">
+        <div v-if="(model.status.state > 0) && ((model.status.category > 1 && auth.isUser()) || auth.isAdmin() || auth.isCreator())" class="flex flex-col justify-center w-full mt-2 bg-slate-600 p-2 rounded-lg">
             <p class="font-semibold text-lg">Creators</p>
             <div class="flex w-full mt-2 bg-slate-800 rounded-lg" :class="{'justify-center':!auth.isAdmin()}">
                 <CreatorModal v-for="creator in model.creatorList" :key="creator.id" :creator="creator" @remove-creator="(n) => handleRemoveCreator(n)" />
