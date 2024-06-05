@@ -101,7 +101,7 @@ const resetTabs = () => {
                             <span class="fa fa-angle-down fa-2x"></span>
                         </div>
                         <div v-if="showEmailSetting" class="flex">
-                            <input placeholder="Indast ny e-mail" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                            <input :placeholder="auth.loggedInUser.email" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
                             <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
                         </div>
                     </div>
