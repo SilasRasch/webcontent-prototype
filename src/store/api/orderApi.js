@@ -3,17 +3,17 @@ import axios from "axios"
 
 export const useOrderAPI = () => {
 
-    let baseURL;
-    const env = import.meta.env.WC_ENVIRONMENT
-    if (env === "production") {
-        baseURL = "https://api.wcp.dk/data/orders" // Public Prod
-    } else if (env === "devlopment") {
-        baseURL = "https://api.nobitches.win/data/orders" 
-    } else {
-        baseURL = "https://localhost:7216/api/orders"
-    }
+    // let baseURL;
+    // const env = import.meta.env.WC_ENVIRONMENT
+    // if (env === "production") {
+    //     baseURL = "https://api.wcp.dk/data/orders" // Public Prod
+    // } else if (env === "devlopment") {
+    //     baseURL = "https://api.nobitches.win/data/orders" 
+    // } else {
+    //     baseURL = "https://localhost:7216/api/orders"
+    // }
 
-    // const baseURL = "https://api.wcp.dk/data/orders" // Public Prod
+    const baseURL = "https://api.wcp.dk/data/orders" // Public Prod
     // const baseURL = "https://localhost:7216/api/orders"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
