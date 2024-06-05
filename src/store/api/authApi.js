@@ -75,5 +75,16 @@ export const useAuthAPI = () => {
             .then((res) => { return res.data })
     }
 
-    return { login, register, authenticate, addAdmin, refreshToken }
+    const revoke = () => {
+        const config = {
+            ...baseConfig,
+            url: `revoke`,
+        }
+        
+        return axios(config)
+            .then((res) => { return res.data })
+            .catch((err) => console.error(err))
+    }
+
+    return { login, register, authenticate, addAdmin, refreshToken, revoke }
 }
