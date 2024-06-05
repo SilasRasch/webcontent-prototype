@@ -2,7 +2,17 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useCreatorAPI = () => {
-    const baseURL = "https://api.wcp.dk/data/creators" // Public Prod
+    let baseURL;
+    const env = import.meta.env.WC_ENVIRONMENT
+    if (env === "production") {
+        baseURL = "https://api.wcp.dk/data/creators" // Public Prod
+    } else if (env === "devlopment") {
+        baseURL = "https://api.nobitches.win/data/creators" 
+    } else {
+        baseURL = "https://localhost:7216/api/creators"
+    }
+
+    // const baseURL = "https://api.wcp.dk/data/creators" // Public Prod
     // const baseURL = "https://localhost:7216/api/creators"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
