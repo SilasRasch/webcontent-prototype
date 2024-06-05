@@ -3,8 +3,8 @@ import axios from "axios"
 
 export const useCreatorAPI = () => {
     // const baseURL = "http://192.168.100.201:8282/api/creators"
-    // const baseURL = "https://api.nobitches.win/data/creators"
-    const baseURL = "https://localhost:7216/api/creators"
+    const baseURL = "https://api.nobitches.win/data/creators"
+    // const baseURL = "https://localhost:7216/api/creators"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
     const getCreators = () => {
