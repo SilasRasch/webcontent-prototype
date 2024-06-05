@@ -8,7 +8,7 @@ import { auth } from '@/store/auth';
 
         <hr class="text-black bg-black opacity-50 h-0.5 m-3 mb-1" />
 
-        <h1 v-if="!auth.isAdmin()" class="text-xl font-semibold m-2 bg-slate-800 p-4 rounded-lg">
+        <h1 v-if="!auth.isAdmin()" class="text-xl m-2 bg-slate-800 p-4 rounded-lg">
             Platformen er under opbygning, <br>
             vend tilbage igen senere...
         </h1>
