@@ -13,8 +13,6 @@ const creatorAPI = useCreatorAPI()
 const error = ref('')
 const creators = ref([])
 
-// creatorAPI.getCreators().then((data) => creators.value = data)
-
 const searchTerm = ref('')
 watch(searchTerm, async (newSearchTerm) => {
     if (newSearchTerm && newSearchTerm.length > 0) {
