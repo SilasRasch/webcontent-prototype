@@ -2,18 +2,9 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useAuthAPI = () => {
-    // let baseURL;
-    // const env = import.meta.env.WC_ENVIRONMENT
-    // if (env === "production") {
-    //     baseURL = "https://api.wcp.dk/auth/" // Public Prod
-    // } else if (env === "development") {
-    //     baseURL = "https://api.nobitches.win/auth/" 
-    // } else {
-    //     baseURL = "https://localhost:7216/auth/"
-    // }
-
     // const baseURL = "http://localhost:5267/auth/" // Local Test
-    const baseURL = "https://api.wcp.dk/auth/" // Public Prod
+    const baseURL = "http://192.168.100.201:8186/auth/" // Local Test
+    // const baseURL = "https://api.wcp.dk/auth/" // Public Prod
     const baseConfig = { baseURL: baseURL, method: 'post', url: '' } 
     
     const login = (email, password) => {

@@ -6,20 +6,45 @@ const props = defineProps({
     creator: {
         type: Object,
         required: true
+    },
+    showDelete: {
+        type: Boolean
+    },
+    showAdd: {
+        type: Boolean
+    },
+    showCheck: {
+        type: Boolean
     }
 })
+
+const emit = defineEmits(["removeCreator", "addCreator", "removeFromTemp"])
 
 const showModal = ref(false)
 
 const handleToggle = () => {
     showModal.value = !showModal.value
 }
+
+const handleAdd = (id) => {
+    showModal.value = false
+    emit("addCreator", id)
+}
+const handleRemove = (id) => {
+    showModal.value = false
+    emit("removeCreator", id)
+}
+const handleRemoveFromTemp = (id) => {
+    showModal.value = false
+    emit("removeFromTemp", id)
+}
 </script>
 
 <template>
-    <div @click="handleToggle" class="w-24 h-32 rounded-lg bg-slate-950 flex flex-col justify-center m-2 mr-0 cursor-pointer">
+    <div @click="handleToggle" class="w-24 h-32 rounded-lg bg-slate-950 flex flex-col justify-center m-2 mr-0 cursor-pointer relative">
         <i class="fa fa-user text-5xl opacity-65 h-2/3 flex justify-center items-center"></i>
         <p class="p-0 m-0 opacity-65">{{ creator.handle }}</p>
+        <i v-if="props.showCheck" class="rounded-full fa fa-check absolute bg-green-500 p-2 -top-2 -right-2"></i>
     </div>
 
     <Transition>
@@ -43,8 +68,16 @@ const handleToggle = () => {
                         <hr class="mt-2">
                         
                         <div class="w-full flex justify-center">
-                            <button v-if="auth.isAdmin()" class="rounded-lg p-2 bg-red-600 bg-opacity-65 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full"
-                            @click="$emit('removeCreator', props.creator.id)">
+                            <button v-if="auth.isAdmin() && props.showDelete" class="rounded-lg p-2 bg-red-600 bg-opacity-65 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full"
+                            @click="handleRemove(props.creator.id)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <button v-if="auth.isAdmin() && props.showAdd && !props.showCheck" class="rounded-lg p-2 bg-green-600 bg-opacity-65 hover:bg-green-500 duration-200 mx-0.5 mt-2 w-full"
+                            @click="handleAdd(props.creator.id)">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button v-if="auth.isAdmin() && props.showAdd && props.showCheck" class="rounded-lg p-2 bg-red-600 bg-opacity-65 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full"
+                            @click="handleRemoveFromTemp(props.creator.id)">
                                 <i class="fa fa-trash"></i>
                             </button>
                             <button class="rounded-lg p-2 bg-slate-600 hover:bg-slate-500 duration-200 mx-0.5 mt-2 w-full font-semibold"

@@ -2,27 +2,20 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useCreatorAPI = () => {
-    // let baseURL;
-    // const env = import.meta.env.WC_ENVIRONMENT
-    // if (env === "production") {
-    //     baseURL = "https://api.wcp.dk/data/creators" // Public Prod
-    // } else if (env === "devlopment") {
-    //     baseURL = "https://api.nobitches.win/data/creators" 
-    // } else {
-    //     baseURL = "https://localhost:7216/api/creators"
-    // }
-
     const baseURL = "https://api.wcp.dk/data/creators" // Public Prod
     // const baseURL = "https://localhost:7216/api/creators"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
-    const getCreators = () => {
-        const id = auth.loggedInUser.id ? auth.loggedInUser.id : localStorage.getItem("user")
+    const getCreators = (searchTerm) => {
+        let url = ''
+        if (searchTerm) {
+            url += `?searchTerm=${searchTerm}`
+        }
         
         const config = {
             ...baseConfig,
             method: 'get',
-            url: !auth.isAdmin() ? `?orderId=${id}` : '/'
+            url: url,
         }
 
         return axios(config)

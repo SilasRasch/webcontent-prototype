@@ -23,7 +23,6 @@ const handleToggleContent = () => toggleContent.value = !toggleContent.value
 
 const handleRemoveCreator = (id) => {
     model.value.creators = model.value.creators.filter(x => x.id === id)
-    console.log(model.value.creators);
     api.putOrder(model.value.id, model.value).then(() => emit("refetch"))
 }
 
@@ -34,8 +33,6 @@ const isVideo = computed(() => {
 
     return false
 })
-
-console.log(model.value.creatorList);
 
 // Compute text and colors to display
 const status = computed(() => {
@@ -310,7 +307,7 @@ const maxiToMini = () => {
         <div v-if="(model.status.state > 0) && ((model.status.category > 1 && auth.isUser()) || auth.isAdmin() || auth.isCreator())" class="flex flex-col justify-center w-full mt-2 bg-slate-600 p-2 rounded-lg">
             <p class="font-semibold text-lg">Creators</p>
             <div class="flex w-full mt-2 bg-slate-800 rounded-lg" :class="{'justify-center':!auth.isAdmin()}">
-                <CreatorModal v-for="creator in model.creatorList" :key="creator.id" :creator="creator" @remove-creator="(n) => handleRemoveCreator(n)" />
+                <CreatorModal v-for="creator in model.creatorList" :key="creator.id" :creator="creator" @remove-creator="(n) => handleRemoveCreator(n)" show-delete />
                 <AddCreatorModal v-model="model" @refetch="$emit('refetch')" />
             </div>
         </div>

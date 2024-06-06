@@ -1,46 +1,71 @@
 <script setup>
+import { useCreatorAPI } from '@/store/api/creatorApi';
 import { useOrderAPI } from '@/store/api/orderApi';
 import { auth } from '@/store/auth';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import CreatorModal from './CreatorModal.vue';
 
 const model = defineModel()
 const showModal = ref(false)
 const emit = defineEmits(["refetch"])
 const api = useOrderAPI()
-
-const creatorId = ref(null)
+const creatorAPI = useCreatorAPI()
 const error = ref('')
+const creators = ref([])
+
+// creatorAPI.getCreators().then((data) => creators.value = data)
+
+const searchTerm = ref('')
+watch(searchTerm, async (newSearchTerm) => {
+    if (newSearchTerm && newSearchTerm.length > 0) {
+        creatorAPI.getCreators(newSearchTerm)
+            .then((data) => creators.value = data)
+    }
+    else {
+        creatorAPI.getCreators()
+            .then((data) => creators.value = data)
+    }
+})
 
 const handleToggle = () => {
     if (auth.isAdmin()) {
         showModal.value = !showModal.value
         error.value = ''
-        creatorId.value = null
+        searchTerm.value = null
+        tmpList.value = []
+    }
+}
+
+const tmpList = ref([])
+const addToTempList = (id) => {
+    if (!tmpList.value.includes(id)) {
+        tmpList.value.push(id)
+    }
+    
+    console.log(tmpList.value);
+}
+
+const removeFromTempList = (id) => {
+    if (tmpList.value.includes(id)) {
+        tmpList.value = tmpList.value.filter(x => x.id === id)
     }
 }
 
 const handleConfirm = () => {
-    if (creatorId.value > 0) {
-        handleAddCreator(creatorId.value)
-    } else {
-        error.value = "Indtast et gyldigt id"
-    } 
-}
-
-const handleAddCreator = (id) => {
     if (model.value.creators === null) {
         model.value.creators = []
     }
 
-    if (!model.value.creators.includes(id)) {
-        model.value.creators.push(id)
+    if (tmpList.value.length > 0) {
+        model.value.creators = [...model.value.creators, ...tmpList.value]
         api.putOrder(model.value.id, model.value).then(() => emit("refetch"))
         handleToggle()
     }
-    else {
-        error.value = "Denne creator er allerede tilknyttet dette projekt"
-    }
+
+    
 }
+
+
 </script>
 
 <template>
@@ -53,17 +78,20 @@ const handleAddCreator = (id) => {
                         <p class="font-semibold">Tilføj creator</p>
 
                         <p v-if="error !== ''" class="text-red-600 p-0 m-0 text-left">* {{ error }}</p>
-                        <p class="text-left p-0 m-0">Creator</p>
-
-                        <input type="number" placeholder="Creator id" class="input rounded-lg" v-model="creatorId" />
+                        <input placeholder="Søg efter creator" class="input rounded-lg" v-model="searchTerm" />
                         <hr class="mt-2">
                         
+                        <div class="grid grid-cols-3 justify-center max-h-[300px] overflow-y-scroll scrollbar -ml-2 pr-2">
+                            <CreatorModal v-for="creator in creators.filter(x => !model.creators.includes(x.id))" :key="creator.id" :creator="creator" @add-creator="n => addToTempList(n)" @remove-from-temp="n => removeFromTempList(n)" show-add :show-check="tmpList.includes(creator.id)" />
+                        </div>
+                        
+                        
                         <div class="w-full flex justify-center">
-                            <button class="rounded-lg p-2 bg-green-600 hover:bg-green-500 duration-200 mx-0.5 mt-2 w-full" @click="handleConfirm()">
-                                Bekræft <i class="fa fa-check"></i>
+                            <button class="rounded-lg p-2 bg-green-600 hover:bg-green-500 duration-200 mx-0.5 mt-2 w-full" @click="handleConfirm()" :disabled="tmpList.length === 0">
+                                Tilføj valgte <i class="fa fa-check"></i>
                             </button>
-                            <button class="rounded-lg p-2 bg-red-600 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full" @click="showModal = false">
-                                Annullér <i class="fa fa-times"></i>
+                            <button class="rounded-lg p-2 bg-red-600 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full" @click="handleToggle">
+                                Annuller
                             </button>
                         </div>
                     </div>
@@ -105,5 +133,11 @@ const handleAddCreator = (id) => {
 .v-move {
     opacity: 0;
     transition: all 0.2s ease-in-out;
+}
+
+.scrollbar {
+  overflow-y: scroll;
+  scrollbar-color: grey rgba(94, 94, 94, 0.15);
+  scrollbar-width: thin;
 }
 </style>

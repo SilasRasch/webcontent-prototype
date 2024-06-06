@@ -132,8 +132,4 @@ const resetContext = () => {
   scrollbar-color: grey rgba(94, 94, 94, 0.15);
   scrollbar-width: thin;
 }
-
-
-
-
 </style>
