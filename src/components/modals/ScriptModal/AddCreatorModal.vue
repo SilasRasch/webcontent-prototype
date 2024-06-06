@@ -71,7 +71,7 @@ const handleConfirm = () => {
     
     <Transition>
             <div v-show="showModal" @click.self="handleToggle" class="z-50 absolute bg-black bg-opacity-50 w-full h-full top-0 left-0">
-                <div class="p-2 px-4 rounded-lg text-white min-w-[20rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
+                <div class="p-2 px-4 rounded-lg text-white w-[24rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
                     <div class="grid w-full mt-2 gap-2">
                         <p class="font-semibold">Tilføj creator</p>
 
@@ -79,7 +79,7 @@ const handleConfirm = () => {
                         <input placeholder="Søg efter creator" class="input rounded-lg" v-model="searchTerm" />
                         <hr class="mt-2">
                         
-                        <div class="grid grid-cols-3 justify-center max-h-[300px] overflow-y-scroll scrollbar -ml-2 pr-2">
+                        <div class="grid grid-cols-3 justify-center max-h-[300px] overflow-y-scroll scrollbar -ml-2 pr-2 min-h-36">
                             <CreatorModal v-for="creator in creators.filter(x => !model.creators.includes(x.id))" :key="creator.id" :creator="creator" @add-creator="n => addToTempList(n)" @remove-from-temp="n => removeFromTempList(n)" show-add :show-check="tmpList.includes(creator.id)" />
                         </div>
                         
