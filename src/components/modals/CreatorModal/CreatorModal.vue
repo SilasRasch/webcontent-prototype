@@ -75,11 +75,10 @@ const handleRemoveFromTemp = (id) => {
                                 <i class="fa fa-trash"></i>
                             </button>
                             <div v-else-if="auth.isAdmin() && props.showDelete && areYouSure" class="flex justify-center items-center w-full">
-                                <p class="underline font-semibold">Sikker?</p>
                                 <div class="flex w-full">
                                     <button class="rounded-lg p-2 bg-red-600 bg-opacity-65 hover:bg-red-500 duration-200 mx-0.5 mt-2 w-full"
                                     @click="handleRemove(props.creator.id)">
-                                        Ja, slet
+                                        Er du sikker?
                                     </button>
                                     <button class="rounded-lg p-2 bg-slate-600 hover:bg-slate-500 duration-200 mx-0.5 mt-2 w-full font-semibold"
                                     @click="areYouSure = false">
