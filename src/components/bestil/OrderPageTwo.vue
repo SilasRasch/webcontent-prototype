@@ -21,7 +21,7 @@ const isVideo = computed(() => {
         
         <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
             <SingleInput class="input mr-1" v-model="store.newOrder.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
-            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organism SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
+            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
         </div>
         
         

@@ -15,6 +15,7 @@ import ChatModal from './components/modals/ChatModal/ChatModal.vue';
       <div v-if="auth.isLoggedIn" class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
         <!-- <RouterLink to="/kontrolpanel" v-if="auth.isUser() || auth.isCreator()">Guide</RouterLink> -->
         <RouterLink to="/admin" v-if="auth.isAdmin()">Bestillinger</RouterLink>
+        <RouterLink to="/admin/brugere" v-if="auth.isAdmin()">Brugere</RouterLink>
         <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
         <ChatModal />

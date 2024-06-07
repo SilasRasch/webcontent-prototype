@@ -4,6 +4,7 @@ import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import CreateUser from '../views/CreateUser.vue'
+import UserView from '../views/UserView.vue'
 import { auth } from '@/store/auth'
 
 // Navigation guards
@@ -81,6 +82,12 @@ const router = createRouter({
       name: 'create-user',
       beforeEnter: admin,
       component: CreateUser,
+    },
+    {
+      path: '/admin/brugere',
+      name: 'users',
+      beforeEnter: admin,
+      component: UserView,
     },
   ]
 })

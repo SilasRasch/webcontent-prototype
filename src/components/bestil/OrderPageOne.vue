@@ -10,7 +10,7 @@ import SingleInput from '../Input/SingleInput.vue';
         <p class="text-xl font-semibold m-2">Grundinformation</p>
 
         <DoubleInput v-model:firstInput="store.newOrder.brand" v-model:secondInput="store.newOrder.cvr"
-        placeholder-one="Dit brand" placeholder-two="F.eks. 40791752">
+        placeholder-one="Dit brand" placeholder-two="F.eks. 40791752" required>
             <template v-slot:slotOne>Brand</template>
             <template v-slot:slotTwo>CVR</template>
         </DoubleInput>
@@ -18,7 +18,7 @@ import SingleInput from '../Input/SingleInput.vue';
         <hr class="text-black bg-black h-0.5 my-6" />
 
         <DoubleInput v-model:firstInput="store.newOrder.contact.name" v-model:secondInput="store.newOrder.contact.phone"
-        placeholder-one="Navn på kontaktperson" placeholder-two="Dit telefonnummer">
+        placeholder-one="Navn på kontaktperson" placeholder-two="Dit telefonnummer" required>
             <template v-slot:slotOne>Kontaktperson</template>
             <template v-slot:slotTwo>Telefon</template>
         </DoubleInput>

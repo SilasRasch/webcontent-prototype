@@ -4,8 +4,8 @@ import { computed, ref } from 'vue';
 import ConfirmControls from '../admin/ConfirmControls.vue';
 import LinkModal from '../modals/LinkModal.vue';
 import { auth } from '@/store/auth';
-import AddCreatorModal from '../modals/ScriptModal/AddCreatorModal.vue';
-import CreatorModal from '../modals/ScriptModal/CreatorModal.vue';
+import AddCreatorModal from '../modals/CreatorModal/AddCreatorModal.vue';
+import CreatorModal from '../modals/CreatorModal/CreatorModal.vue';
 import { useOrderAPI } from '@/store/api/orderApi';
 
 const model = defineModel()
