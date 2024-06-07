@@ -70,7 +70,7 @@ const handleConfirm = () => {
     <button v-if="auth.isAdmin()" @click="handleToggle" class="w-24 h-32 rounded-lg bg-slate-950 font-semibold text-3xl flex justify-center items-center m-2">+</button>
     
     <Transition>
-            <div v-show="showModal" @click.self="handleToggle" class="z-50 absolute bg-black bg-opacity-50 w-full h-full top-0 left-0">
+            <div v-show="showModal" @click.self="handleToggle" class="z-50 fixed bg-black bg-opacity-50 w-full h-full top-0 left-0">
                 <div class="p-2 px-4 rounded-lg text-white w-[24rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
                     <div class="grid w-full mt-2 gap-2">
                         <p class="font-semibold">Tilføj creator</p>

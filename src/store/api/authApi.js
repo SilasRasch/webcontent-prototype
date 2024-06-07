@@ -69,7 +69,7 @@ export const useAuthAPI = () => {
     const refreshToken = (id) => {
         const config = {
             ...baseConfig,
-            url: `refresh?id=${id}`,
+            url: `refresh?email=${id}`,
             withCredentials: true
         }
         

@@ -26,11 +26,11 @@ const admin = () => {
   }
 }
 
-const guest = () => {
-  if (auth.isLoggedIn) {
-    return "/"
-  }
-}
+// const guest = () => {
+//   if (auth.isLoggedIn) {
+//     return "/"
+//   }
+// }
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,12 +45,6 @@ const router = createRouter({
       name: 'bestil',
       beforeEnter: user,
       component: OrderView,
-    },
-    {
-      path: '/kontrolpanel',
-      name: 'kontrolpanel',
-      beforeEnter: [user, admin],
-      component: () => import('../views/ControlPanelView.vue')
     },
     {
       path: '/admin',
@@ -85,7 +79,7 @@ const router = createRouter({
     {
       path: '/opret',
       name: 'create-user',
-      beforeEnter: guest,
+      beforeEnter: admin,
       component: CreateUser,
     },
   ]

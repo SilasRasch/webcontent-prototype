@@ -21,10 +21,12 @@ export const auth = reactive({
         if (token.length > 0) {
             this.token = "Bearer " + token
             this.isLoggedIn = true
-            return api.authenticate().then((data) => this.loggedInUser = data).then(() => {
-                localStorage.setItem("user", this.loggedInUser.id)
+            return api.authenticate()
+            .then((data) => this.loggedInUser = data).then(() => {
+                localStorage.setItem("user", this.loggedInUser.email)
                 return true
             })
+            .catch(() => this.logOut())
         }
         return false
     },
@@ -38,16 +40,14 @@ export const auth = reactive({
         }
             
         localStorage.removeItem("user")
-        this.eraseCookie("_WCRefreshToken")
-        
         api.revoke()
     },
 
     async refreshToken() {
-        const id = localStorage.getItem("user")
+        const user = localStorage.getItem("user")
         
-        if (id !== null) {
-            api.refreshToken(id).then((data) => {
+        if (user !== null) {
+            api.refreshToken(user).then((data) => {
                 this.token = "Bearer " + data
                 this.loginHelper(data)
             }).catch(() => this.logOut())
@@ -68,8 +68,4 @@ export const auth = reactive({
         const arrayToken = token.split(".")
         return JSON.parse(atob(arrayToken[1]))
     },
-
-    eraseCookie(name) {   
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
 })

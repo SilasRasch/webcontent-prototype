@@ -1,10 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import UserModalV2 from './components/modals/UserModal/UserModalV2.vue';
+import UserModal from './components/modals/UserModal/UserModal.vue';
 import { auth } from './store/auth';
 import ChatModal from './components/modals/ChatModal/ChatModal.vue';
-
-// auth.refreshToken()
 </script>
 
 <template>
@@ -20,7 +18,7 @@ import ChatModal from './components/modals/ChatModal/ChatModal.vue';
         <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
         <ChatModal />
-        <UserModalV2 />
+        <UserModal />
       </div>
   </header>
 
