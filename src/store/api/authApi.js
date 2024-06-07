@@ -3,8 +3,8 @@ import axios from "axios"
 
 export const useAuthAPI = () => {
     // const baseURL = "http://localhost:5267/auth/" // Local Test
-    // const baseURL = "http://192.168.100.201:8186/auth/" // Local Test
-    const baseURL = "https://api.wcp.dk/auth/" // Public Prod
+    // const baseURL = "https://api.nobitches.win/auth/" // Public test
+    const baseURL = "https://api.wcp.dk/auth/" // Public prod
     const baseConfig = { baseURL: baseURL, method: 'post', url: '' } 
     
     const login = (email, password) => {
