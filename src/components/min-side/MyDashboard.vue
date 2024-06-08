@@ -33,7 +33,7 @@ api.getOrders().then((data) => orders.value = data).then((data) => store.orders 
 </script>
 
 <template>
-    <div v-if="cancelled && closed && orders" class="grid justify-center text-center w-full">
+    <div v-if="cancelled && closed && orders" class="-mt-2 grid justify-center text-center w-full">
         <!-- Tabs -->
         <DashboardTabControls />
 

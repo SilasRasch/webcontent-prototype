@@ -71,12 +71,12 @@ const handleGoBack = () => {
 
           <div class="text-xl font-semibold text-left grid justify-center min-w-full">
             <h1 class="text-left my-4">🔥 Populært content</h1>
-            <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6 grid-cols-1 sm:max-h-[290px] overflow-hidden">
+            <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6 grid-cols-1 sm:max-h-[240px] md:max-h-[270px] overflow-hidden">
               <div v-for="n in 3" :key="n" class="flex flex-col">
                 <div class="md:w-[216px] md:h-[270px] sm:w-[192px] sm:h-[240px] w-[408px] h-[510px] bg-gray-500 rounded-md flex justify-center items-center">
                   <i class="fa-3x fa fa-play text-gray-400"></i>
                 </div>
-                <p class="text-sm opacity-35 text-left p-0 m-0">{{ n + 3 }}K views via Socialt medie</p>
+                <!-- <p class="text-sm opacity-35 text-left p-0 m-0">{{ n + 3 }}K views via Socialt medie</p> -->
               </div>
             </div>
           </div>

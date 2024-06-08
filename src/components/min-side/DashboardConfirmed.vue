@@ -26,28 +26,28 @@ const feedback = confirmedOrders.filter((i) => i.status.category === 4)
             <div class="flex flex-col gap-2">
                 <h3 class="text-xl font-semibold p-1 m-0 bg-slate-800 text-white rounded-xl">I kø</h3>
                 <hr class="text-white rounded-full opacity-80 h-1 mx-0.5 border-none bg-red-400" />
-                <OrderCardMini v-for="index in queued" :key="index.id" :order-id="index.id" :brand="index.brand" :admin="props.admin">{{ index.projectName }}</OrderCardMini>
+                <OrderCardMini v-for="index in queued" :key="index.id" :order-id="index.id" :brand="index.brand.name" :admin="props.admin">{{ index.projectName }}</OrderCardMini>
             </div>
 
             <!-- Planned -->
             <div class="flex flex-col gap-2">
                 <h3 class="text-xl font-semibold p-1 m-0 bg-slate-800 text-white rounded-xl">Planlægning</h3>
                 <hr class="text-white bg-yellow-500 rounded-full opacity-80 h-1 mx-0.5 border-none" />
-                <OrderCardMini v-for="index in planned" :key="index.id" :order-id="index.id" :brand="index.brand" :admin="props.admin" :awaiting-user="!props.admin" color-class="bg-yellow-500">{{ index.projectName }}</OrderCardMini>
+                <OrderCardMini v-for="index in planned" :key="index.id" :order-id="index.id" :brand="index.brand.name" :admin="props.admin" :awaiting-user="!props.admin" color-class="bg-yellow-500">{{ index.projectName }}</OrderCardMini>
             </div>
 
             <!-- In production -->
             <div class="flex flex-col gap-2">
                 <h3 class="text-xl font-semibold p-1 m-0 bg-slate-800 text-white rounded-xl">Igangværende</h3>
                 <hr class="text-white bg-blue-500 rounded-full opacity-80 h-1 mx-0.5 border-none" />
-                <OrderCardMini v-for="index in production" :key="index.id" :order-id="index.id" :brand="index.brand" :admin="props.admin" color-class="bg-blue-500">{{ index.projectName }}</OrderCardMini>
+                <OrderCardMini v-for="index in production" :key="index.id" :order-id="index.id" :brand="index.brand.name" :admin="props.admin" color-class="bg-blue-500">{{ index.projectName }}</OrderCardMini>
             </div>
 
             <!-- Feedback -->
             <div class="flex flex-col gap-2">
                 <h3 class="text-xl font-semibold p-1 m-0 bg-slate-800 text-white rounded-xl">Feedback</h3>
                 <hr class="text-white bg-green-500 rounded-full opacity-80 h-1 mx-0.5 border-none" />
-                <OrderCardMini v-for="index in feedback" :key="index.id" :order-id="index.id" :brand="index.brand" :admin="props.admin" :awaiting-user="!props.admin" color-class="bg-green-500">{{ index.projectName }}</OrderCardMini>
+                <OrderCardMini v-for="index in feedback" :key="index.id" :order-id="index.id" :brand="index.brand.name" :admin="props.admin" :awaiting-user="!props.admin" color-class="bg-green-500">{{ index.projectName }}</OrderCardMini>
             </div>
             
         </div>

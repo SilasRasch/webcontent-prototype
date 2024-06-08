@@ -12,14 +12,15 @@ import ChatModal from './components/modals/ChatModal/ChatModal.vue';
     </RouterLink>
     
 
-      <div v-if="auth.isLoggedIn" class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
+      <div class="flex sm:[&>*]:p-4 [&>*]:p-2 font-semibold items-center text-red-500 text-lg">
         <!-- <RouterLink to="/kontrolpanel" v-if="auth.isUser() || auth.isCreator()">Guide</RouterLink> -->
         <RouterLink to="/admin" v-if="auth.isAdmin()">Bestillinger</RouterLink>
         <RouterLink to="/admin/brugere" v-if="auth.isAdmin()">Brugere</RouterLink>
         <RouterLink to="/min-side" v-if="auth.isUser() || auth.isCreator()">Min Side</RouterLink>
         <RouterLink to="/bestil" v-if="auth.isUser()">Bestilling</RouterLink>
-        <ChatModal />
-        <UserModal />
+        <ChatModal v-if="auth.isLoggedIn" />
+        <UserModal v-if="auth.isLoggedIn" />
+        <a href="https://webcontent.dk" target="_blank"><img class="max-h-[28px]" src="https://webcontent.dk/wp-content/uploads/2024/01/cropped-logo-hjemmeside-1-32x32.png"></a>
       </div>
   </header>
 

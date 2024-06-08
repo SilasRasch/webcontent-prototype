@@ -1,15 +1,16 @@
 import { auth } from "../auth"
 import axios from "axios"
 
-export const useCreatorAPI = () => {
-    // const baseURL = "https://api.wcp.dk/data/creators" // Public Prod
-    const baseURL = "https://localhost:7216/api/creators"
+export const useBrandAPI = () => {
+    // const baseURL = "https://api.wcp.dk/data/brands" // Public Prod
+    // const baseURL = "http://192.168.100.201:8185/api/brands" // Public Prod
+    const baseURL = "https://localhost:7216/api/brands"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
-    const getCreators = (searchTerm) => {
+    const getBrands = (userId) => {
         let url = ''
-        if (searchTerm) {
-            url += `?searchTerm=${searchTerm}`
+        if (userId) {
+            url += `?userId=${userId}`
         }
         
         const config = {
@@ -22,23 +23,11 @@ export const useCreatorAPI = () => {
             .then((res) => { return res.data })
     }
 
-    const getCreatorsByOrder = (id) => {
+    const getBrand = (cvr) => {
         const config = {
             ...baseConfig,
             method: 'get',
-            url: `?orderId=${id}`
-        }
-
-        return axios(config)
-            .then((res) => { return res.data })
-            .catch(() => { return undefined })
-    }
-
-    const getCreator = (id) => {
-        const config = {
-            ...baseConfig,
-            method: 'get',
-            url: `/${id}`,
+            url: `/${cvr}`,
             headers: { 'Authorization': auth.token } 
         }
 
@@ -46,17 +35,30 @@ export const useCreatorAPI = () => {
             .then((res) => { return res.data })
     }
 
-    const putCreator = (id, creator) => {
+    const putBrand = (cvr, brand) => {
         const config = {
             ...baseConfig,
             method: 'put',
-            url: `/${id}`,
-            data: creator,
+            url: `/${cvr}`,
+            data: brand,
             headers: { 'Authorization': auth.token } 
         }
 
         return axios(config)
     }
 
-    return { getCreator, getCreators, getCreatorsByOrder, putCreator }
+    const postBrand = (brand) => {
+        const config = {
+            ...baseConfig,
+            method: 'post',
+            url: '/',
+            data: brand,
+            headers: { 'Authorization': auth.token } 
+        }
+
+        return axios(config)
+            .then((res) => { return res.data })
+    }
+
+    return { getBrand, getBrands, putBrand, postBrand }
 }

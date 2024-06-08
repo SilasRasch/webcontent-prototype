@@ -7,37 +7,32 @@ import { auth } from '@/store/auth';
 
 const router = useRouter()
 
-const isVideo = computed(() => {
-    if (store.newOrder.projectType !== 'Statics' && store.newOrder.projectType !== 'Stilbilleder' && store.newOrder.projectType !== '') {
-        return true
+const handleSend = () => {
+    store.orderDataBase.price = estimatedPrice.value
+    store.orderDataBase.userId = auth.loggedInUser.id
+
+    var compiledOrder = {
+        ...store.orderDataBase,
+        ...store.orderDataPageOne,
+        ...store.orderDataPageTwo,
+        ...store.orderDataPageThree
     }
 
-    return false
-})
-
-const handleSend = () => {
-    // Push order
-    store.newOrder.price = estimatedPrice.value
-    // store.newOrder.deliveryTimeFrom = 2
-    // store.newOrder.deliveryTimeTo = 3
-    store.newOrder.userId = auth.loggedInUser.id
-
-    store.addOrder(store.newOrder)
-
-    // Redirect to dashboard
+    store.addOrder(compiledOrder)
     router.push('/min-side')
-
-    // Reset order flow
     store.currOrderPage = 0
 }
 
 const estimatedPrice = computed(() => {
     var price;
     
-    if (store.newOrder.projectType === 'User Generated Content' || store.newOrder.projectType === 'Testimonials') {
-        price = store.newOrder.contentCount <= 8 ? 2000 : 3500
-        price += store.newOrder.extraHook ? 200 * store.newOrder.extraHookCount : 0
-        price += store.newOrder.extraCreator ? store.newOrder.contentCount <= 8 ? 2000 : 3500 : 0
+    if (store.orderDataPageTwo.projectType === 'User Generated Content' || store.orderDataPageTwo.projectType === 'Testimonials' && store.validate()) {
+        price = store.orderDataPageTwo.contentCount <= 8 ? 2000 : 3500
+        price += store.orderDataPageThree.extraHook ? 200 * store.orderDataPageThree.extraHook : 0
+        price += store.orderDataPageThree.extraCreator ? store.orderDataPageThree.contentCount <= 8 ? 2000 : 3500 : 0
+    }
+    else if (!store.validate()) {
+        price = 0
     }
     else {
         price = 3000
@@ -45,11 +40,6 @@ const estimatedPrice = computed(() => {
 
     return parseFloat(Math.round(price))
 })
-
-// const estimatedDelivery = computed(() => {
-//     return parseInt(store.newOrder.contentCount)
-// })
-
 </script>
 
 <template>
@@ -61,31 +51,31 @@ const estimatedPrice = computed(() => {
 
         <div class="grid md:grid-cols-2 grid-cols-1 my-2">
             <div class="text-left mr-1">
-                <p class="px-0 font-semibold">Brand <strong :class="{'text-red-500': store.newOrder.brand === ''}">*</strong></p>
-                <p class="input-value" >{{ store.newOrder.brand }}</p>
+                <p class="px-0 font-semibold">Brand <strong :class="{'text-red-500': store.orderDataPageOne.brand.name === ''}">*</strong></p>
+                <p class="input-value" >{{ store.orderDataPageOne.brand.name }}</p>
             </div>
             <div class="text-left ml-1">
-                <p class="px-0 font-semibold">CVR <strong :class="{'text-red-500': store.newOrder.cvr === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.cvr }}</p>
+                <p class="px-0 font-semibold">CVR <strong :class="{'text-red-500': store.orderDataPageOne.brand.cvr === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageOne.brand.cvr }}</p>
             </div>
         </div>
 
 
         <div class="grid md:grid-cols-2 grid-cols-1 my-2">
             <div class="text-left mr-1">
-                <p class="px-0 font-semibold">Kontaktperson <strong :class="{'text-red-500': store.newOrder.contact.name === ''}">*</strong></p>
-                <p class="input-value" >{{ store.newOrder.contact.name }}</p>
+                <p class="px-0 font-semibold">Kontaktperson <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.name === ''}">*</strong></p>
+                <p class="input-value" >{{ store.orderDataPageOne.brand.contact.name }}</p>
             </div>
             <div class="text-left ml-1">
-                <p class="px-0 font-semibold">Telefon <strong :class="{'text-red-500': store.newOrder.contact.phone === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.contact.phone }}</p>
+                <p class="px-0 font-semibold">Telefon <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.phone === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageOne.brand.contact.phone }}</p>
             </div>
         </div>
 
         <div class="input text-left my-2">
             <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">E-mail <strong :class="{'text-red-500': store.newOrder.contact.email === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.contact.email }}</p>
+                <p class="px-0 font-semibold">E-mail <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.email === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageOne.brand.contact.email }}</p>
             </div>
         </div>
         
@@ -95,69 +85,95 @@ const estimatedPrice = computed(() => {
 
         <div class="grid md:grid-cols-2 grid-cols-1 my-2">
             <div class="input text-left mr-1">
-                <p class="px-0 font-semibold">Projektnavn <strong :class="{'text-red-500': store.newOrder.projectName === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.projectName }}</p>
+                <p class="px-0 font-semibold">Projektnavn <strong :class="{'text-red-500': store.orderDataPageTwo.projectName === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageTwo.projectName }}</p>
             </div>
             <div class="input text-left ml-1">
-                <p class="px-0 font-semibold">Projekttype <strong :class="{'text-red-500': store.newOrder.projectType === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.projectType }}</p>
+                <p class="px-0 font-semibold">Projekttype <strong :class="{'text-red-500': store.orderDataPageTwo.projectType === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageTwo.projectType }}</p>
             </div>
         </div>
 
         <div class="grid md:grid-cols-2 grid-cols-1 mb-0">
             <div class="input text-left mb-0">
                 <p class="px-0 font-semibold">Mængde af indhold</p>
-                <p class="input-value">{{ store.newOrder.contentCount }} stk</p>
+                <p class="input-value">{{ store.orderDataPageTwo.contentCount }} stk</p>
             </div>
-            <div v-if="isVideo" class="input text-left mb-0"> 
+            <div v-if="store.isVideo()" class="input text-left mb-0"> 
                 <p class="px-0 font-semibold">Længde af indhold</p>
-                <p class="input-value">{{ store.newOrder.contentLength }} sekunder</p>
+                <p class="input-value">{{ store.orderDataPageTwo.contentLength }} sekunder</p>
             </div>
         </div>
 
         <div class="input text-left my-2">
             <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">Format <strong :class="{'text-red-500': store.newOrder.format === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.format }}</p>
+                <p class="px-0 font-semibold">Format <strong :class="{'text-red-500': store.orderDataPageTwo.format === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageTwo.format }}</p>
             </div>
         </div>
         <div class="input text-left my-2">
             <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">Tiltænkte platforme <strong :class="{'text-red-500': store.newOrder.channels === ''}">*</strong></p>
-                <p class="input-value">{{ store.newOrder.channels }}</p>
+                <p class="px-0 font-semibold">Tiltænkte platforme <strong :class="{'text-red-500': store.orderDataPageTwo.platforms === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageTwo.platforms }}</p>
             </div>
         </div>
 
         <!-- Extras -->
-        <p class="text-left px-0 pt-0 opacity-50">Content</p>
-        <hr class="text-black bg-black opacity-50 h-0.5 mb-0" />
-        <!-- <hr class="text-black bg-black h-0.5 my-6" /> -->
+        <p v-if="store.showPageThree()" class="text-left px-0 pt-0 opacity-50">Content</p>
+        <hr v-if="store.showPageThree()" class="text-black bg-black opacity-50 h-0.5 mb-0" />
 
-        <div class="input text-left my-2">
-            <div class="input text-left">
-                <p class="px-0 font-semibold">Noter til indhold <strong :class="{'text-red-500': store.newOrder.notes === ''}">*</strong></p>
-                <!-- <textarea class="w-full bg-gray-200 p-2 resize-none" v-model="store.newOrder.notes" disabled></textarea> -->
-                <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ store.newOrder.notes }}</p>
-            </div>
-        </div>
-
-        <div class="flex input text-left">
+        <div v-if="store.showExtras()" class="flex input text-left">
             <div class="input text-left w-full mr-1">
                 <p class="px-0 font-semibold">Ekstra hook</p>
-                <p v-if="store.newOrder.extraHook" class="input-value">{{ store.newOrder.extraHookCount }} stk</p>
+                <p v-if="store.orderDataPageThree.extraHook" class="input-value">{{ store.orderDataPageThree.extraHook }} stk</p>
                 <p v-else class="input-value">Nej</p>
             </div>
             <div class="input text-left w-full ml-1">
                 <p class="px-0 font-semibold">Ekstra creator</p>
-                <p v-if="store.newOrder.extraCreator" class="input-value">Ja</p>
+                <p v-if="store.orderDataPageThree.extraCreator" class="input-value">Ja</p>
                 <p v-else class="input-value">Nej</p>
             </div>
         </div>
 
-        <div class="input text-left my-2">
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.products">
+            <div class="input text-left">
+                <p class="px-0 font-semibold">Produkter</p>
+                <p class="input-value">{{ store.orderDataPageThree.products }}</p>
+            </div>
+        </div>
+
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.creatorDescription">
+            <div class="input text-left">
+                <p class="px-0 font-semibold">Creator</p>
+                <p class="input-value">{{ store.orderDataPageThree.creatorDescription }}</p>
+            </div>
+        </div>
+
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.focusPoints">
+            <div class="input text-left">
+                <p class="px-0 font-semibold">Fokuspunkter</p>
+                <p class="input-value">{{ store.orderDataPageThree.focusPoints }}</p>
+            </div>
+        </div>
+
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.ideas">
+            <div class="input text-left">
+                <p class="px-0 font-semibold">Idéer</p>
+                <p class="input-value">{{ store.orderDataPageThree.ideas }}</p>
+            </div>
+        </div>
+
+        <div class="input text-left my-2"  v-if="store.orderDataPageThree.extraNotes">
             <div class="input text-left">
                 <p class="px-0 font-semibold">Ekstra noter</p>
-                <p class="input-value">{{ store.newOrder.extraNotes }}</p>
+                <p class="input-value">{{ store.orderDataPageThree.extraNotes }}</p>
+            </div>
+        </div>
+
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.relevantFiles">
+            <div class="input text-left">
+                <p class="px-0 font-semibold">Relevante filer</p>
+                <p class="input-value">{{ store.orderDataPageThree.relevantFiles }}</p>
             </div>
         </div>
 
@@ -170,7 +186,7 @@ const estimatedPrice = computed(() => {
             </div>
             <div class="input text-left">
                 <p class="font-semibold">Estimeret leveringstid</p>
-                <p class="">{{ store.newOrder.deliveryTimeFrom }}-{{ store.newOrder.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Leveringstiden er angivet i dage efter optagedagen. <br> Husk at det blot er et estimat.</ToolTip></p>
+                <p class="">{{ store.orderDataBase.deliveryTimeFrom }}-{{ store.orderDataBase.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Leveringstiden er angivet i dage efter optagedagen. <br> Husk at det blot er et estimat.</ToolTip></p>
             </div>
         </div>
         <div class="grid">
@@ -180,7 +196,7 @@ const estimatedPrice = computed(() => {
                 Send
             </button>
         </div>
-        <ToolTip v-if="isVideo" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
+        <ToolTip v-if="store.isVideo()" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
             Pris per optagedag (UGC og Testimonials)<br> 1-8 videoer: 2500,- <br> 9-16 videoer: 3500,- <br><br>
             Ekstra hook: 200,- (per video) <br> Ekstra creator: <br> 1-8 videoer: 2000,- <br> 9-16 videoer: 3500 (per ordre) <br><br>
             Alle priser er ekskl. moms

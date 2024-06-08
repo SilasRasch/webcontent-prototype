@@ -34,6 +34,14 @@ const isVideo = computed(() => {
     return false
 })
 
+const showExtras = computed(() => {
+    if (model.value.projectType === 'User Generated Content' || model.value.projectType === 'Testimonials') {
+        return true
+    }
+
+    return false
+})
+
 // Compute text and colors to display
 const status = computed(() => {
     let tmp;
@@ -181,7 +189,7 @@ const maxiToMini = () => {
                 <div class="input text-left -mt-2 p-2">
                     <div class="text-left bg-slate-800 rounded-lg px-2 mt-0">
                         <p class="px-0 font-semibold">Tiltænkte platforme</p>
-                        <p class="input-value">{{ model.channels }}</p>
+                        <p class="input-value">{{ model.platforms }}</p>
                     </div>
                 </div>
             </div>
@@ -196,24 +204,52 @@ const maxiToMini = () => {
             </div>
             <hr class="text-black bg-black opacity-50 h-0.5 mb-0 px-2" />
 
-            <div v-if="toggleContent" class="">
-                <div class="input text-left mb-0 p-2">
+            <div v-if="toggleContent">
+                <div v-if="model.products" class="input text-left -mb-2 p-2">
                     <div class="text-left bg-slate-800 rounded-lg px-2">
-                        <p class="px-0 font-semibold">Noter til indhold</p>
-                        <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ model.notes }}</p>
+                        <p class="px-0 font-semibold">Produkter</p>
+                        <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ model.products }}</p>
                     </div>
                 </div>
 
-                <div v-if="isVideo" class="flex input text-left p-2 -mt-2">
+                <div v-if="model.creatorDescription" class="input text-left -mb-2 p-2">
+                    <div class="text-left bg-slate-800 rounded-lg px-2">
+                        <p class="px-0 font-semibold">Creator</p>
+                        <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ model.creatorDescription }}</p>
+                    </div>
+                </div>
+
+                <div v-if="model.focusPoints" class="input text-left -mb-2 p-2">
+                    <div class="text-left bg-slate-800 rounded-lg px-2">
+                        <p class="px-0 font-semibold">Fokuspunkter</p>
+                        <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ model.focusPoints }}</p>
+                    </div>
+                </div>
+
+                <div v-if="model.ideas" class="input text-left -mb-2 p-2">
+                    <div class="text-left bg-slate-800 rounded-lg px-2">
+                        <p class="px-0 font-semibold">Idéer</p>
+                        <p class="input-value text-wrap overflow-hidden text-ellipsis">{{ model.ideas }}</p>
+                    </div>
+                </div>
+
+                <div v-if="showExtras" class="flex text-left p-2">
                     <div class="text-left bg-slate-800 rounded-lg px-2 w-full mr-1">
                         <p class="px-0 font-semibold">Ekstra hook</p>
-                        <p v-if="model.extraHook" class="input-value">{{ model.extraHookCount }} stk</p>
+                        <p v-if="model.extraHook" class="input-value">{{ model.extraHook }} stk</p>
                         <p v-else class="input-value">Nej</p>
                     </div>
                     <div class="text-left bg-slate-800 rounded-lg px-2 w-full ml-1">
                         <p class="px-0 font-semibold">Ekstra creator</p>
                         <p v-if="model.extraCreator" class="input-value">Ja</p>
                         <p v-else class="input-value">Nej</p>
+                    </div>
+                </div>
+
+                <div v-if="model.relevantFiles" class="text-left bg-slate-800 rounded-lg px-2 mx-2 pb-1">
+                    <div class="input text-left">
+                        <p class="px-0 font-semibold">Relevante filer</p>
+                        <p class="input-value">{{ model.relevantFiles }}</p>
                     </div>
                 </div>
 
@@ -239,33 +275,26 @@ const maxiToMini = () => {
                 <div class="grid md:grid-cols-2 grid-cols-1 p-2">
                     <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:my-0 my-1">
                         <p class="px-0 font-semibold">Brand</p>
-                        <p class="input-value" >{{ model.brand }}</p>
+                        <p class="input-value" >{{ model.brand.name }}</p>
                     </div>
                     <div class="text-left md:ml-1 bg-slate-800 rounded-lg px-2 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">CVR</p>
-                        <p class="input-value">{{ model.cvr }}</p>
+                        <p class="input-value">{{ model.brand.cvr }}</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 p-2">
                     <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:mb-0 mb-1">
                         <p class="px-0 font-semibold">Kontaktperson</p>
-                        <p class="input-value" >{{ model.contact.name }}</p>
+                        <p class="input-value" >{{ model.brand.contact.name }}</p>
                     </div>
                     <div class="text-left bg-slate-800 rounded-lg px-2 md:mx-1 md:my-0 my-1">
                         <p class="px-0 font-semibold">Telefon</p>
-                        <p class="input-value">{{ model.contact.phone }}</p>
+                        <p class="input-value">{{ model.brand.contact.phone }}</p>
                     </div>
                     <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">E-mail</p>
-                        <p class="input-value">{{ model.contact.email }}</p>
-                    </div>
-                </div>
-
-                <div v-if="model.source" class="input text-left -mt-2 p-2">
-                    <div class="text-left bg-slate-800 rounded-lg px-2">
-                        <p class="px-0 font-semibold">Hvor har du hørt om os?</p>
-                        <p class="input-value">{{ model.source }}</p>
+                        <p class="input-value">{{ model.brand.contact.email }}</p>
                     </div>
                 </div>
             </div>

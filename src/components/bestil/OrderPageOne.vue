@@ -1,35 +1,25 @@
 <script setup>
 import { store } from '../../store/store.js'
+import BrandChoice from '../Input/BrandChoice.vue';
 import DoubleInput from '../Input/DoubleInput.vue';
 import SingleInput from '../Input/SingleInput.vue';
-// import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 </script>
 
 <template>
     <div class="text-center w-full p-2" tag="div">
         <p class="text-xl font-semibold m-2">Grundinformation</p>
 
-        <DoubleInput v-model:firstInput="store.newOrder.brand" v-model:secondInput="store.newOrder.cvr"
-        placeholder-one="Dit brand" placeholder-two="F.eks. 40791752" required>
-            <template v-slot:slotOne>Brand</template>
-            <template v-slot:slotTwo>CVR</template>
-        </DoubleInput>
+        <BrandChoice v-model="store.orderDataPageOne.brand" />
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
-        <DoubleInput v-model:firstInput="store.newOrder.contact.name" v-model:secondInput="store.newOrder.contact.phone"
+        <DoubleInput v-model:firstInput="store.orderDataPageOne.brand.contact.name" v-model:secondInput="store.orderDataPageOne.brand.contact.phone"
         placeholder-one="Navn på kontaktperson" placeholder-two="Dit telefonnummer" required>
             <template v-slot:slotOne>Kontaktperson</template>
             <template v-slot:slotTwo>Telefon</template>
         </DoubleInput>
 
-        <SingleInput v-model="store.newOrder.contact.email" placeholder="Din e-mail" required>E-mail</SingleInput>
-
-        <!-- <hr class="text-black bg-black h-0.5 my-6" /> -->
-<!-- 
-        <SingleMultiSelect v-model="store.sourceArr" label="Hvor har du hørt om os?" required
-        :items="['LinkedIn', 'Facebook', 'Instagram', 'Mundtligt']">
-            Hvor har du hørt om os?</SingleMultiSelect> -->
+        <SingleInput v-model="store.orderDataPageOne.brand.contact.email" placeholder="Din e-mail" required>E-mail</SingleInput>
     </div>
 </template>
 

@@ -1,18 +1,8 @@
 <script setup>
-import { computed } from 'vue';
 import { store } from '../../store/store.js'
 import SingleInput from '../Input/SingleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 import SingleSelect from '../Input/SingleSelect.vue';
-
-const isVideo = computed(() => {
-    if (store.newOrder.projectType !== 'Statics' && store.newOrder.projectType !== 'Stilbilleder' && store.newOrder.projectType !== '') {
-        return true
-    }
-
-    return false
-})
-
 </script>
 
 <template>
@@ -20,8 +10,8 @@ const isVideo = computed(() => {
         <p class="text-xl font-semibold m-2">Information om dit projekt</p>
         
         <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
-            <SingleInput class="input mr-1" v-model="store.newOrder.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
-            <SingleSelect class="input ml-1 my-2" v-model="store.newOrder.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
+            <SingleInput class="input mr-1" v-model="store.orderDataPageTwo.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
+            <SingleSelect class="input ml-1 my-2" v-model="store.orderDataPageTwo.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
         </div>
         
         
@@ -30,20 +20,20 @@ const isVideo = computed(() => {
 
         <!-- Sliders! -->
         <Transition>
-            <div v-if="store.newOrder.projectType"
+            <div v-if="store.orderDataPageTwo.projectType"
             class="grid md:grid-cols-2 grid-cols-1 mb-0">
                 <div class="input text-left mb-0">
                     <p class="px-0">Mængde af indhold</p>
                     <div class="flex flex-col justify-center mr-1">
-                        <input class="" v-model="store.newOrder.contentCount" type="range" :min="isVideo ? 1 : 1" :max="isVideo ? 16 : 50" step="1"/>
-                        <span class="text-center opacity-50">{{ store.newOrder.contentCount }} stk</span>
+                        <input class="" v-model="store.orderDataPageTwo.contentCount" type="range" :min="store.isVideo() ? 1 : 1" :max="store.isVideo() ? 16 : 50" step="1"/>
+                        <span class="text-center opacity-50">{{ store.orderDataPageTwo.contentCount }} stk</span>
                     </div>
                 </div>
-                <div class="input text-left mb-0"  v-if="isVideo"> 
+                <div class="input text-left mb-0"  v-if="store.isVideo()"> 
                     <p class="px-0">Længde af indhold</p>
                     <div class="flex flex-col justify-center ml-1">
-                        <input v-model="store.newOrder.contentLength" type="range" min="20" max="120" step="5"/>
-                        <span class="text-center opacity-50">{{ store.newOrder.contentLength }} sekunder</span>
+                        <input v-model="store.orderDataPageTwo.contentLength" type="range" min="20" max="120" step="5"/>
+                        <span class="text-center opacity-50">{{ store.orderDataPageTwo.contentLength }} sekunder</span>
                     </div>
                 </div>
             </div>
@@ -55,7 +45,7 @@ const isVideo = computed(() => {
         </SingleMultiSelect>
 
         <SingleMultiSelect v-model="store.channelsArr" required other
-        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube']">
+        :items="['TikTok', 'Instagram', 'Facebook', 'YouTube', 'Snapchat', 'Pinterest']">
             Tiltænkte platforme
         </SingleMultiSelect>
     </div>

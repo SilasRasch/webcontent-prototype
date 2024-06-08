@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
+const emit = defineEmits(["onChoose"])
 const model = defineModel()
 const props = defineProps({
     item: String,
@@ -12,6 +13,7 @@ const customInput = ref('')
 const handleAdd = (item) =>  {
     if (item !== '') {
         model.value = item
+        emit("onChoose", item)
     }
 }
 </script>

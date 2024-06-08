@@ -2,68 +2,68 @@
 import { store } from '../../store/store.js'
 import SingleInput from '../Input/SingleInput.vue';
 import ToolTip from '../Input/ToolTip.vue';
-import { computed } from 'vue';
+import { ref } from 'vue';
 
-const isVideo = computed(() => {
-    if (store.newOrder.projectType !== 'Statics' && store.newOrder.projectType !== 'Stilbilleder' && store.newOrder.projectType !== '') {
-        return true
-    }
-
-    return false
-})
+const showExtraHook = ref(store.orderDataPageThree.extraHook > 0)
 </script>
 
 <template>
     <div class="text-center w-full p-2">
         <p class="text-xl font-semibold m-2">Information om indholdet</p>
 
-        <div class="input text-left my-2">
-            <div class="input text-left">
-                <p class="px-0">Noter til indhold <strong :class="{'text-red-500': store.newOrder.notes === ''}">*</strong></p>
-                <textarea class="input-field p-2 resize-none" rows="3" v-model="store.newOrder.notes" 
-                placeholder="Hvilke produkter, fokuspunkter, eventuelle ideer, etc..."></textarea>
-            </div>
-        </div>
-
-        <hr class="text-black bg-black h-0.5 my-6" />
-
-        <div v-if="isVideo" class="flex input text-left">
+        <div v-if="store.showExtras()" class="flex input text-left">
             <div class="input text-left w-full mr-1">
-                <p class="px-0">Ekstra hook 
-                    <ToolTip class="bg-yellow-500 text-white hover:bg-opacity-75 p-1" 
+                <p class="px-0">Ekstra hook
+                    <ToolTip class="bg-yellow-500 text-white hover:bg-opacity-75 p-1"
                     label="Populær!">Tilføj lidt ekstra spice til dit content med ekstra hooks!</ToolTip>
                 </p>
-                
-                <button class="toggle-btn" 
-                :class="{'bg-red-500 fa fa-times':!store.newOrder.extraHook, 'bg-green-500 fa fa-check':store.newOrder.extraHook}"
-                @click="store.newOrder.extraHook = !store.newOrder.extraHook"
+
+                <button class="toggle-btn"
+                :class="{'bg-red-500 fa fa-times':!showExtraHook, 'bg-green-500 fa fa-check':showExtraHook}"
+                @click="showExtraHook = !showExtraHook"
                 ></button>
             </div>
             <div class="input text-left w-full ml-1 mb-2">
-                <p class="px-0">Ekstra creator 
-                    <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker mere end én creator på dit projekt (+ {{ store.newOrder.contentCount <= 8 ? 2000 : 3500 }},-)</ToolTip>
+                <p class="px-0">Ekstra creator
+                    <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker mere end én creator på dit projekt (+ {{ store.orderDataPageTwo.contentCount <= 8 ? 2000 : 3500 }},-)</ToolTip>
                 </p>
-                <button class="toggle-btn" 
-                :class="{'bg-red-500 fa fa-times':!store.newOrder.extraCreator, 'bg-green-500 fa fa-check':store.newOrder.extraCreator}"
-                @click="store.newOrder.extraCreator = !store.newOrder.extraCreator"
+                <button class="toggle-btn"
+                :class="{'bg-red-500 fa fa-times':!store.orderDataPageThree.extraCreator, 'bg-green-500 fa fa-check':store.orderDataPageThree.extraCreator}"
+                @click="store.orderDataPageThree.extraCreator = !store.orderDataPageThree.extraCreator"
                 ></button>
             </div>
         </div>
 
+        <hr v-if="!showExtraHook && store.showExtras()" class="text-black bg-black h-0.5 my-6" />
+
         <!-- Extra hook -->
         <Transition>
-            <div v-if="store.newOrder.extraHook" class="mb-0">
-                <div class="input text-left mb-0">
-                    <p class="px-0">Hvor mange videoer m. ekstra hook? <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker ekstra hooks <br> (+ 200,- per video)</ToolTip></p>
-                    <div class="flex flex-col justify-center">
-                        <input v-model="store.newOrder.extraHookCount" class="" type="range" min="1" :max="store.newOrder.contentCount" step="1"/>
-                        <span class="text-center opacity-50">{{ store.newOrder.extraHookCount }} stk</span>
+            <div v-if="showExtraHook">
+                <div class="mb-0">
+                    <div class="input text-left mb-0">
+                        <p class="px-0">Hvor mange videoer m. ekstra hook? <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker ekstra hooks <br> (+ 200,- per video)</ToolTip></p>
+                        <div class="flex flex-col justify-center">
+                            <input v-model="store.orderDataPageThree.extraHook" class="" type="range" min="1" :max="store.orderDataPageTwo.contentCount" step="1"/>
+                            <span class="text-center opacity-50">{{ store.orderDataPageThree.extraHook }} stk</span>
+                        </div>
                     </div>
                 </div>
+                <hr class="text-black bg-black h-0.5 my-6" />
             </div>
+            
+            
         </Transition>
 
-        <SingleInput v-model="store.newOrder.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review...">Ekstra noter</SingleInput>
+        <SingleInput v-model="store.orderDataPageThree.products" placeholder="Hvilke produkter skal bruges i projektet? (Indsæt link)">Produkter</SingleInput>
+        <SingleInput v-if="store.showExtras()" v-model="store.orderDataPageThree.creatorDescription" placeholder="Ønsker til alder, køn og udseende">Creator</SingleInput>
+        <SingleInput v-model="store.orderDataPageThree.focusPoints" placeholder="Hvad er det vigtigste, som skal fremhæves?">Fokuspunkter</SingleInput>
+        <SingleInput v-model="store.orderDataPageThree.ideas" placeholder="Har du set noget lignende? (Indsæt link)">Idéer</SingleInput>
+
+        <hr class="text-black bg-black h-0.5 my-6" />
+
+        <SingleInput v-model="store.orderDataPageThree.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review...">Ekstra noter</SingleInput>
+
+        <SingleInput v-model="store.orderDataPageThree.relevantFiles" placeholder="Alt du føler er relevant at have med (Google Drive-link)">Relevante filer</SingleInput>
     </div>
 </template>
 

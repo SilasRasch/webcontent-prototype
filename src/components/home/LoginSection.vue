@@ -3,8 +3,6 @@ import ToolTip from '@/components/Input/ToolTip.vue';
 import { auth } from '@/store/auth';
 import { ref } from 'vue';
 
-const emit = defineEmits(["showCreate"])
-
 const email = ref('')
 const password = ref('')
 const error = ref('')
@@ -21,10 +19,6 @@ const handleLogin = async () => {
       password.value = ''
     })
   }
-}
-
-const handleShowCreate = () => {
-    emit("showCreate")
 }
 </script>
 
@@ -47,7 +41,8 @@ const handleShowCreate = () => {
             </div>
             <div class="flex justify-between py-2 text-base w-full">
                 <button @click="handleLogin()" class="bg-green-500 p-2 rounded-lg w-1/2 mr-1 hover:bg-green-600 duration-200">Log ind</button>
-                <button @click="handleShowCreate()" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</button>
+                <a href="https://calendly.com/webcontentdk" target="_blank" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</a>
+                <!-- <button @click="handleShowCreate()" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</button> -->
             </div>
             <div class="text-base cursor-pointer hover:text-blue-500 duration-300">Glemt kodeord?</div>
             <div v-if="error" class="text-red-600 text-base">
