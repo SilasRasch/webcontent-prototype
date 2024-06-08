@@ -16,10 +16,10 @@ import SingleInput from '../Input/SingleInput.vue';
         <DoubleInput v-model:firstInput="store.orderDataPageOne.brand.contact.name" v-model:secondInput="store.orderDataPageOne.brand.contact.phone"
         placeholder-one="Navn på kontaktperson" placeholder-two="Dit telefonnummer" required>
             <template v-slot:slotOne>Kontaktperson</template>
-            <template v-slot:slotTwo>Telefon</template>
+            <template v-slot:slotTwo>Kontaktnummer</template>
         </DoubleInput>
 
-        <SingleInput v-model="store.orderDataPageOne.brand.contact.email" placeholder="Din e-mail" required>E-mail</SingleInput>
+        <SingleInput v-model="store.orderDataPageOne.brand.contact.email" placeholder="Din e-mail" required>Kontaktmail</SingleInput>
     </div>
 </template>
 

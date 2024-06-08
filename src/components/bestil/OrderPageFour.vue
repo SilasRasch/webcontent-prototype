@@ -67,14 +67,14 @@ const estimatedPrice = computed(() => {
                 <p class="input-value" >{{ store.orderDataPageOne.brand.contact.name }}</p>
             </div>
             <div class="text-left ml-1">
-                <p class="px-0 font-semibold">Telefon <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.phone === ''}">*</strong></p>
+                <p class="px-0 font-semibold">Kontaktnummer <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.phone === ''}">*</strong></p>
                 <p class="input-value">{{ store.orderDataPageOne.brand.contact.phone }}</p>
             </div>
         </div>
 
         <div class="input text-left my-2">
             <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">E-mail <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.email === ''}">*</strong></p>
+                <p class="px-0 font-semibold">Kontaktmail <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.email === ''}">*</strong></p>
                 <p class="input-value">{{ store.orderDataPageOne.brand.contact.email }}</p>
             </div>
         </div>
