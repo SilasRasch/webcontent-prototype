@@ -47,7 +47,6 @@ const handleShowOrders = () => {
             <p class="text-xl">{{ auth.isUser() ? 'Mine bestillinger' : auth.isCreator() ? 'Mine projekter' : 'Bestillinger' }}</p>
         </div>
 
-        
         <div class="grid justify-center items-center">
             <TransitionGroup>
                 <MyDashboard v-if="showOrders" />
@@ -56,10 +55,6 @@ const handleShowOrders = () => {
                 <div v-if="showOrders && auth.isUser()" class="flex justify-center"><RouterLink to="/bestil" class="bg-red-400 p-2 mt-2 rounded-lg w-fit font-semibold hover:bg-red-500 duration-200">Opret nyt projekt</RouterLink></div>
             </TransitionGroup>
         </div>
-
-        <!-- Bestil knap -->
-        
-        
     </div>    
 </template>
 
