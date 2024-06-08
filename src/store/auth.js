@@ -9,9 +9,11 @@ export const auth = reactive({
     loggedInUser: {
         id: undefined,
         email: undefined,
+        displayName: undefined,
         roles: []
     },
-
+    originalRole: '',
+    
     login(email, password) {
         return api.login(email, password) // Will return empty string if error / wrong email or password
             .then((data) => { return this.loginHelper(data) })
@@ -22,7 +24,8 @@ export const auth = reactive({
             this.token = "Bearer " + token
             this.isLoggedIn = true
             return api.authenticate()
-            .then((data) => this.loggedInUser = data).then(() => {
+            .then((data) => this.loggedInUser = data).then((data) => {
+                this.originalRole = data.roles[0]
                 localStorage.setItem("user", this.loggedInUser.email)
                 return true
             })
@@ -36,6 +39,7 @@ export const auth = reactive({
         this.loggedInUser =  {
             id: undefined,
             email: undefined,
+            displayName: undefined,
             roles: [],
         }
             

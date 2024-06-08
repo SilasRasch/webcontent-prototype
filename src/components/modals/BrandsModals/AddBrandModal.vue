@@ -41,7 +41,7 @@ const validate = computed(() => {
 
     <Transition>
             <div v-show="showModal" @click.self="handleToggle" class="z-50 fixed bg-black bg-opacity-50 w-full h-full top-0 left-0">
-                <div class="grid justify-center p-2 px-4 rounded-lg text-white min-w-[20rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
+                <div class="text-base grid justify-center p-2 px-4 rounded-lg text-white min-w-[20rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
                     <p class="text-center font-semibold">Opret nyt brand</p>
                     <DoubleInput v-model:firstInput="brand.name" v-model:secondInput="brand.cvr" required
                     placeholder-one="Navnet på brandet" placeholder-two="Brandets CVR">

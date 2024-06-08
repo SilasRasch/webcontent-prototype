@@ -4,6 +4,9 @@ import { ref } from 'vue';
 import { store } from '@/store/store';
 import { useRouter } from 'vue-router';
 import { auth } from '@/store/auth';
+import { useUserAPI } from '@/store/api/userApi';
+
+const api = useUserAPI()
 
 const currTab = ref(0)
 
@@ -29,6 +32,30 @@ const resetTabs = () => {
     showPasswordSetting.value = false
     newPswd.value = ''
     newPswdConfirm.value = ''
+}
+
+const newDisplayName = ref('')
+const updateDisplayName = () => {
+    api.putUser(auth.loggedInUser.id, { displayName: newDisplayName.value, email: auth.loggedInUser.email, password: 'null', role: auth.loggedInUser.roles[0] })
+    newDisplayName.value = ''
+    showDisplayNameSetting.value = false
+    auth.refreshToken()
+}
+
+const newEmail = ref('')
+const updateEmail = () => {
+    api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] })
+    newEmail.value = ''
+    showEmailSetting.value = false
+    auth.refreshToken()
+}
+
+const updatePassword = () => {
+    api.changePassword(auth.loggedInUser.id, { password: newPswd.value })
+    newPswd.value = ''
+    newPswdConfirm.value = ''
+    showPasswordSetting.value = false
+    auth.refreshToken()
 }
 </script>
 
@@ -88,8 +115,8 @@ const resetTabs = () => {
                             <span class="fa fa-angle-down fa-2x"></span>
                         </div>
                         <div v-if="showDisplayNameSetting" class="flex">
-                            <input placeholder="Indast nyt brugernavn" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
-                            <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
+                            <input v-model="newDisplayName" :placeholder="auth.loggedInUser.displayName" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                            <button @click="updateDisplayName" class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
                         </div>
                     </div>
                     <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
@@ -101,8 +128,8 @@ const resetTabs = () => {
                             <span class="fa fa-angle-down fa-2x"></span>
                         </div>
                         <div v-if="showEmailSetting" class="flex">
-                            <input :placeholder="auth.loggedInUser.email" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
-                            <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
+                            <input v-model="newEmail" :placeholder="auth.loggedInUser.email" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                            <button @click="updateEmail" class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
                         </div>
                     </div>
                     <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
@@ -121,12 +148,12 @@ const resetTabs = () => {
                                 <input v-model="newPswdConfirm" type="password" placeholder="Gentag nyt kodeord" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
                                 <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200" 
                                 :disabled="newPswd.length === 0 || newPswd !== newPswdConfirm"
-                                @click="() => console.log('Confirmed')"></button>
+                                @click="updatePassword"></button>
                             </div>
                         </div>
                     </div>
                     <!-- v-show="auth.loggedInUser.email === 'admin'" -->
-                    <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                    <div v-if="auth.originalRole.includes('Admin')" class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
                         <div class="flex justify-between w-full">
                             <div class="flex text-center">
                                 <span class="cursor-pointer fa fa-key fa-2x min-w-10"></span>
