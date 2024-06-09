@@ -1,5 +1,5 @@
 <script setup>
-import ToolTip from '@/components/Input/ToolTip.vue';
+// import ToolTip from '@/components/Input/ToolTip.vue';
 import { auth } from '@/store/auth';
 import { ref } from 'vue';
 
@@ -32,7 +32,8 @@ const handleLogin = async () => {
         <div class="pb-2 px-4 rounded-lg text-white bg-gray-900 min-w-[300px] max-w-lg shadow-black shadow-lg">
         <div class="grid w-full" @keyup.enter="handleLogin()">
             <div class="grid pt-2 w-full">
-                <p class="text-left p-0 py-1">E-mail <ToolTip class="bg-gray-800" label="i">Test credentials <br> Brugernavn: admin <br> Kodeord: test</ToolTip> </p>
+                <p class="text-left p-0 py-1">E-mail </p>
+                <!-- <ToolTip class="bg-gray-800" label="i">Test credentials <br> Brugernavn: admin <br> Kodeord: test</ToolTip> -->
                 <input v-model="email" type="email" class="input" />
             </div>
             <div class="grid w-full">

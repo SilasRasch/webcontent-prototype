@@ -36,26 +36,35 @@ const resetTabs = () => {
 
 const newDisplayName = ref('')
 const updateDisplayName = () => {
-    api.putUser(auth.loggedInUser.id, { displayName: newDisplayName.value, email: auth.loggedInUser.email, password: 'null', role: auth.loggedInUser.roles[0] })
-    newDisplayName.value = ''
-    showDisplayNameSetting.value = false
-    auth.refreshToken()
+    api.putUser(auth.loggedInUser.id, { displayName: newDisplayName.value, email: auth.loggedInUser.email, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+        auth.refreshToken().then(() => {
+            newDisplayName.value = ''
+            showDisplayNameSetting.value = false
+        })
+    })
+    
 }
 
 const newEmail = ref('')
 const updateEmail = () => {
-    api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] })
-    newEmail.value = ''
-    showEmailSetting.value = false
-    auth.refreshToken()
+    api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+        auth.refreshToken().then(() => {
+            newEmail.value = ''
+            showEmailSetting.value = false
+        })
+    })
+    
 }
 
 const updatePassword = () => {
-    api.changePassword(auth.loggedInUser.id, { password: newPswd.value })
-    newPswd.value = ''
-    newPswdConfirm.value = ''
-    showPasswordSetting.value = false
-    auth.refreshToken()
+    api.changePassword(auth.loggedInUser.id, { password: newPswd.value }).then(() => {
+        auth.refreshToken().then(() => {
+            newPswd.value = ''
+            newPswdConfirm.value = ''
+            showPasswordSetting.value = false
+        })
+    })
+    
 }
 </script>
 
