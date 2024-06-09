@@ -3,9 +3,6 @@ import { store } from '../../store/store.js'
 import MultiLineInput from '../Input/MultiLineInput.vue';
 import SingleInput from '../Input/SingleInput.vue';
 import ToolTip from '../Input/ToolTip.vue';
-import { ref } from 'vue';
-
-const showExtraHook = ref(store.orderDataPageThree.extraHook > 0)
 </script>
 
 <template>
@@ -20,8 +17,8 @@ const showExtraHook = ref(store.orderDataPageThree.extraHook > 0)
                 </p>
 
                 <button class="toggle-btn"
-                :class="{'bg-red-500 fa fa-times':!showExtraHook, 'bg-green-500 fa fa-check':showExtraHook}"
-                @click="showExtraHook = !showExtraHook"
+                :class="{'bg-red-500 fa fa-times':!store.extraHookEnabled, 'bg-green-500 fa fa-check':store.extraHookEnabled}"
+                @click="store.extraHookEnabled = !store.extraHookEnabled"
                 ></button>
             </div>
             <div class="input text-left w-full ml-1 mb-2">
@@ -35,11 +32,11 @@ const showExtraHook = ref(store.orderDataPageThree.extraHook > 0)
             </div>
         </div>
 
-        <hr v-if="!showExtraHook && store.showExtras()" class="text-black bg-black h-0.5 my-6" />
+        <hr v-if="!store.extraHookEnabled && store.showExtras()" class="text-black bg-black h-0.5 my-6" />
 
         <!-- Extra hook -->
         <Transition>
-            <div v-if="showExtraHook">
+            <div v-if="store.extraHookEnabled">
                 <div class="mb-0">
                     <div class="input text-left mb-0">
                         <p class="px-0">Hvor mange videoer m. ekstra hook? <ToolTip label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif m-1">Hvis du ønsker ekstra hooks <br> (+ 200,- per video)</ToolTip></p>
