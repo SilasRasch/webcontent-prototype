@@ -22,7 +22,9 @@ const handleToggleProject = () => toggleProject.value = !toggleProject.value
 const handleToggleContent = () => toggleContent.value = !toggleContent.value
 
 const handleRemoveCreator = (id) => {
-    model.value.creators = model.value.creators.filter(x => x.id === id)
+    console.log("Id: " + id);
+    const index = model.value.creators.indexOf(id)
+    model.value.creators.splice(index, 1)
     api.putOrder(model.value.id, model.value).then(() => emit("refetch"))
 }
 
