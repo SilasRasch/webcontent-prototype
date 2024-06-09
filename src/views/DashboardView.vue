@@ -2,6 +2,7 @@
 import { auth } from '@/store/auth';
 import MyDashboard from '@/components/min-side/MyDashboard.vue';
 import BrandsDashboard from '@/components/min-side/BrandsDashboard.vue';
+import UserControlpanel from '@/components/admin/UserControlpanel.vue';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -17,16 +18,26 @@ if (brandQuery !== null) {
 
 const handleShowBrands = () => {
     showOrders.value = false
-    const query = { ...route.query }
-    query["brands"] = true
-    router.replace({ query })
+
+    if (auth.isUser()) {
+        const query = { ...route.query }
+        query["brands"] = true
+        router.replace({ query })
+    }
+}
+
+const handleShowUsers = () => {
+    showOrders.value = false
 }
 
 const handleShowOrders = () => {
     showOrders.value = true
-    const query = { ...route.query }
-    query["brands"] = false
-    router.replace({ query })
+
+    if (auth.isUser()) {
+        const query = { ...route.query }
+        query["brands"] = false
+        router.replace({ query })
+    }   
 } 
 </script>
 
@@ -42,6 +53,12 @@ const handleShowOrders = () => {
             <button class="bg-red-400 p-2 rounded-r-lg w-32 font-semibold hover:bg-red-500 duration-500" :class="{'bg-red-500':!showOrders}"
             @click="handleShowBrands">Brands</button>
         </div>
+        <div v-else-if="auth.isAdmin()" class="flex justify-center items-center my-3 text-lg">
+            <button class="bg-red-400 p-2 rounded-l-lg w-32 font-semibold hover:bg-red-500 duration-500" :class="{'bg-red-500':showOrders}"
+            @click="handleShowOrders">Bestillinger</button>
+            <button class="bg-red-400 p-2 rounded-r-lg w-32 font-semibold hover:bg-red-500 duration-500" :class="{'bg-red-500':!showOrders}"
+            @click="handleShowUsers">Brugere</button>
+        </div>
 
         <div v-else class="mb-2">
             <p class="text-xl">{{ auth.isUser() ? 'Mine bestillinger' : auth.isCreator() ? 'Mine projekter' : 'Bestillinger' }}</p>
@@ -50,6 +67,7 @@ const handleShowOrders = () => {
         <div class="grid justify-center items-center">
             <TransitionGroup>
                 <MyDashboard v-if="showOrders" />
+                <UserControlpanel v-else-if="auth.isAdmin()" />
                 <BrandsDashboard v-else />
 
                 <div v-if="showOrders && auth.isUser()" class="flex justify-center"><RouterLink to="/bestil" class="bg-red-400 p-2 mt-2 rounded-lg w-fit font-semibold hover:bg-red-500 duration-200">Opret nyt projekt</RouterLink></div>

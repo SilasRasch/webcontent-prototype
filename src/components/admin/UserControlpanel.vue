@@ -2,10 +2,12 @@
 import DoubleInput from '@/components/Input/DoubleInput.vue';
 import SingleSelect from '@/components/Input/SingleSelect.vue';
 import CreatorModal from '@/components/modals/CreatorModal/CreatorModal.vue';
+import { useAuthAPI } from '@/store/api/authApi';
 import { useCreatorAPI } from '@/store/api/creatorApi';
 import { ref } from 'vue';
 
 const api = useCreatorAPI()
+const authAPI = useAuthAPI()
 const creators = ref(null)
 api.getCreators().then((data) => creators.value = data)
 
@@ -14,7 +16,6 @@ const showCreate = ref(false)
 const showUsers = ref(false)
 const showAdmins = ref(false)
 const showCreators = ref(true)
-
 
 const toggleCreate = () => {
     showCreate.value = true
@@ -28,17 +29,28 @@ const handleDelete = (id) => {
     console.log(`Delete ${id}`);
 }
 
-const email = ref('')
-const name = ref('')
-const role = ref('')
+const user = ref({ displayName: '', email: '', role: '', password: 'WebContentGenerate' })
+
+const creatorProfile = ref({ location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } })
+
+// Password skal på sigt genereres i backenden, og brugeren vil få en mail med login-informationer.
+const handleRegister = () => {
+    if (user.value.role !== 'Creator') {
+        authAPI.register(user.value)
+    }
+    else {
+        const creator = {
+            ...user.value,
+            ...creatorProfile.value
+        }
+        
+        authAPI.registerCreator(creator)
+    }
+}
 </script>
 
 <template>
-    <div class="grid justify-center text-center m-4">
-        <h1 class="text-3xl font-semibold">Brugere</h1>
-
-        <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
-
+    <div class="grid justify-center text-center m-4 mt-0">
         <div class="grid bg-slate-800 rounded-lg p-2 md:w-[36.5rem]">
             <div class="flex gap-2">
                 <button v-if="showCreate" class="bg-green-500 w-full rounded-lg p-2 hover:bg-green-600 duration-200" @click="toggleUsers">
@@ -91,31 +103,45 @@ const role = ref('')
             </div>
         </div>
 
-        <div v-else class="bg-slate-800 rounded-lg p-4 md:w-[36.5rem] mt-6">
+        <div v-else class="bg-slate-800 rounded-lg p-4 md:w-[36.5rem] mt-3">
             <h1 class="text-xl">Opret ny bruger</h1>
 
-            <DoubleInput v-model:firstInput="name" v-model:secondInput="email" required
+            <DoubleInput v-model:firstInput="user.displayName" v-model:secondInput="user.email" required
             placeholder-one="Navnet på brugeren" placeholder-two="Brugerens email">
                 <template v-slot:slotOne>Navn</template>
                 <template v-slot:slotTwo>Email</template>
             </DoubleInput>
 
-            <SingleSelect v-model="role" :items="['Bruger', 'Creator', 'Admin']" required>Rolle</SingleSelect>
+            <SingleSelect v-model="user.role" :items="['Bruger', 'Creator', 'Admin']" required>Rolle</SingleSelect>
 
-            <DoubleInput v-if="role === 'Creator'" v-model:firstInput="name" v-model:secondInput="email"
-            placeholder-one="Navnet på brugeren" placeholder-two="Brugerens email">
-                <template v-slot:slotOne>Instagram</template>
-                <template v-slot:slotTwo>TikTok</template>
-            </DoubleInput>
+            <!-- Creatorprofil -->
+            <hr v-if="user.role === 'Creator'" class="text-black bg-black opacity-50 h-0.5 m-3" />
+            <h1 v-if="user.role === 'Creator'" class="text-xl">Creatorprofil</h1>
 
-            <DoubleInput v-if="role === 'Creator'" v-model:firstInput="name" v-model:secondInput="email" required
-            placeholder-one="Navnet på brugeren" placeholder-two="Brugerens email">
-                <template v-slot:slotOne>Om</template>
+            <DoubleInput v-if="user.role === 'Creator'" v-model:firstInput="creatorProfile.location" v-model:secondInput="creatorProfile.speciality" required
+            placeholder-one="Brugerens lokation" placeholder-two="Hvad brugeren tilbyder">
+                <template v-slot:slotOne>Lokation</template>
                 <template v-slot:slotTwo>Speciale</template>
             </DoubleInput>
 
+            <div v-if="user.role === 'Creator'">
+                <DoubleInput placeholder-one="@Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.instagram" v-model:secondInput="creatorProfile.handles.tikTok">
+                    <template v-slot:slotOne>Instagram</template>
+                    <template v-slot:slotTwo>TikTok</template>
+                </DoubleInput>
+                <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.facebook" v-model:secondInput="creatorProfile.handles.youTube">
+                    <template v-slot:slotOne>Facebook</template>
+                    <template v-slot:slotTwo>YouTube</template>
+                </DoubleInput>
+                <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn"  v-model:firstInput="creatorProfile.handles.snapchat" v-model:secondInput="creatorProfile.handles.pinterest">
+                    <template v-slot:slotOne>Snapchat</template>
+                    <template v-slot:slotTwo>Pinterest</template>
+                </DoubleInput>
+            </div>
+
             <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
-            <button class="bg-green-500 w-full hover:bg-green-600 duration-200 p-2 px-4 rounded-lg font-semibold">Opret</button>
+            <button class="bg-green-500 w-full hover:bg-green-600 duration-200 p-2 px-4 rounded-lg font-semibold"
+            @click="handleRegister">Opret</button>
         </div>
     </div>
 </template>

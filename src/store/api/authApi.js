@@ -37,6 +37,20 @@ export const useAuthAPI = () => {
         }
     }
 
+    const registerCreator = (creator) => {
+        const config = {
+            ...baseConfig,
+            url: 'registercreator',
+            headers: { 'Authorization': auth.token },
+            data: creator
+        }
+
+        if (auth.isAdmin()) {
+            return axios(config)
+                .then((res) => { return res.data })
+        }
+    }
+
     const authenticate = () => {
         if (auth.isLoggedIn) {
             const config = {
@@ -89,5 +103,5 @@ export const useAuthAPI = () => {
             .catch((err) => console.error(err))
     }
 
-    return { login, register, authenticate, addAdmin, refreshToken, revoke }
+    return { login, register, authenticate, addAdmin, refreshToken, revoke, registerCreator }
 }
