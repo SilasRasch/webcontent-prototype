@@ -1,5 +1,6 @@
 <script setup>
 import { store } from '../../store/store.js'
+import MultiLineInput from '../Input/MultiLineInput.vue';
 import SingleInput from '../Input/SingleInput.vue';
 import ToolTip from '../Input/ToolTip.vue';
 import { ref } from 'vue';
@@ -54,16 +55,18 @@ const showExtraHook = ref(store.orderDataPageThree.extraHook > 0)
             
         </Transition>
 
-        <SingleInput v-model="store.orderDataPageThree.products" placeholder="Hvilke produkter skal bruges i projektet? (Indsæt link)">Produkter</SingleInput>
+        <!-- <SingleInput v-model="store.orderDataPageThree.products" placeholder="Hvilke produkter skal bruges i projektet? (Indsæt link)">Produkter</SingleInput> -->
+        <MultiLineInput v-model="store.orderDataPageThree.products" placeholder="Link til produkt-side" content-name="et produkt">Produkter</MultiLineInput>
         <SingleInput v-if="store.showExtras()" v-model="store.orderDataPageThree.creatorDescription" placeholder="Ønsker til alder, køn og udseende">Creator</SingleInput>
         <SingleInput v-model="store.orderDataPageThree.focusPoints" placeholder="Hvad er det vigtigste, som skal fremhæves?">Fokuspunkter</SingleInput>
-        <SingleInput v-model="store.orderDataPageThree.ideas" placeholder="Har du set noget lignende? (Indsæt link)">Idéer</SingleInput>
+        <!-- <SingleInput v-model="store.orderDataPageThree.ideas" placeholder="Har du set noget lignende? (Indsæt link)">Idéer</SingleInput> -->
+        <MultiLineInput v-model="store.orderDataPageThree.ideas" placeholder="Har du set noget lignende? (Indsæt link)" content-name="en idé">Idéer</MultiLineInput>
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
         <SingleInput v-model="store.orderDataPageThree.extraNotes" placeholder="F.eks. 2 testimonials, 2 unboxing, 4 product review...">Ekstra noter</SingleInput>
-
         <SingleInput v-model="store.orderDataPageThree.relevantFiles" placeholder="Alt du føler er relevant at have med (Google Drive-link)">Relevante filer</SingleInput>
+
     </div>
 </template>
 

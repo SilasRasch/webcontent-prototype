@@ -135,7 +135,7 @@ const estimatedPrice = computed(() => {
             </div>
         </div>
 
-        <div class="input text-left my-2" v-if="store.orderDataPageThree.products">
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.products.length > 0">
             <div class="input text-left">
                 <p class="px-0 font-semibold">Produkter</p>
                 <p class="input-value">{{ store.orderDataPageThree.products }}</p>
@@ -156,7 +156,7 @@ const estimatedPrice = computed(() => {
             </div>
         </div>
 
-        <div class="input text-left my-2" v-if="store.orderDataPageThree.ideas">
+        <div class="input text-left my-2" v-if="store.orderDataPageThree.ideas.length > 0">
             <div class="input text-left">
                 <p class="px-0 font-semibold">Idéer</p>
                 <p class="input-value">{{ store.orderDataPageThree.ideas }}</p>

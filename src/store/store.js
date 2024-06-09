@@ -44,10 +44,10 @@ export const store = reactive({
         contentLength: 60,
     },
     orderDataPageThree: {
-        products: '',
+        products: [],
         creatorDescription: '',
         focusPoints: '',
-        ideas: '',
+        ideas: [],
         extraNotes: '',
         relevantFiles: '',
         extraCreator: false,
@@ -85,10 +85,10 @@ export const store = reactive({
         contentLength: 60,
     },
     orderDataPageThreeTemplate: {
-        products: '',
+        products: [],
         creatorDescription: '',
         focusPoints: '',
-        ideas: '',
+        ideas: [],
         extraNotes: '',
         relevantFiles: '',
         extraCreator: false,
@@ -190,6 +190,10 @@ export const store = reactive({
 
     toggleLoginModal() {
         this.showLoginModal = !this.showLoginModal
+    },
+
+    cleanObject(obj) {
+        return Object.entries(obj).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
     },
 
     // Check if input strings are empty
