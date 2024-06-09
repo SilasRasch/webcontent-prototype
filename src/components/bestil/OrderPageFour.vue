@@ -10,12 +10,19 @@ const router = useRouter()
 const handleSend = () => {
     store.orderDataBase.price = estimatedPrice.value
     store.orderDataBase.userId = auth.loggedInUser.id
+    
+    if (!store.showExtras()) {
+        delete store.orderDataPageThree.extraCreator
+        delete store.orderDataPageThree.extraHook
+    } else {
+        store.orderDataPageThree.extraHook = store.extraHookEnabled ? false : store.orderDataPageThree.extraCreator
+    }
 
     var compiledOrder = {
         ...store.orderDataBase,
         ...store.orderDataPageOne,
         ...store.orderDataPageTwo,
-        ...store.orderDataPageThree
+        ...store.orderDataPageThree,
     }
 
     store.addOrder(compiledOrder)
@@ -29,7 +36,7 @@ const estimatedPrice = computed(() => {
     if (store.orderDataPageTwo.projectType === 'User Generated Content' || store.orderDataPageTwo.projectType === 'Testimonials' && store.validate()) {
         price = store.orderDataPageTwo.contentCount <= 8 ? 2000 : 3500
         price += store.orderDataPageThree.extraHook ? 200 * store.orderDataPageThree.extraHook : 0
-        price += store.orderDataPageThree.extraCreator ? store.orderDataPageThree.contentCount <= 8 ? 2000 : 3500 : 0
+        price += store.orderDataPageThree.extraCreator ? store.orderDataPageThree.contentCount > 8 ? 3500 : 2000 : 0
     }
     else if (!store.validate()) {
         price = 0
@@ -125,7 +132,7 @@ const estimatedPrice = computed(() => {
         <div v-if="store.showExtras()" class="flex input text-left">
             <div class="input text-left w-full mr-1">
                 <p class="px-0 font-semibold">Ekstra hook</p>
-                <p v-if="store.orderDataPageThree.extraHook" class="input-value">{{ store.orderDataPageThree.extraHook }} stk</p>
+                <p v-if="store.extraHookEnabled" class="input-value">{{ store.orderDataPageThree.extraHook }} stk</p>
                 <p v-else class="input-value">Nej</p>
             </div>
             <div class="input text-left w-full ml-1">

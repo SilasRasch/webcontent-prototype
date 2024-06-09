@@ -8,7 +8,7 @@ const orderAPI = useOrderAPI()
 export const store = reactive({
     currOrderPage: 0,
     currDashboardTab: 1,
-    showLoginModal: false,
+    extraHookEnabled: false,
     orders: [],
     sourceArr: [],
     channelsArr: [],
@@ -51,7 +51,7 @@ export const store = reactive({
         extraNotes: '',
         relevantFiles: '',
         extraCreator: false,
-        extraHook: 0,
+        extraHook: 1,
     },
 
     orderDataBaseTemplate: {
@@ -92,12 +92,12 @@ export const store = reactive({
         extraNotes: '',
         relevantFiles: '',
         extraCreator: false,
-        extraHook: 0,
+        extraHook: 1,
     },
 
     addOrder(order) {
         let cleanedOrder = Object.entries(order).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
-        console.log(cleanedOrder);
+        // console.log(cleanedOrder);
         orderAPI.postOrder(cleanedOrder)
 
         // Reset
@@ -160,7 +160,6 @@ export const store = reactive({
             order.status.state = -1
         }
     
-        // Put new status
         orderAPI.putOrder(order.id, order)
     },
 
@@ -186,10 +185,6 @@ export const store = reactive({
         } 
 
         orderAPI.putOrder(orderId, order)
-    },
-
-    toggleLoginModal() {
-        this.showLoginModal = !this.showLoginModal
     },
 
     cleanObject(obj) {
