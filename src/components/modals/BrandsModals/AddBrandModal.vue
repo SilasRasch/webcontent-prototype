@@ -26,9 +26,8 @@ const handleAdd = () => {
 }
 
 const validate = computed(() => {
-    if (brand.value.name !== '' && brand.value.cvr !== null && brand.value.cvr.toString().length === 8 && brand.value.userId !== null && brand.value.contact.name !== '' && brand.value.contact.email !== '' && brand.value.contact.phone !== '') {
+    if (brand.value.name !== '' && brand.value.cvr !== null && brand.value.cvr.toString().length === 8 && brand.value.userId !== null && brand.value.contact.name !== '' && brand.value.contact.email !== '' && brand.value.contact.phone !== '')
         return true
-    }
     return false
 })
 
