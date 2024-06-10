@@ -22,18 +22,20 @@ const handleGoBack = () => {
   currTab.value = prevTab.value
 }
 
+const baseURL = "https://content.wcp.dk/"
+
 const creatorCards = [ 
-  { name: "Christoffer", link: "src\\assets\\imgs\\Christoffer.jpg" },
-  { name: "Frederikke", link: "src\\assets\\imgs\\Frederikke.jpg" },
-  { name: "Nanna", link: "src\\assets\\imgs\\Nanna.jpg" },
-  { name: "Nikita", link: "src\\assets\\imgs\\Nikita.jpg" },
-  { name: "Nina", link: "src\\assets\\imgs\\Nina.jpg" },
+  { name: "Christoffer", link: "images/Christoffer.jpg" },
+  { name: "Frederikke", link: "images/Frederikke.jpg" },
+  { name: "Nanna", link: "images/Nanna.jpg" },
+  { name: "Nikita", link: "images/Nikita.jpg" },
+  { name: "Nina", link: "images/Nina.jpg" },
 ]
 
 const videos = ref([
-  { id: 'video1', link: 'src\\assets\\videos\\video1.mp4', isPlaying: false },
-  { id: 'video2', link: 'src\\assets\\videos\\video2.mp4', isPlaying: false },
-  { id: 'video3', link: 'src\\assets\\videos\\video3.mp4', isPlaying: false },
+  { id: 'video1', link: 'videos/video1.mp4', isPlaying: false },
+  { id: 'video2', link: 'videos/video2.mp4', isPlaying: false },
+  { id: 'video3', link: 'videos/video3.mp4', isPlaying: false },
 ])
 
 function playPause(id, index) {
@@ -87,8 +89,8 @@ function playPause(id, index) {
             <h1 class="text-left">🔥 Populære creators</h1>
             <div class="grid md:grid-cols-5 grid-cols-3 mt-4 max-w-fit gap-6 max-h-[174px] overflow-hidden">
               <div v-for="creator in creatorCards" :key="creator.name" class="flex flex-col">
-                <img class="w-[120px] h-[150px] bg-gray-500 rounded-md flex justify-center items-center" :src="creator.link">
-                <p class="text-base text-left p-0 m-0">{{ creator.name }}</p>
+                <img class="w-[120px] h-[150px] bg-gray-500 rounded-md flex justify-center items-center" :src="baseURL + creator.link">
+                <p class="text-base text-left p-0 m-0 opacity-80">{{ creator.name }}</p>
               </div>
             </div>
           </div>
@@ -100,7 +102,7 @@ function playPause(id, index) {
               <div v-for="video, index in videos" :key="video.id" class="flex flex-col">
                 <div class="md:w-[216px] md:h-[270px] sm:w-[192px] sm:h-[240px] w-[408px] h-[510px] bg-gray-500 rounded-md flex justify-center items-center relative">
                   <video :id="video.id" class="w-full h-full rounded-lg" @click="playPause(video.id, index)">
-                    <source :src="video.link" type="video/mp4">
+                    <source :src="baseURL + video.link" type="video/mp4">
                   </video>
                   <i v-show="!video.isPlaying" class="fa-3x fa fa-play text-gray-400 absolute hover:text-gray-300 duration-300 cursor-pointer" @click="playPause(video.id, index)"></i>
                 </div>
