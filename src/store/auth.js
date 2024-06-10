@@ -51,9 +51,10 @@ export const auth = reactive({
         const user = localStorage.getItem("user")
         
         if (user !== null) {
-            api.refreshToken(user).then((data) => {
+            return api.refreshToken(user).then((data) => {
                 this.token = "Bearer " + data
                 this.loginHelper(data)
+                return true
             }).catch(() => this.logOut())
         }
     },

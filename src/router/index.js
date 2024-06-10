@@ -26,6 +26,10 @@ const admin = () => {
   }
 }
 
+const authenticate = () => {
+  auth.refreshToken()
+}
+
 // const guest = () => {
 //   if (auth.isLoggedIn) {
 //     return "/"
@@ -38,6 +42,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      beforeEnter: authenticate,
       component: HomeView
     },
     {
@@ -85,8 +90,10 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from) => {
-  // auth.refreshToken()
+router.beforeEach((to, from, next) => {
+  auth.refreshToken().then(() => {
+    next()
+  })
 })
 
 export default router
