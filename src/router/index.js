@@ -86,7 +86,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-  auth.refreshToken()
+  // auth.refreshToken()
 })
 
 export default router
