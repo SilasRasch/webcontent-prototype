@@ -56,6 +56,7 @@ export const useCreatorAPI = () => {
         }
 
         return axios(config)
+            .then((res) => { return res })
     }
 
     return { getCreator, getCreators, getCreatorsByOrder, putCreator }

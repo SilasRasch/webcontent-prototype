@@ -51,6 +51,7 @@ export const useOrderAPI = () => {
         }
 
         return axios(config)
+            .then((res) => { return res })
     }
 
     const postOrder = (order) => {
@@ -62,6 +63,7 @@ export const useOrderAPI = () => {
         }
 
         return axios(config)
+            .then((res) => { return res })
     }
 
     const deleteOrder = (id) => {
@@ -73,6 +75,7 @@ export const useOrderAPI = () => {
         }
         
         return axios(config)
+            .then((res) => { return res })
     }
 
     return { getOrders, getOrder, postOrder, putOrder, deleteOrder }

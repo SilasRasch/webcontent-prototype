@@ -47,7 +47,7 @@ export const useAuthAPI = () => {
 
         if (auth.isAdmin()) {
             return axios(config)
-                .then((res) => { return res.data })
+                .then((res) => { return res })
         }
     }
 

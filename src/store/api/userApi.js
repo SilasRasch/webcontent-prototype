@@ -45,7 +45,7 @@ export const useUserAPI = () => {
         }
 
         return axios(config)
-            .then((res) => { return res.data })
+            .then((res) => { return res })
     }
 
     const changePassword = (id, pswd) => {
@@ -58,7 +58,7 @@ export const useUserAPI = () => {
         }
 
         return axios(config)
-            .then((res) => { return res.data })
+            .then((res) => { return res })
     }
 
     const postUser = (user) => {
@@ -72,7 +72,7 @@ export const useUserAPI = () => {
             }
     
             return axios(config)
-                .then((res) => { return res.data })
+                .then((res) => { return res })
         }
     }
 

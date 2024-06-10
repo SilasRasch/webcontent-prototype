@@ -45,6 +45,7 @@ export const useBrandAPI = () => {
         }
 
         return axios(config)
+            .then((res) => { return res })
     }
 
     const postBrand = (brand) => {
@@ -57,7 +58,7 @@ export const useBrandAPI = () => {
         }
 
         return axios(config)
-            .then((res) => { return res.data })
+            .then((res) => { return res })
     }
 
     return { getBrand, getBrands, putBrand, postBrand }
