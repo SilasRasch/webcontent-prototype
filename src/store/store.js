@@ -129,7 +129,7 @@ export const store = reactive({
             creators: [],
         }
 
-        orderAPI.putOrder(id, order)
+        orderAPI.putOrder(id, order).then((data) => { return data })
     },
 
     rejectOrder(id) {
@@ -160,7 +160,7 @@ export const store = reactive({
             order.status.state = -1
         }
     
-        orderAPI.putOrder(order.id, order)
+        orderAPI.putOrder(order.id, order).then((data) => { return data })
     },
 
     updateScript(orderId, scriptIndex, name, link) {

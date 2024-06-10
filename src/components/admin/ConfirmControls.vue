@@ -22,13 +22,10 @@ const handleReject = () => {
 }
 
 const handleConfirm = () => {
-    if (model.value.status.state === 0) {
-        store.confirmOrder(model.value.id, price.value, deliveryFrom.value, deliveryTo.value);
-        router.push('/admin')
-    } else {
-        store.handleStatusChange(model.value, model.value.status.category + 1)
-        router.push("/admin")
-    }
+    if (model.value.status.state === 0)
+        store.confirmOrder(model.value.id, price.value, deliveryFrom.value, deliveryTo.value).then(() => router.push('/admin'))
+    else
+        store.handleStatusChange(model.value, model.value.status.category + 1).then(() => router.push("/admin"))
 }
 </script>
 

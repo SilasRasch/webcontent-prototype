@@ -16,13 +16,12 @@ const handleToggle = () => {
 const brand = ref({ name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: auth.loggedInUser.id})
 
 const handleAdd = () => {
-    console.log(brand.value);
-
     if (validate.value) {
         const api = useBrandAPI()
-        api.postBrand(brand.value)
-        handleToggle()
-        emit('refetch')
+        api.postBrand(brand.value).then(() => {
+            handleToggle()
+            emit('refetch')
+        })
     }
 }
 

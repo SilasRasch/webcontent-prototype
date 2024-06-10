@@ -45,13 +45,14 @@ const updateDisplayName = () => {
 
 const newEmail = ref('')
 const updateEmail = () => {
+    
     api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+        localStorage.setItem("user", newEmail.value)
         auth.refreshToken().then(() => {
             newEmail.value = ''
             showEmailSetting.value = false
         })
     })
-    
 }
 
 const updatePassword = () => {
