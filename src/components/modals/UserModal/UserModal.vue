@@ -1,7 +1,6 @@
 <script setup>
 import MyModal from '../MyModal.vue';
 import { ref } from 'vue';
-import { store } from '@/store/store';
 import { useRouter } from 'vue-router';
 import { auth } from '@/store/auth';
 import { useUserAPI } from '@/store/api/userApi';
@@ -11,7 +10,6 @@ const api = useUserAPI()
 const currTab = ref(0)
 
 const handleLogout = () => {
-    store.toggleLoginModal()
     auth.logOut()
     router.push("/")
 }
