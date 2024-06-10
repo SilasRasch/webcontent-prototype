@@ -22,6 +22,7 @@ const showPasswordSetting = ref(false)
 
 const newPswd = ref('')
 const newPswdConfirm = ref('')
+const pswdError = ref('')
 
 const resetTabs = () => {
     currTab.value = 0
@@ -56,14 +57,22 @@ const updateEmail = () => {
 }
 
 const updatePassword = () => {
-    api.changePassword(auth.loggedInUser.id, { password: newPswd.value }).then(() => {
-        auth.refreshToken().then(() => {
-            newPswd.value = ''
-            newPswdConfirm.value = ''
-            showPasswordSetting.value = false
-        })
-    })
-    
+    if (newPswd.value === newPswdConfirm.value) {
+        if (newPswd.value.length >= 8) {
+            api.changePassword(auth.loggedInUser.id, { password: newPswd.value }).then(() => {
+                auth.refreshToken().then(() => {
+                    newPswd.value = ''
+                    newPswdConfirm.value = ''
+                    showPasswordSetting.value = false
+                    pswdError.value = ''
+                })
+            })
+        } else {
+            pswdError.value = 'Dit nye kodeord skal være mindst 8 karaktere'
+        }
+    } else {
+        pswdError.value = 'Kodeordene matcher ikke'
+    }
 }
 </script>
 
@@ -155,9 +164,13 @@ const updatePassword = () => {
                             <div class="flex">
                                 <input v-model="newPswdConfirm" type="password" placeholder="Gentag nyt kodeord" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
                                 <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200" 
-                                :disabled="newPswd.length === 0 || newPswd !== newPswdConfirm"
+                                :disabled="newPswd.length < 1 || newPswdConfirm.length < 1"
                                 @click="updatePassword"></button>
                             </div>
+                            <div v-if="pswdError" class="flex justify-center">
+                                <div class="text-red-600 break-words w-64 text-center text-sm">* {{ pswdError }}</div>
+                            </div>
+                            
                         </div>
                     </div>
                     <!-- v-show="auth.loggedInUser.email === 'admin'" -->
