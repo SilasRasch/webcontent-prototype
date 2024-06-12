@@ -2,8 +2,8 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useBrandAPI = () => {
-    // const baseURL = "https://api.wcp.dk/data/brands" // Public Prod
-    const baseURL = "https://api.nobitches.win/data/brands" // Public Prod
+    const baseURL = "https://api.wcp.dk/data/brands" // Public Prod
+    // const baseURL = "https://api.nobitches.win/data/brands" // Public Prod
     // const baseURL = "https://localhost:7216/api/brands"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
