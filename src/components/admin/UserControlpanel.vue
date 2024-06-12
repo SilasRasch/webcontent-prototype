@@ -13,7 +13,7 @@ const brandAPI = useBrandAPI()
 const creators = ref(null)
 
 const fetchCreators = () => {
-    api.getCreators().then((data) => creators.value = data).then((data) => { return data })
+    return api.getCreators().then((data) => creators.value = data).then((data) => { return data })
 }
 fetchCreators()
 
