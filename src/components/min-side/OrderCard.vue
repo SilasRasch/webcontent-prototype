@@ -309,20 +309,20 @@ const maxiToMini = () => {
             <div v-if="model.status.state === 0 && !auth.isCreator()" class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
                 <div class="text-left bg-slate-800 rounded-lg px-1 mr-1">
                     <p class="font-semibold">Estimeret pris</p>
-                    <p class="-mt-4">{{ model.price }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
+                    <p class="-mt-4">{{ model.price }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Bemærk prisen bekræftes når bestillingen er behandlet</ToolTip></p>
                 </div>
                 <div class="text-left bg-slate-800 rounded-lg px-1 ml-1">
                     <p class="font-semibold">Estimeret leveringstid</p>
-                    <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi estimerer derfor i intervaller. Husk dog stadig at det er et estimat.</ToolTip></p>
+                    <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Bemærk leveringstiden bekræftes når bestillingen er behandlet</ToolTip></p>
                 </div>
             </div>
             <div v-else-if="!auth.isCreator()" class="grid md:grid-cols-2 grid-cols-1 p-2" :class="{'text-sm':minifyCard}">
                 <div class="text-left bg-slate-800 rounded-lg px-1 md:mr-1 my-1">
-                    <p class="font-semibold text-base">Pris <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ model.price * 1.25 }} kr inkl. moms</ToolTip></p>
+                    <p class="font-semibold text-base">Pris</p>
                     <p class="-mt-4">{{ model.price }} kr ekskl. moms </p>
                 </div>
                 <div class="text-left bg-slate-800 rounded-lg px-1 md:ml-1 my-1">
-                    <p class="font-semibold text-base">Leveringstid <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Det er utroligt svært for os at give en præcis deadline for leveringstiden, vi giver derfor et interval.</ToolTip></p>
+                    <p class="font-semibold text-base">Leveringstid <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Bemærk dette er en forventet leveringstid og kan variere</ToolTip></p>
                     <p class="-mt-4">{{ model.deliveryTimeFrom }}-{{ model.deliveryTimeTo }} hverdage </p>
                 </div>
             </div>

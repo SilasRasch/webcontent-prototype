@@ -3,42 +3,68 @@ import DoubleInput from '@/components/Input/DoubleInput.vue';
 import SingleSelect from '@/components/Input/SingleSelect.vue';
 import { useAuthAPI } from '@/store/api/authApi';
 import { useCreatorAPI } from '@/store/api/creatorApi';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import UserPool from './UserPool.vue';
+import SingleInput from '../Input/SingleInput.vue';
+import { useBrandAPI } from '@/store/api/brandApi';
 
 const api = useCreatorAPI()
 const authAPI = useAuthAPI()
+const brandAPI = useBrandAPI()
 const creators = ref(null)
 
 const fetchCreators = () => {
     api.getCreators().then((data) => creators.value = data).then((data) => { return data })
 }
-
 fetchCreators()
+
 const showCreate = ref(false)
 const currTab = ref(1)
 const user = ref({ displayName: '', email: '', role: '', password: 'WebContentGenerate' })
 const creatorProfile = ref({ location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } })
+const brand = ref({ name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: undefined})
+
+const toggleShowCreate = () => {
+    showCreate.value = !showCreate.value
+
+    // Reset
+    user.value = { displayName: '', email: '', role: '', password: 'WebContentGenerate' }
+    creatorProfile.value = { location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } }
+    brand.value = { name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: undefined}
+}
 
 const handleRegister = () => {
-    if (user.value.role !== 'Creator') {
-        authAPI.register(user.value)
+    if (user.value.role === 'Admin') {
+        authAPI.register(user.value).then(() => {
+            toggleShowCreate()
+        })
     }
-    else {
+    else if (user.value.role === 'Creator') {
         const creator = {
             ...user.value,
             ...creatorProfile.value
         }
         
         authAPI.registerCreator(creator).then(() => {
-            user.value = { displayName: '', email: '', role: '', password: 'WebContentGenerate' }
-            creatorProfile.value = { location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } }
-            fetchCreators().then(() => {
-                showCreate.value = false
-            })
+            fetchCreators().then(() => toggleShowCreate())
         })
     }
+    else if (user.value.role === 'Bruger') {
+        if (validateBrand.value) {
+            console.log(brand.value);
+            authAPI.register(user.value).then((data) => {
+                brand.value.userId = data
+                brandAPI.postBrand(brand.value).then(() => toggleShowCreate())
+            })
+        }
+    }
 }
+
+const validateBrand = computed(() => {
+    if (brand.value.name !== '' && brand.value.cvr !== null && brand.value.cvr.toString().length === 8 && brand.value.userId !== null && brand.value.contact.name !== '' && brand.value.contact.email !== '' && brand.value.contact.phone !== '')
+        return true
+    return false
+})
 </script>
 
 <template>
@@ -71,29 +97,46 @@ const handleRegister = () => {
             <SingleSelect v-model="user.role" :items="['Bruger', 'Creator', 'Admin']" required>Rolle</SingleSelect>
 
             <!-- Creatorprofil -->
-            <hr v-if="user.role === 'Creator'" class="text-black bg-black opacity-50 h-0.5 m-3" />
-            <h1 v-if="user.role === 'Creator'" class="text-xl">Creatorprofil</h1>
-
-            <DoubleInput v-if="user.role === 'Creator'" v-model:firstInput="creatorProfile.location" v-model:secondInput="creatorProfile.speciality" required
-            placeholder-one="Brugerens lokation" placeholder-two="Hvad brugeren tilbyder">
-                <template v-slot:slotOne>Lokation</template>
-                <template v-slot:slotTwo>Speciale</template>
-            </DoubleInput>
-
             <div v-if="user.role === 'Creator'">
-                <DoubleInput placeholder-one="@Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.instagram" v-model:secondInput="creatorProfile.handles.tikTok">
-                    <template v-slot:slotOne>Instagram</template>
-                    <template v-slot:slotTwo>TikTok</template>
+                <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
+                <h1 class="text-xl">Creatorprofil</h1>
+
+                <DoubleInput  v-model:firstInput="creatorProfile.location" v-model:secondInput="creatorProfile.speciality" required
+                placeholder-one="Brugerens lokation" placeholder-two="Hvad brugeren tilbyder">
+                    <template v-slot:slotOne>Lokation</template>
+                    <template v-slot:slotTwo>Speciale</template>
                 </DoubleInput>
-                <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.facebook" v-model:secondInput="creatorProfile.handles.youTube">
-                    <template v-slot:slotOne>Facebook</template>
-                    <template v-slot:slotTwo>YouTube</template>
-                </DoubleInput>
-                <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn"  v-model:firstInput="creatorProfile.handles.snapchat" v-model:secondInput="creatorProfile.handles.pinterest">
-                    <template v-slot:slotOne>Snapchat</template>
-                    <template v-slot:slotTwo>Pinterest</template>
-                </DoubleInput>
+
+                <div>
+                    <DoubleInput placeholder-one="@Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.instagram" v-model:secondInput="creatorProfile.handles.tikTok">
+                        <template v-slot:slotOne>Instagram</template>
+                        <template v-slot:slotTwo>TikTok</template>
+                    </DoubleInput>
+                    <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.facebook" v-model:secondInput="creatorProfile.handles.youTube">
+                        <template v-slot:slotOne>Facebook</template>
+                        <template v-slot:slotTwo>YouTube</template>
+                    </DoubleInput>
+                    <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn"  v-model:firstInput="creatorProfile.handles.snapchat" v-model:secondInput="creatorProfile.handles.pinterest">
+                        <template v-slot:slotOne>Snapchat</template>
+                        <template v-slot:slotTwo>Pinterest</template>
+                    </DoubleInput>
+                </div>
             </div>
+
+            <div v-else-if="user.role === 'Bruger'">
+                <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
+                <h1 class="text-xl">Brand</h1>
+                <DoubleInput placeholder-one="Navnet på brandet" placeholder-two="Brandets CVR" v-model:firstInput="brand.name" v-model:secondInput="brand.cvr">
+                    <template v-slot:slotOne>Brandnavn</template>
+                    <template v-slot:slotTwo>CVR</template>
+                </DoubleInput>
+                <DoubleInput placeholder-one="Navn på kontaktperson" placeholder-two="Tlf. på kontaktperson" v-model:firstInput="brand.contact.name" v-model:secondInput="brand.contact.phone">
+                    <template v-slot:slotOne>Kontaktperson</template>
+                    <template v-slot:slotTwo>Kontaktnummer</template>
+                </DoubleInput>
+                <SingleInput placeholder="Mail på kontaktperson" v-model="brand.contact.email">Kontaktmail</SingleInput>
+            </div>
+            
 
             <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
             <div class="flex justify-center"><button class="bg-red-400 w-full hover:bg-red-500 duration-200 p-2 mx-1 rounded-lg font-semibold"

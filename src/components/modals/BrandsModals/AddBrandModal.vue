@@ -7,13 +7,21 @@ import { computed, ref } from 'vue';
 
 const emit = defineEmits(["refetch"])
 const showModal = ref(false)
+const semiConfirm = ref(false)
 
 const handleToggle = () => {
     showModal.value = !showModal.value
+    semiConfirm.value = false
     brand.value = { name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: auth.loggedInUser.id}
 }
 
 const brand = ref({ name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: auth.loggedInUser.id})
+
+const handleSemiConfirm = () => {
+    if (validate.value) {
+        semiConfirm.value = true
+    }
+}
 
 const handleAdd = () => {
     if (validate.value) {
@@ -30,7 +38,6 @@ const validate = computed(() => {
         return true
     return false
 })
-
 </script>
 
 <template>
@@ -57,8 +64,11 @@ const validate = computed(() => {
 
                     <hr class="text-black bg-black opacity-50 h-0.5 m-1" />
 
-                    <button class="bg-green-500 hover:bg-green-600 duration-200 rounded-lg p-2 mx-1 mt-3"
-                    @click="handleAdd">Tilføj</button>
+                    <button v-if="!semiConfirm" class="bg-green-500 hover:bg-green-600 duration-200 rounded-lg p-2 mx-1 mt-3"
+                    @click="handleSemiConfirm">Tilføj</button>
+                    <button v-else class="bg-green-500 hover:bg-green-600 duration-200 rounded-lg p-2 mx-1 mt-3"
+                    @click="handleAdd">Er du sikker?</button>
+                    <p class="text-sm text-center p-0 mt-2" :class="semiConfirm ? 'text-red-500' : 'text-gray-400'">* Der vil blive pålagt et ekstra brand gebyr på 2500kr / mdl.</p>
                 </div>
             </div>
         </Transition>

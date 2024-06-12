@@ -3,6 +3,7 @@ import { store } from '../../store/store.js'
 import SingleInput from '../Input/SingleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 import SingleSelect from '../Input/SingleSelect.vue';
+import ToolTip from '../Input/ToolTip.vue';
 </script>
 
 <template>
@@ -23,7 +24,7 @@ import SingleSelect from '../Input/SingleSelect.vue';
             <div v-if="store.orderDataPageTwo.projectType"
             class="grid md:grid-cols-2 grid-cols-1 mb-0">
                 <div class="input text-left mb-0">
-                    <p class="px-0">Mængde af indhold</p>
+                    <p class="px-0">Mængde af indhold <ToolTip v-if="store.showExtras()" label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif mx-1">Hvis mængden overstiger 8 videoer er prisen 3500,- per optagedag</ToolTip></p>
                     <div class="flex flex-col justify-center mr-1">
                         <input class="" v-model="store.orderDataPageTwo.contentCount" type="range" :min="store.isVideo() ? 1 : 1" :max="store.isVideo() ? 16 : 50" step="1"/>
                         <span class="text-center opacity-50">{{ store.orderDataPageTwo.contentCount }} stk</span>
