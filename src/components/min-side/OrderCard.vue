@@ -280,23 +280,23 @@ const maxiToMini = () => {
                         <p class="input-value" >{{ model.brand.name }}</p>
                     </div>
                     <div class="text-left md:ml-1 bg-slate-800 rounded-lg px-2 md:mt-0 mt-1">
-                        <p class="px-0 font-semibold">CVR</p>
-                        <p class="input-value">{{ model.brand.cvr }}</p>
+                        <p class="px-0 font-semibold">URL</p>
+                        <p class="input-value">{{ model.brand.url }}</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-3 grid-cols-1 -mt-2 p-2">
                     <div class="text-left md:mr-1 bg-slate-800 rounded-lg px-2 md:mb-0 mb-1">
                         <p class="px-0 font-semibold">Kontaktperson</p>
-                        <p class="input-value" >{{ model.brand.contact.name }}</p>
+                        <p class="input-value" >{{ model.contact.name }}</p>
                     </div>
                     <div class="text-left bg-slate-800 rounded-lg px-2 md:mx-1 md:my-0 my-1">
                         <p class="px-0 font-semibold">Kontaktnummer</p>
-                        <p class="input-value">{{ model.brand.contact.phone }}</p>
+                        <p class="input-value">{{ model.contact.phone }}</p>
                     </div>
                     <div class="text-left bg-slate-800 rounded-lg px-2 md:ml-1 md:mt-0 mt-1">
                         <p class="px-0 font-semibold">Kontaktmail</p>
-                        <p class="input-value">{{ model.brand.contact.email }}</p>
+                        <p class="input-value">{{ model.contact.email }}</p>
                     </div>
                 </div>
             </div>

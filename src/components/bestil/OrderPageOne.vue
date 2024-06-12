@@ -13,13 +13,13 @@ import SingleInput from '../Input/SingleInput.vue';
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
-        <DoubleInput v-model:firstInput="store.orderDataPageOne.brand.contact.name" v-model:secondInput="store.orderDataPageOne.brand.contact.phone"
+        <DoubleInput v-model:firstInput="store.orderDataPageOne.contact.name" v-model:secondInput="store.orderDataPageOne.contact.phone"
         placeholder-one="Navn på kontaktperson" placeholder-two="Dit telefonnummer" required>
             <template v-slot:slotOne>Kontaktperson</template>
             <template v-slot:slotTwo>Kontaktnummer</template>
         </DoubleInput>
 
-        <SingleInput v-model="store.orderDataPageOne.brand.contact.email" placeholder="Din e-mail" required>Kontaktmail</SingleInput>
+        <SingleInput v-model="store.orderDataPageOne.contact.email" placeholder="Din e-mail" required>Kontaktmail</SingleInput>
     </div>
 </template>
 

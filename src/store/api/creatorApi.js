@@ -2,8 +2,8 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useCreatorAPI = () => {
-    const baseURL = "https://api.wcp.dk/data/creators" // Public Prod
-    // const baseURL = "https://localhost:7216/api/creators"
+    // const baseURL = "https://api.wcp.dk/data/creators" // Public Prod
+    const baseURL = "https://api.nobitches.win/data/creators"
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
     const getCreators = (searchTerm) => {

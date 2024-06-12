@@ -21,12 +21,7 @@ const handleChoice = (brand) => {
 const handleRemove = () => {
     model.value = {
         name: '',
-        cvr: '',
-        contact: {
-            name: '',
-            phone: '',
-            email: '',
-        }
+        url: '',
     }
 }
 </script>

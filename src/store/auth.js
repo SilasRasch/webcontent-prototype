@@ -10,6 +10,7 @@ export const auth = reactive({
         id: undefined,
         email: undefined,
         displayName: undefined,
+        phone: undefined,
         roles: []
     },
     originalRole: '',
@@ -29,12 +30,19 @@ export const auth = reactive({
                 localStorage.setItem("user", this.loggedInUser.email)
                 return true
             })
-            .catch(() => this.logOut())
+            .catch(() => this.resetAuth())
         }
         return false
     },
 
     logOut() {
+        api.revoke().then(() => {
+            this.resetAuth()
+        })
+        
+    },
+
+    resetAuth() {
         this.isLoggedIn = false
         this.loggedInUser =  {
             id: undefined,
@@ -42,9 +50,8 @@ export const auth = reactive({
             displayName: undefined,
             roles: [],
         }
-            
+        this.token = undefined
         localStorage.removeItem("user")
-        api.revoke()
     },
 
     async refreshToken() {

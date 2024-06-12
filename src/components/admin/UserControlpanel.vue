@@ -5,7 +5,6 @@ import { useAuthAPI } from '@/store/api/authApi';
 import { useCreatorAPI } from '@/store/api/creatorApi';
 import { ref, computed } from 'vue';
 import UserPool from './UserPool.vue';
-import SingleInput from '../Input/SingleInput.vue';
 import { useBrandAPI } from '@/store/api/brandApi';
 
 const api = useCreatorAPI()
@@ -21,8 +20,11 @@ fetchCreators()
 const showCreate = ref(false)
 const currTab = ref(1)
 const user = ref({ displayName: '', email: '', role: '', password: 'WebContentGenerate' })
+
+// Dependant on role
+const userInfo = ref({ cvr: '', phone: '' })
 const creatorProfile = ref({ location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } })
-const brand = ref({ name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: undefined})
+const brand = ref({ name: '', url: '', userId: undefined})
 
 const toggleShowCreate = () => {
     showCreate.value = !showCreate.value
@@ -30,7 +32,8 @@ const toggleShowCreate = () => {
     // Reset
     user.value = { displayName: '', email: '', role: '', password: 'WebContentGenerate' }
     creatorProfile.value = { location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } }
-    brand.value = { name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: undefined}
+    brand.value = { name: '', url: '', userId: undefined}
+    userInfo.value = { cvr: '', phone: '' }
 }
 
 const handleRegister = () => {
@@ -50,8 +53,12 @@ const handleRegister = () => {
         })
     }
     else if (user.value.role === 'Bruger') {
+        user.value = {
+            ...user.value,
+            ...userInfo.value
+        }
+
         if (validateBrand.value) {
-            console.log(brand.value);
             authAPI.register(user.value).then((data) => {
                 brand.value.userId = data
                 brandAPI.postBrand(brand.value).then(() => toggleShowCreate())
@@ -61,7 +68,7 @@ const handleRegister = () => {
 }
 
 const validateBrand = computed(() => {
-    if (brand.value.name !== '' && brand.value.cvr !== null && brand.value.cvr.toString().length === 8 && brand.value.userId !== null && brand.value.contact.name !== '' && brand.value.contact.email !== '' && brand.value.contact.phone !== '')
+    if (brand.value.name !== '' && brand.value.url !== '')
         return true
     return false
 })
@@ -124,17 +131,17 @@ const validateBrand = computed(() => {
             </div>
 
             <div v-else-if="user.role === 'Bruger'">
-                <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
-                <h1 class="text-xl">Brand</h1>
-                <DoubleInput placeholder-one="Navnet på brandet" placeholder-two="Brandets CVR" v-model:firstInput="brand.name" v-model:secondInput="brand.cvr">
-                    <template v-slot:slotOne>Brandnavn</template>
+                <DoubleInput placeholder-one="Nr. på kontaktperson" placeholder-two="Virksomhedens CVR" v-model:firstInput="userInfo.phone" v-model:secondInput="userInfo.cvr">
+                    <template v-slot:slotOne>Kontaktnummer</template>
                     <template v-slot:slotTwo>CVR</template>
                 </DoubleInput>
-                <DoubleInput placeholder-one="Navn på kontaktperson" placeholder-two="Tlf. på kontaktperson" v-model:firstInput="brand.contact.name" v-model:secondInput="brand.contact.phone">
-                    <template v-slot:slotOne>Kontaktperson</template>
-                    <template v-slot:slotTwo>Kontaktnummer</template>
+                
+                <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
+                <h1 class="text-xl">Brand</h1>
+                <DoubleInput placeholder-one="Navnet på brandet" placeholder-two="Brandets URL" v-model:firstInput="brand.name" v-model:secondInput="brand.url">
+                    <template v-slot:slotOne>Brandnavn</template>
+                    <template v-slot:slotTwo>URL</template>
                 </DoubleInput>
-                <SingleInput placeholder="Mail på kontaktperson" v-model="brand.contact.email">Kontaktmail</SingleInput>
             </div>
             
 

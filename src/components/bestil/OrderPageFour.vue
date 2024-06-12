@@ -65,19 +65,19 @@ const estimatedPrice = computed(() => {
                 <p class="input-value" >{{ store.orderDataPageOne.brand.name }}</p>
             </div>
             <div class="text-left ml-1">
-                <p class="px-0 font-semibold">Kontaktperson <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.name === ''}">*</strong></p>
-                <p class="input-value" >{{ store.orderDataPageOne.brand.contact.name }}</p>
+                <p class="px-0 font-semibold">Kontaktperson <strong :class="{'text-red-500': store.orderDataPageOne.contact.name === ''}">*</strong></p>
+                <p class="input-value" >{{ store.orderDataPageOne.contact.name }}</p>
             </div>
         </div>
 
         <div class="grid md:grid-cols-2 grid-cols-1 my-2">
             <div class="text-left mr-1">
-                <p class="px-0 font-semibold">Kontaktmail <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.email === ''}">*</strong></p>
-                <p class="input-value">{{ store.orderDataPageOne.brand.contact.email }}</p>
+                <p class="px-0 font-semibold">Kontaktmail <strong :class="{'text-red-500': store.orderDataPageOne.contact.email === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageOne.contact.email }}</p>
             </div>
             <div class="text-left ml-1">
-                <p class="px-0 font-semibold">Kontaktnummer <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.phone === ''}">*</strong></p>
-                <p class="input-value">{{ store.orderDataPageOne.brand.contact.phone }}</p>
+                <p class="px-0 font-semibold">Kontaktnummer <strong :class="{'text-red-500': store.orderDataPageOne.contact.phone === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageOne.contact.phone }}</p>
             </div>
         </div>
         
