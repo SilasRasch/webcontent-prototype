@@ -10,8 +10,7 @@ const api = useUserAPI()
 const currTab = ref(0)
 
 const handleLogout = () => {
-    auth.logOut()
-    router.push("/")
+    auth.logOut().then(() => router.push("/"))
 }
 
 const router = useRouter()

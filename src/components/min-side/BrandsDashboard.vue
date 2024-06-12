@@ -27,7 +27,7 @@ fetchBrands()
 
             <div v-if="brands" class="mt-2 rounded-lg text-left grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-2">
                 <AddBrandModal @refetch="fetchBrands()" />
-                <BrandModal v-for="brand in brands" :key="brand.cvr" :brand="brand" />
+                <BrandModal v-for="brand in brands" :key="brand.id" :brand="brand" />
             </div>
             <div v-else class="bg-slate-900 p-2 m-2 rounded-lg text-left grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-2">
                 <AddBrandModal />

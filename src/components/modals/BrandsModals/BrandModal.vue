@@ -30,23 +30,11 @@ const handleToggle = () => {
                     <div class="grid gap-2 p-2 text-base">
                         <div class="grid text-left bg-slate-950 rounded-lg p-2">
                             <p class="m-0 p-0 font-semibold">Navn</p>
-                            <p class="m-0 p-0">{{ props.brand.contact.name }}</p>
+                            <p class="m-0 p-0">{{ props.brand.name }}</p>
                         </div>
                         <div class="grid text-left bg-slate-950 rounded-lg p-2">
-                            <p class="m-0 p-0 font-semibold">Email</p>
-                            <p class="m-0 p-0">{{ props.brand.contact.email }}</p>
-                        </div>
-                        <div class="grid text-left bg-slate-950 rounded-lg p-2">
-                            <p class="m-0 p-0 font-semibold">Telefon</p>
-                            <p class="m-0 p-0">{{ props.brand.contact.phone }}</p>
-                        </div>
-                        <div class="grid text-left bg-slate-950 rounded-lg p-2">
-                            <p class="m-0 p-0 font-semibold">CVR</p>
-                            <p class="m-0 p-0">{{ props.brand.cvr }}</p>
-                        </div>
-                        <div v-if="props.brand.location" class="grid text-left bg-slate-950 rounded-lg p-2">
-                            <p class="m-0 p-0 font-semibold">CVR</p>
-                            <p class="m-0 p-0">{{ props.brand.location }}</p>
+                            <p class="m-0 p-0 font-semibold">URL</p>
+                            <p class="m-0 p-0">{{ props.brand.url }}</p>
                         </div>
                     </div>
                 </div>

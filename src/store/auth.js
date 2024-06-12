@@ -36,10 +36,10 @@ export const auth = reactive({
     },
 
     logOut() {
-        api.revoke().then(() => {
+        return api.revoke().then(() => {
             this.resetAuth()
+            return true;
         })
-        
     },
 
     resetAuth() {
