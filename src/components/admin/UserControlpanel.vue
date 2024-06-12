@@ -16,8 +16,8 @@ const creators = ref(null)
 const fetchCreators = () => {
     api.getCreators().then((data) => creators.value = data).then((data) => { return data })
 }
-
 fetchCreators()
+
 const showCreate = ref(false)
 const currTab = ref(1)
 const user = ref({ displayName: '', email: '', role: '', password: 'WebContentGenerate' })
@@ -46,9 +46,7 @@ const handleRegister = () => {
         }
         
         authAPI.registerCreator(creator).then(() => {
-            fetchCreators().then(() => {
-                toggleShowCreate()
-            })
+            fetchCreators().then(() => toggleShowCreate())
         })
     }
     else if (user.value.role === 'Bruger') {
@@ -56,9 +54,7 @@ const handleRegister = () => {
             console.log(brand.value);
             authAPI.register(user.value).then((data) => {
                 brand.value.userId = data
-                brandAPI.postBrand(brand.value).then(() => {
-                    toggleShowCreate()
-                })
+                brandAPI.postBrand(brand.value).then(() => toggleShowCreate())
             })
         }
     }
