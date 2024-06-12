@@ -130,7 +130,7 @@ export const store = reactive({
             creators: [],
         }
 
-        orderAPI.putOrder(id, order).then((data) => { return data })
+        return orderAPI.putOrder(id, order).then((data) => { return data })
     },
 
     rejectOrder(id) {
