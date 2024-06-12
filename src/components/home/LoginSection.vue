@@ -42,7 +42,7 @@ const handleLogin = async () => {
             </div>
             <div class="flex justify-between py-2 text-base w-full">
                 <button @click="handleLogin()" class="bg-green-500 p-2 rounded-lg w-1/2 mr-1 hover:bg-green-600 duration-200">Log ind</button>
-                <a href="https://calendly.com/webcontentdk" target="_blank" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</a>
+                <a href="https://calendly.com/webcontentdk/30min" target="_blank" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</a>
                 <!-- <button @click="handleShowCreate()" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</button> -->
             </div>
             <div class="text-base cursor-pointer hover:text-blue-500 duration-300">Glemt kodeord?</div>

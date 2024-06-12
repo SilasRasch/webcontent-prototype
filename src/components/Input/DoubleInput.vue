@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
     <div class="grid md:grid-cols-2 grid-cols-1 my-2">
         <div class="input text-left mr-1">
-            <p class="px-0"><slot name="slotOne"></slot> <strong v-if="required" :class="{'text-red-500': firstInput === '' || secondInput === null }">*</strong></p>
+            <p class="px-0"><slot name="slotOne"></slot> <strong v-if="required" :class="{'text-red-500': firstInput === '' || firstInput === null }">*</strong></p>
             <input class="input-field" v-model="firstInput" :placeholder="props.placeholderOne">
         </div>
         <div class="input text-left ml-1">

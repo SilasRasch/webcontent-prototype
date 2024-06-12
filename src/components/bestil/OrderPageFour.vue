@@ -35,7 +35,10 @@ const estimatedPrice = computed(() => {
     
     if (store.orderDataPageTwo.projectType === 'User Generated Content' || store.orderDataPageTwo.projectType === 'Testimonials' && store.validate()) {
         price = store.orderDataPageTwo.contentCount <= 8 ? 2000 : 3500
-        price += store.orderDataPageThree.extraHook ? 200 * store.orderDataPageThree.extraHook : 0
+
+        if (store.extraHookEnabled)
+            price += store.orderDataPageThree.extraHook ? 200 * store.orderDataPageThree.extraHook : 0
+        
         price += store.orderDataPageThree.extraCreator ? store.orderDataPageThree.contentCount > 8 ? 3500 : 2000 : 0
     }
     else if (!store.validate()) {
@@ -62,27 +65,19 @@ const estimatedPrice = computed(() => {
                 <p class="input-value" >{{ store.orderDataPageOne.brand.name }}</p>
             </div>
             <div class="text-left ml-1">
-                <p class="px-0 font-semibold">CVR <strong :class="{'text-red-500': store.orderDataPageOne.brand.cvr === ''}">*</strong></p>
-                <p class="input-value">{{ store.orderDataPageOne.brand.cvr }}</p>
+                <p class="px-0 font-semibold">Kontaktperson <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.name === ''}">*</strong></p>
+                <p class="input-value" >{{ store.orderDataPageOne.brand.contact.name }}</p>
             </div>
         </div>
 
-
         <div class="grid md:grid-cols-2 grid-cols-1 my-2">
             <div class="text-left mr-1">
-                <p class="px-0 font-semibold">Kontaktperson <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.name === ''}">*</strong></p>
-                <p class="input-value" >{{ store.orderDataPageOne.brand.contact.name }}</p>
+                <p class="px-0 font-semibold">Kontaktmail <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.email === ''}">*</strong></p>
+                <p class="input-value">{{ store.orderDataPageOne.brand.contact.email }}</p>
             </div>
             <div class="text-left ml-1">
                 <p class="px-0 font-semibold">Kontaktnummer <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.phone === ''}">*</strong></p>
                 <p class="input-value">{{ store.orderDataPageOne.brand.contact.phone }}</p>
-            </div>
-        </div>
-
-        <div class="input text-left my-2">
-            <div class="input text-left mt-0">
-                <p class="px-0 font-semibold">Kontaktmail <strong :class="{'text-red-500': store.orderDataPageOne.brand.contact.email === ''}">*</strong></p>
-                <p class="input-value">{{ store.orderDataPageOne.brand.contact.email }}</p>
             </div>
         </div>
         
@@ -189,11 +184,11 @@ const estimatedPrice = computed(() => {
         <div class="grid md:grid-cols-2 grid-cols-1">
             <div class="input text-left">
                 <p class="font-semibold">Estimeret pris</p>
-                <p>{{ estimatedPrice }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">{{ estimatedPrice * 1.25 }} kr inkl. moms (pr. optagedag)</ToolTip></p>
+                <p>{{ estimatedPrice }} kr ekskl. moms <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Bemærk prisen bekræftes når bestillingen er behandlet</ToolTip></p>
             </div>
             <div class="input text-left">
                 <p class="font-semibold">Estimeret leveringstid</p>
-                <p class="">{{ store.orderDataBase.deliveryTimeFrom }}-{{ store.orderDataBase.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Leveringstiden er angivet i dage efter optagedagen. <br> Husk at det blot er et estimat.</ToolTip></p>
+                <p class="">{{ store.orderDataBase.deliveryTimeFrom }}-{{ store.orderDataBase.deliveryTimeTo }} hverdage <ToolTip class="bg-gray-500 font-serif hover:bg-opacity-50 text-white" label="i">Bemærk leveringstiden bekræftes når bestillingen er behandlet</ToolTip></p>
             </div>
         </div>
         <div class="grid">
@@ -203,13 +198,13 @@ const estimatedPrice = computed(() => {
                 Send
             </button>
         </div>
-        <ToolTip v-if="store.isVideo()" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
-            Pris per optagedag (UGC og Testimonials)<br> 1-8 videoer: 2500,- <br> 9-16 videoer: 3500,- <br><br>
-            Ekstra hook: 200,- (per video) <br> Ekstra creator: <br> 1-8 videoer: 2000,- <br> 9-16 videoer: 3500 (per ordre) <br><br>
+        <ToolTip v-if="store.showExtras()" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
+            Pris per optagedag (UGC og Testimonials)<br> 1-8 videoer: 2000,- <br> 9-16 videoer: 3500,- <br><br>
+            Ekstra hook: 200,- per video <br> Ekstra creator: <br> 1-8 videoer: 2000,- <br> 9-16 videoer: 3500 (per projekt) <br><br>
             Alle priser er ekskl. moms
         </ToolTip>
-        <ToolTip v-else label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
-            Pris per optagedag: 3000,- eksl. moms <br>(Prisen vil blive højere, hvis der er mere end én optagedag)
+        <ToolTip v-else-if="store.orderDataPageTwo.projectType !== ''" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
+            Pris per optagedag <br> 1-6 timer: 3000,- ekskl. moms
         </ToolTip>
         <p v-if="!store.validate()" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
     </div>
