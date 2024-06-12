@@ -1,6 +1,5 @@
 <script setup>
 import DoubleInput from '@/components/Input/DoubleInput.vue';
-import SingleInput from '@/components/Input/SingleInput.vue';
 import { useBrandAPI } from '@/store/api/brandApi';
 import { auth } from '@/store/auth';
 import { computed, ref } from 'vue';
@@ -12,10 +11,10 @@ const semiConfirm = ref(false)
 const handleToggle = () => {
     showModal.value = !showModal.value
     semiConfirm.value = false
-    brand.value = { name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: auth.loggedInUser.id}
+    brand.value = { id: 0, name: '', url: '', userId: auth.loggedInUser.id}
 }
 
-const brand = ref({ name: '', cvr: null, contact: { name: '', email: '', phone: ''}, userId: auth.loggedInUser.id})
+const brand = ref({ id: 0, name: '', url: '', userId: auth.loggedInUser.id})
 
 const handleSemiConfirm = () => {
     if (validate.value) {
@@ -34,7 +33,7 @@ const handleAdd = () => {
 }
 
 const validate = computed(() => {
-    if (brand.value.name !== '' && brand.value.cvr !== null && brand.value.cvr.toString().length === 8 && brand.value.userId !== null && brand.value.contact.name !== '' && brand.value.contact.email !== '' && brand.value.contact.phone !== '')
+    if (brand.value.name !== '' && brand.value.userId !== null && brand.value.url !== '')
         return true
     return false
 })
@@ -48,19 +47,11 @@ const validate = computed(() => {
             <div v-show="showModal" @click.self="handleToggle" class="z-50 fixed bg-black bg-opacity-50 w-full h-full top-0 left-0">
                 <div class="text-base grid justify-center p-2 px-4 rounded-lg text-white min-w-[20rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
                     <p class="text-center font-semibold">Opret nyt brand</p>
-                    <DoubleInput v-model:firstInput="brand.name" v-model:secondInput="brand.cvr" required
+                    <DoubleInput v-model:firstInput="brand.name" v-model:secondInput="brand.url" required
                     placeholder-one="Navnet på brandet" placeholder-two="Brandets CVR">
                         <template v-slot:slotOne>Brandnavn</template>
-                        <template v-slot:slotTwo>CVR</template>
+                        <template v-slot:slotTwo>URL</template>
                     </DoubleInput>
-
-                    <DoubleInput v-model:firstInput="brand.contact.name" v-model:secondInput="brand.contact.phone" required
-                    placeholder-one="Navn på kontaktperson" placeholder-two="Tlf. på kontaktperson">
-                        <template v-slot:slotOne>Kontaktperson</template>
-                        <template v-slot:slotTwo>Telefon</template>
-                    </DoubleInput>
-
-                    <SingleInput placeholder="Kontakt email" v-model="brand.contact.email" required>Email</SingleInput>
 
                     <hr class="text-black bg-black opacity-50 h-0.5 m-1" />
 
