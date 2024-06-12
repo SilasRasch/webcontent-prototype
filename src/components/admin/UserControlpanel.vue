@@ -32,7 +32,7 @@ const toggleShowCreate = () => {
     // Reset
     user.value = { displayName: '', email: '', role: '', password: 'WebContentGenerate' }
     creatorProfile.value = { location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } }
-    brand.value = { id: 0, name: '', url: '', userId: undefined }
+    brand.value = { name: '', url: '', userId: undefined }
     userInfo.value = { cvr: '', phone: '' }
 }
 
