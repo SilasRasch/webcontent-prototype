@@ -10,6 +10,7 @@ export const auth = reactive({
         id: undefined,
         email: undefined,
         displayName: undefined,
+        phone: undefined,
         roles: []
     },
     originalRole: '',

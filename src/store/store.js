@@ -1,5 +1,6 @@
 import { reactive } from "vue";
 import { useOrderAPI } from "./api/orderApi";
+import { auth } from "./auth";
 // import { useCreatorAPI } from "./api/creatorApi";
 
 const orderAPI = useOrderAPI()
@@ -27,13 +28,13 @@ export const store = reactive({
     orderDataPageOne: {
         brand: {
             name: '',
-            cvr: '',
-            contact: {
-                name: '',
-                phone: '',
-                email: '',
-            }
+            url: '',
         },
+        contact: {
+            name: auth.loggedInUser.displayName ? auth.loggedInUser.displayName : '',
+            phone: auth.loggedInUser.phone ? auth.loggedInUser.phone : '',
+            email: auth.loggedInUser.email ? auth.loggedInUser.email : '',
+        }
     },
     orderDataPageTwo: {
         projectName: '',
@@ -68,13 +69,13 @@ export const store = reactive({
     orderDataPageOneTemplate: {
         brand: {
             name: '',
-            cvr: '',
-            contact: {
-                name: '',
-                phone: '',
-                email: '',
-            }
+            url: '',
         },
+        contact: {
+            name: auth.loggedInUser.displayName ? auth.loggedInUser.displayName : '',
+            phone: auth.loggedInUser.phone ? auth.loggedInUser.phone : '',
+            email: auth.loggedInUser.email ? auth.loggedInUser.email : '',
+        }
     },
     orderDataPageTwoTemplate: {
         projectName: '',
@@ -193,8 +194,8 @@ export const store = reactive({
 
     // Check if input strings are empty
     validate() {
-        if (this.orderDataPageOne.brand.name === '' || this.orderDataPageOne.brand.cvr === '' || this.orderDataPageOne.brand.contact.name === '' || 
-            this.orderDataPageOne.brand.contact.phone === '' || this.orderDataPageOne.brand.contact.email === '' || this.orderDataPageTwo.projectName === '' || 
+        if (this.orderDataPageOne.brand.name === '' || this.orderDataPageOne.brand.url === '' || this.orderDataPageOne.contact.name === '' || 
+            this.orderDataPageOne.contact.phone === '' || this.orderDataPageOne.contact.email === '' || this.orderDataPageTwo.projectName === '' || 
             this.orderDataPageTwo.projectType === '' || this.orderDataPageTwo.platforms === '' || this.orderDataPageTwo.format === '') 
             {
                 return false

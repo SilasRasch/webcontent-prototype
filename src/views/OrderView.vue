@@ -5,6 +5,7 @@ import OrderPageOne from '@/components/bestil/OrderPageOne.vue';
 import OrderPageTwo from '@/components/bestil/OrderPageTwo.vue';
 import OrderPageThree from '@/components/bestil/OrderPageThree.vue';
 import OrderPageFour from '@/components/bestil/OrderPageFour.vue';
+import { auth } from '@/store/auth';
 
 const arrayToString = (string, array) => {
     string = ''
@@ -43,6 +44,12 @@ const handleBack = () => {
   if (store.currOrderPage > 0) {
     store.currOrderPage--
   }
+}
+
+store.orderDataPageOne.contact = {
+    name: auth.loggedInUser.displayName ? auth.loggedInUser.displayName : '',
+    phone: auth.loggedInUser.phone ? auth.loggedInUser.phone : '',
+    email: auth.loggedInUser.email ? auth.loggedInUser.email : '',
 }
 </script>
 
