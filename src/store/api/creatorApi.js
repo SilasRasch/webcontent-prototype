@@ -63,7 +63,6 @@ export const useCreatorAPI = () => {
         const config = {
             ...baseConfig,
             method: 'post',
-            url: '/',
             data: creator,
             headers: { 'Authorization': auth.token } 
         }
