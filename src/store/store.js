@@ -1,10 +1,9 @@
 import { reactive } from "vue";
 import { useOrderAPI } from "./api/orderApi";
 import { auth } from "./auth";
-// import { useCreatorAPI } from "./api/creatorApi";
+import { validateOrder } from "./validation";
 
 const orderAPI = useOrderAPI()
-// const creatorAPI = useCreatorAPI()
 
 export const store = reactive({
     currOrderPage: 0,
@@ -97,18 +96,21 @@ export const store = reactive({
     },
 
     addOrder(order) {
-        let cleanedOrder = Object.entries(order).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
-        // console.log(cleanedOrder);
-        orderAPI.postOrder(cleanedOrder)
-
-        // Reset
-        this.orderDataBase = JSON.parse(JSON.stringify(this.orderDataBaseTemplate))
-        this.orderDataPageOne = JSON.parse(JSON.stringify(this.orderDataPageOneTemplate))
-        this.orderDataPageTwo = JSON.parse(JSON.stringify(this.orderDataPageTwoTemplate))
-        this.orderDataPageThree = JSON.parse(JSON.stringify(this.orderDataPageThreeTemplate))
-        this.formatArr = []
-        this.sourceArr = []
-        this.channelsArr = []
+        if (validateOrder(order)) {
+            let cleanedOrder = Object.entries(order).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
+            // console.log(cleanedOrder);
+            return orderAPI.postOrder(cleanedOrder).then(() => {
+                // Reset
+                this.orderDataBase = JSON.parse(JSON.stringify(this.orderDataBaseTemplate))
+                this.orderDataPageOne = JSON.parse(JSON.stringify(this.orderDataPageOneTemplate))
+                this.orderDataPageTwo = JSON.parse(JSON.stringify(this.orderDataPageTwoTemplate))
+                this.orderDataPageThree = JSON.parse(JSON.stringify(this.orderDataPageThreeTemplate))
+                this.formatArr = []
+                this.sourceArr = []
+                this.channelsArr = []
+                this.extraHookEnabled = false
+            }).finally(() => { return true })
+        }
     },
 
     confirmOrder(id, price, deliveryfrom, deliveryTo) {

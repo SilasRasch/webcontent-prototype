@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import OrderView from'../views/OrderView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProjectView from '../views/ProjectView.vue'
-import CreateUser from '../views/CreateUser.vue'
 import { auth } from '@/store/auth'
 
 // Navigation guards
@@ -80,12 +79,6 @@ const router = createRouter({
       name: 'projekt',
       beforeEnter: [user, creator],
       component: ProjectView,
-    },
-    {
-      path: '/opret',
-      name: 'create-user',
-      beforeEnter: admin,
-      component: CreateUser,
     },
   ]
 })

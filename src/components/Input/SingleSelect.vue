@@ -9,7 +9,8 @@ const props = defineProps({
         default: 'Vælg én'
     },
     required: Boolean,
-    other: Boolean
+    other: Boolean,
+    fullLength: Boolean
 })
 
 const model = defineModel()
@@ -20,6 +21,7 @@ const handleToggle = () => open.value = !open.value;
 
 const handleRemove = () => {
     model.value = ''
+    open.value = true
 }
 
 const mouseOver = ref(false)
@@ -45,9 +47,9 @@ const mouseOver = ref(false)
         </div>
         
         <Transition>
-            <ul v-if="open" class="list-items my-1 text-left md:z-50 md:absolute rounded-xl">
-                <SingleSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" />
-                <SingleSelectItem v-show="props.other" v-model="model" item="Andet" custom />
+            <ul v-if="open" class="list-items text-left md:z-50 md:absolute rounded-xl">
+                <SingleSelectItem v-for="item in props.items" :item="item" v-model="model" :key="item" :full-length="props.fullLength" @on-choose="handleToggle" />
+                <SingleSelectItem v-show="props.other" v-model="model" item="Andet" custom :full-length="props.fullLength" @on-choose="handleToggle" />
             </ul>
         </Transition>
     </div>

@@ -4,6 +4,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { auth } from '@/store/auth';
 import { useUserAPI } from '@/store/api/userApi';
+// import { store } from '@/store/store';
+import { validateEmail, validateDisplayName, validatePassword } from '@/store/validation';
 
 const api = useUserAPI()
 
@@ -34,30 +36,32 @@ const resetTabs = () => {
 
 const newDisplayName = ref('')
 const updateDisplayName = () => {
-    api.putUser(auth.loggedInUser.id, { displayName: newDisplayName.value, email: auth.loggedInUser.email, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
-        auth.refreshToken().then(() => {
-            newDisplayName.value = ''
-            showDisplayNameSetting.value = false
+    if (validateDisplayName(newDisplayName.value)) {
+        api.putUser(auth.loggedInUser.id, { displayName: newDisplayName.value, email: auth.loggedInUser.email, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+            auth.refreshToken().then(() => {
+                newDisplayName.value = ''
+                showDisplayNameSetting.value = false
+            })
         })
-    })
-    
+    }   
 }
 
 const newEmail = ref('')
 const updateEmail = () => {
-    
-    api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
-        localStorage.setItem("user", newEmail.value)
-        auth.refreshToken().then(() => {
-            newEmail.value = ''
-            showEmailSetting.value = false
+    if (validateEmail(newEmail.value)) {
+        api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+            localStorage.setItem("user", newEmail.value)
+            auth.refreshToken().then(() => {
+                newEmail.value = ''
+                showEmailSetting.value = false
+            })
         })
-    })
+    }
 }
 
 const updatePassword = () => {
     if (newPswd.value === newPswdConfirm.value) {
-        if (newPswd.value.length >= 8) {
+        if (validatePassword(newPswd.value)) {
             api.changePassword(auth.loggedInUser.id, { password: newPswd.value }).then(() => {
                 auth.refreshToken().then(() => {
                     newPswd.value = ''
@@ -67,7 +71,7 @@ const updatePassword = () => {
                 })
             })
         } else {
-            pswdError.value = 'Dit nye kodeord skal være mindst 8 karaktere'
+            pswdError.value = 'Kodeordet lever ikke op til kravene'
         }
     } else {
         pswdError.value = 'Kodeordene matcher ikke'
@@ -132,7 +136,7 @@ const updatePassword = () => {
                         </div>
                         <div v-if="showDisplayNameSetting" class="flex">
                             <input v-model="newDisplayName" :placeholder="auth.loggedInUser.displayName" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
-                            <button @click="updateDisplayName" class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
+                            <button @click="updateDisplayName" :disabled="validateDisplayName(newEmail)" class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
                         </div>
                     </div>
                     <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
@@ -145,7 +149,7 @@ const updatePassword = () => {
                         </div>
                         <div v-if="showEmailSetting" class="flex">
                             <input v-model="newEmail" :placeholder="auth.loggedInUser.email" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
-                            <button @click="updateEmail" class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
+                            <button @click="updateEmail" :disabled="validateEmail(newEmail)" class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200"></button>
                         </div>
                     </div>
                     <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
@@ -169,7 +173,6 @@ const updatePassword = () => {
                             <div v-if="pswdError" class="flex justify-center">
                                 <div class="text-red-600 break-words w-64 text-center text-sm">* {{ pswdError }}</div>
                             </div>
-                            
                         </div>
                     </div>
                     <!-- v-show="auth.loggedInUser.email === 'admin'" -->
