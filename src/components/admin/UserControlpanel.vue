@@ -115,7 +115,7 @@ const handleRegister = () => {
                 <template v-slot:slotTwo>Email</template>
             </DoubleInput>
 
-            <SingleSelect v-model="user.role" :items="['Bruger', 'Creator', 'Admin']" required>Rolle</SingleSelect>
+            <SingleSelect v-model="user.role" :items="['Bruger', 'Creator', 'Admin']" required full-length>Rolle</SingleSelect>
 
             <!-- Creatorprofil -->
             <div v-if="user.role === 'Creator'">

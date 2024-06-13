@@ -1,8 +1,8 @@
 <script setup>
 import { store } from '../../store/store.js'
 import BrandChoice from '../Input/BrandChoice.vue';
-import DoubleInput from '../Input/DoubleInput.vue';
-import SingleInput from '../Input/SingleInput.vue';
+import InputWrapper from '../Input/InputWrapper.vue';
+import InputComponent from '../Input/InputComponent.vue';
 </script>
 
 <template>
@@ -13,28 +13,16 @@ import SingleInput from '../Input/SingleInput.vue';
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
-        <DoubleInput v-model:firstInput="store.orderDataPageOne.contact.name" v-model:secondInput="store.orderDataPageOne.contact.phone"
-        placeholder-one="Navn på kontaktperson" placeholder-two="Dit telefonnummer" required>
-            <template v-slot:slotOne>Kontaktperson</template>
-            <template v-slot:slotTwo>Kontaktnummer</template>
-        </DoubleInput>
+        <InputWrapper>
+            <InputComponent v-model="store.orderDataPageOne.contact.name" placeholder="Navn på kontaktperson" required>Kontaktperson</InputComponent>
+            <InputComponent v-model="store.orderDataPageOne.contact.phone" placeholder="Telefon på kontaktperson" required>Kontaktnummer</InputComponent>
+        </InputWrapper>
 
-        <SingleInput v-model="store.orderDataPageOne.contact.email" placeholder="Din e-mail" required>Kontaktmail</SingleInput>
+        <InputWrapper>
+            <InputComponent v-model="store.orderDataPageOne.contact.email" placeholder="Navn på kontaktperson" required>Kontaktperson</InputComponent>
+        </InputWrapper>
     </div>
 </template>
 
 <style scoped>
-.toggle-btn {
-    @apply border-gray-300 rounded-xl border-2 p-2 w-full text-white font-semibold hover:bg-opacity-90 duration-200 bg-opacity-75 py-3
-}
-
-/***** Chrome, Safari, Opera, and Edge Chromium *****/
-input[type="range"]::-webkit-slider-runnable-track {
-    @apply bg-red-400 h-2 rounded p-0
-}
-
-/******** Firefox ********/
-input[type="range"]::-moz-range-track {
-    @apply bg-red-400 h-2 rounded p-0
-}
 </style>
