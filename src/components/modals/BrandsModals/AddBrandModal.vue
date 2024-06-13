@@ -51,7 +51,7 @@ const handleAdd = () => {
                     <hr class="text-black bg-black opacity-50 h-0.5 m-1" />
 
                     <button v-if="!semiConfirm" class="bg-green-500 hover:bg-green-600 duration-200 rounded-lg p-2 mx-1 mt-3" :class="{'opacity-60':!validateBrand(brand)}"
-                    @click="handleSemiConfirm" :disabled="validateBrand(brand)">Tilføj</button>
+                    @click="handleSemiConfirm" :disabled="!validateBrand(brand)">Tilføj</button>
                     <button v-else class="bg-green-500 hover:bg-green-600 duration-200 rounded-lg p-2 mx-1 mt-3"
                     @click="handleAdd">Er du sikker?</button>
                     <p class="text-sm text-center p-0 mt-2" :class="semiConfirm ? 'text-red-500' : 'text-gray-400'">* Der vil blive pålagt et ekstra brand gebyr på 2500kr / mdl.</p>

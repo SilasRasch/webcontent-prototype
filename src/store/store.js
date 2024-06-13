@@ -99,16 +99,17 @@ export const store = reactive({
         if (validateOrder(order)) {
             let cleanedOrder = Object.entries(order).reduce((a,[k,v]) => (v ? (a[k]=v, a) : a), {})
             // console.log(cleanedOrder);
-            orderAPI.postOrder(cleanedOrder)
-
-            // Reset
-            this.orderDataBase = JSON.parse(JSON.stringify(this.orderDataBaseTemplate))
-            this.orderDataPageOne = JSON.parse(JSON.stringify(this.orderDataPageOneTemplate))
-            this.orderDataPageTwo = JSON.parse(JSON.stringify(this.orderDataPageTwoTemplate))
-            this.orderDataPageThree = JSON.parse(JSON.stringify(this.orderDataPageThreeTemplate))
-            this.formatArr = []
-            this.sourceArr = []
-            this.channelsArr = []
+            return orderAPI.postOrder(cleanedOrder).then(() => {
+                // Reset
+                this.orderDataBase = JSON.parse(JSON.stringify(this.orderDataBaseTemplate))
+                this.orderDataPageOne = JSON.parse(JSON.stringify(this.orderDataPageOneTemplate))
+                this.orderDataPageTwo = JSON.parse(JSON.stringify(this.orderDataPageTwoTemplate))
+                this.orderDataPageThree = JSON.parse(JSON.stringify(this.orderDataPageThreeTemplate))
+                this.formatArr = []
+                this.sourceArr = []
+                this.channelsArr = []
+                this.extraHookEnabled = false
+            }).finally(() => { return true })
         }
     },
 

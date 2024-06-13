@@ -1,12 +1,13 @@
 <script setup>
 import { store } from '../../store/store.js'
 import { useRouter } from 'vue-router'
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import ToolTip from '../Input/ToolTip.vue';
 import { auth } from '@/store/auth';
 import { validateOrder } from '@/store/validation.js';
 
 const router = useRouter()
+const sendError = ref('')
 
 const handleSend = () => {
     store.orderDataBase.price = estimatedPrice.value
@@ -26,9 +27,11 @@ const handleSend = () => {
         ...store.orderDataPageThree,
     }
 
-    store.addOrder(compiledOrder)
-    router.push('/min-side')
-    store.currOrderPage = 0
+    store.addOrder(compiledOrder).then(() => {
+        router.push('/min-side')
+        store.currOrderPage = 0
+    }).catch(() => sendError.value = "Der er sket en fejl... Tjek venligst browserkonsollen, og send evt. et screenshot til administrator.")
+    
 }
 
 const validated = computed(() => {
@@ -211,6 +214,7 @@ const estimatedPrice = computed(() => {
             Pris per optagedag <br> 1-6 timer: 3000,- ekskl. moms
         </ToolTip>
         <p v-if="!validated" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
+        <p v-if="sendError" class="text-red-600 font-semibold">* {{ sendError }}</p>
     </div>
 </template>
 

@@ -13,7 +13,7 @@ function validateBrand(brand) {
 }
 
 function validateEmail(email) {
-    let pattern = /^\S+@\S+\.\w{1,3}$/
+    let pattern = /^\S+@\S+\.\S{1,24}$/
     return (pattern.test(email) && (email.length >= 8 && email.length <= 32))
 }
 
@@ -26,8 +26,7 @@ function validatePassword(password) {
 }
 
 function validateDisplayName(displayName) {
-    let pattern = /^\S{2,24}$/
-    return pattern.test(displayName)
+    return displayName.length >= 2
 }
 
 function validateUser(user) {
