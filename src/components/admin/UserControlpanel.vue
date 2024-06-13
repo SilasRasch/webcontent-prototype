@@ -12,6 +12,7 @@ const api = useCreatorAPI()
 const authAPI = useAuthAPI()
 const brandAPI = useBrandAPI()
 const creators = ref(null)
+const error = ref('')
 
 const fetchCreators = () => { return api.getCreators().then((data) => creators.value = data).then((data) => { return data })}
 fetchCreators()
@@ -33,6 +34,7 @@ const toggleShowCreate = () => {
     creatorProfile.value = { location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } }
     brand.value = { name: '', url: '', userId: undefined }
     userInfo.value = { cvr: '', phone: '' }
+    error.value = ''
 }
 
 const handleRegister = () => {
@@ -40,17 +42,18 @@ const handleRegister = () => {
 
     switch (user.value.role) {
         case "Admin":
-            authAPI.register(user.value).then(() => toggleShowCreate())
+            authAPI.register(user.value).then(() => toggleShowCreate()).catch((err) => error.value = err.response.data)
             break;
         case "Creator":           
             authAPI.register({ ...user.value })
                 .then((data) => api.postCreator({ ...creatorProfile.value, name: user.value.displayName, email: user.value.email, id: data}))
                 .then(() => fetchCreators().then(() => toggleShowCreate()))
+                .catch((err) => error.value = err.response.data)
             break;
         case "Bruger":
             if (validateBrand(brand.value))
                 authAPI.register({ ...user.value, ...userInfo.value})
-                    .then((data) => brandAPI.postBrand({ ...brand.value, userId: data } ).then(() => toggleShowCreate()))
+                    .then((data) => brandAPI.postBrand({ ...brand.value, userId: data } ).then(() => toggleShowCreate())).catch((err) => error.value = err.response.data)
             break;    
     } 
 }
@@ -130,7 +133,7 @@ const handleRegister = () => {
             <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
             <div class="flex justify-center"><button class="bg-red-400 w-full hover:bg-red-500 duration-200 p-2 mx-1 rounded-lg font-semibold" :class="{'opacity-60':!validateUser(user)}"
                 @click="handleRegister" :disabled="!validateUser(user)">Opret</button></div>
-            
+            <p v-if="error" class="text-red-600">* {{ error }}</p>
         </div>
 
         <div class="grid m-2 font-semibold justify-center">

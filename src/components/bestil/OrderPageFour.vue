@@ -30,7 +30,7 @@ const handleSend = () => {
     store.addOrder(compiledOrder).then(() => {
         router.push('/min-side')
         store.currOrderPage = 0
-    }).catch(() => sendError.value = "Der er sket en fejl... Tjek venligst browserkonsollen, og send evt. et screenshot til administrator.")
+    }).catch((err) => sendError.value = err.response.data)
     
 }
 

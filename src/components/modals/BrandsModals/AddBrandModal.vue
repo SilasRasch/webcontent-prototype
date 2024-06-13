@@ -8,6 +8,7 @@ import { ref } from 'vue';
 const emit = defineEmits(["refetch"])
 const showModal = ref(false)
 const semiConfirm = ref(false)
+const error = ref('')
 
 const handleToggle = () => {
     showModal.value = !showModal.value
@@ -29,7 +30,7 @@ const handleAdd = () => {
         api.postBrand(brand.value).then(() => {
             handleToggle()
             emit('refetch')
-        })
+        }).catch((err)=> error.value = err.response.data)
     }
 }
 </script>
@@ -55,6 +56,7 @@ const handleAdd = () => {
                     <button v-else class="bg-green-500 hover:bg-green-600 duration-200 rounded-lg p-2 mx-1 mt-3"
                     @click="handleAdd">Er du sikker?</button>
                     <p class="text-sm text-center p-0 mt-2" :class="semiConfirm ? 'text-red-500' : 'text-gray-400'">* Der vil blive pålagt et ekstra brand gebyr på 2500kr / mdl.</p>
+                    <p v-if="error" class="text-red-600">* {{ error }}</p>
                 </div>
             </div>
         </Transition>
