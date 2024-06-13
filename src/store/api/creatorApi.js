@@ -59,5 +59,18 @@ export const useCreatorAPI = () => {
             .then((res) => { return res })
     }
 
-    return { getCreator, getCreators, getCreatorsByOrder, putCreator }
+    const postCreator = (creator) => {
+        const config = {
+            ...baseConfig,
+            method: 'post',
+            url: '/',
+            data: creator,
+            headers: { 'Authorization': auth.token } 
+        }
+
+        return axios(config)
+            .then((res) => { return res })
+    }
+
+    return { getCreator, getCreators, getCreatorsByOrder, putCreator, postCreator }
 }
