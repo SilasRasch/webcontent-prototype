@@ -3,18 +3,17 @@ import DoubleInput from '@/components/Input/DoubleInput.vue';
 import SingleSelect from '@/components/Input/SingleSelect.vue';
 import { useAuthAPI } from '@/store/api/authApi';
 import { useCreatorAPI } from '@/store/api/creatorApi';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import UserPool from './UserPool.vue';
 import { useBrandAPI } from '@/store/api/brandApi';
+import { validateBrand, validateUser } from '@/store/validation';
 
 const api = useCreatorAPI()
 const authAPI = useAuthAPI()
 const brandAPI = useBrandAPI()
 const creators = ref(null)
 
-const fetchCreators = () => {
-    return api.getCreators().then((data) => creators.value = data).then((data) => { return data })
-}
+const fetchCreators = () => { return api.getCreators().then((data) => creators.value = data).then((data) => { return data })}
 fetchCreators()
 
 const showCreate = ref(false)
@@ -23,8 +22,8 @@ const user = ref({ displayName: '', email: '', role: '', password: 'WebContentGe
 
 // Dependant on role
 const userInfo = ref({ cvr: '', phone: '' })
-const creatorProfile = ref({ location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } })
 const brand = ref({ name: '', url: '', userId: undefined})
+const creatorProfile = ref({ location: '', speciality: '', handles: { instagram: '', tikTok: '', facebook: '', youTube: '', snapchat: '', pinterest: '' } })
 
 const toggleShowCreate = () => {
     showCreate.value = !showCreate.value
@@ -36,42 +35,57 @@ const toggleShowCreate = () => {
     userInfo.value = { cvr: '', phone: '' }
 }
 
+// const handleRegister = () => {
+//     if (validateUser(user.value)) {
+//         if (user.value.role === 'Admin') {
+//             authAPI.register(user.value).then(() => {
+//                 toggleShowCreate()
+//             })
+//         }
+//         else if (user.value.role === 'Creator') {
+//             const creator = {
+//                 ...user.value,
+//                 ...creatorProfile.value
+//             }
+            
+//             authAPI.registerCreator(creator).then(() => {
+//                 fetchCreators().then(() => toggleShowCreate())
+//             })
+//         }
+//         else if (user.value.role === 'Bruger') {
+//             user.value = {
+//                 ...user.value,
+//                 ...userInfo.value
+//             }
+
+//             if (validateBrand(brand.value)) {
+//                 authAPI.register(user.value).then((data) => {
+//                     brand.value.userId = data
+//                     brandAPI.postBrand(brand.value).then(() => toggleShowCreate())
+//                 })
+//             }
+//         }
+//     }
+// }
+
 const handleRegister = () => {
-    if (user.value.role === 'Admin') {
-        authAPI.register(user.value).then(() => {
-            toggleShowCreate()
-        })
-    }
-    else if (user.value.role === 'Creator') {
-        const creator = {
-            ...user.value,
-            ...creatorProfile.value
-        }
-        
-        authAPI.registerCreator(creator).then(() => {
-            fetchCreators().then(() => toggleShowCreate())
-        })
-    }
-    else if (user.value.role === 'Bruger') {
-        user.value = {
-            ...user.value,
-            ...userInfo.value
-        }
+    if (!validateUser(user.value)) return;
 
-        if (validateBrand.value) {
-            authAPI.register(user.value).then((data) => {
-                brand.value.userId = data
-                brandAPI.postBrand(brand.value).then(() => toggleShowCreate())
-            })
-        }
-    }
+    switch (user.value.role) {
+        case "Admin":
+            authAPI.register(user.value).then(() => toggleShowCreate())
+            break;
+        case "Creator":           
+            authAPI.registerCreator({ ...user.value, ...creatorProfile.value })
+                .then(() => fetchCreators().then(() => toggleShowCreate()))
+            break;
+        case "Bruger":
+            if (validateBrand(brand.value))
+                authAPI.register({ ...user.value, ...userInfo.value})
+                    .then((data) => brandAPI.postBrand({ ...brand.value, userId: data } ).then(() => toggleShowCreate()))
+            break;    
+    } 
 }
-
-const validateBrand = computed(() => {
-    if (brand.value.name !== '' && brand.value.url !== '')
-        return true
-    return false
-})
 </script>
 
 <template>
@@ -146,8 +160,8 @@ const validateBrand = computed(() => {
             
 
             <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
-            <div class="flex justify-center"><button class="bg-red-400 w-full hover:bg-red-500 duration-200 p-2 mx-1 rounded-lg font-semibold"
-                @click="handleRegister">Opret</button></div>
+            <div class="flex justify-center"><button class="bg-red-400 w-full hover:bg-red-500 duration-200 p-2 mx-1 rounded-lg font-semibold" :class="{'opacity-60':!validateUser(user)}"
+                @click="handleRegister" :disabled="!validateUser(user)">Opret</button></div>
             
         </div>
 

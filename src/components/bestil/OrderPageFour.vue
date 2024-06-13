@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { computed } from 'vue';
 import ToolTip from '../Input/ToolTip.vue';
 import { auth } from '@/store/auth';
+import { validateOrder } from '@/store/validation.js';
 
 const router = useRouter()
 
@@ -30,10 +31,14 @@ const handleSend = () => {
     store.currOrderPage = 0
 }
 
+const validated = computed(() => {
+    if (validateOrder({ ...store.orderDataBase, ...store.orderDataPageOne, ...store.orderDataPageTwo, ...store.orderDataPageThree })) return true
+    return false
+})
+
 const estimatedPrice = computed(() => {
     var price;
-    
-    if (store.orderDataPageTwo.projectType === 'User Generated Content' || store.orderDataPageTwo.projectType === 'Testimonials' && store.validate()) {
+    if (store.orderDataPageTwo.projectType === 'User Generated Content' || store.orderDataPageTwo.projectType === 'Testimonials' && validated.value) {
         price = store.orderDataPageTwo.contentCount <= 8 ? 2000 : 3500
 
         if (store.extraHookEnabled)
@@ -41,13 +46,12 @@ const estimatedPrice = computed(() => {
         
         price += store.orderDataPageThree.extraCreator ? store.orderDataPageThree.contentCount > 8 ? 3500 : 2000 : 0
     }
-    else if (!store.validate()) {
+    else if (!validated.value) {
         price = 0
     }
     else {
         price = 3000
     }
-
     return parseFloat(Math.round(price))
 })
 </script>
@@ -193,8 +197,8 @@ const estimatedPrice = computed(() => {
         </div>
         <div class="grid">
             <button @click="handleSend" class="btn-red my-2 w-full" 
-            :class="{'bg-opacity-50 cursor-not-allowed':!store.validate()}" 
-            :disabled="!store.validate()">
+            :class="{'bg-opacity-50 cursor-not-allowed':!validated}" 
+            :disabled="!validated">
                 Send
             </button>
         </div>
@@ -206,7 +210,7 @@ const estimatedPrice = computed(() => {
         <ToolTip v-else-if="store.orderDataPageTwo.projectType !== ''" label="Hvordan regnes prisen ud?" class="opacity-90 mb-1">
             Pris per optagedag <br> 1-6 timer: 3000,- ekskl. moms
         </ToolTip>
-        <p v-if="!store.validate()" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
+        <p v-if="!validated" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
     </div>
 </template>
 
