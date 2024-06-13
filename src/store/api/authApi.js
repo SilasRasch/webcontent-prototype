@@ -2,9 +2,10 @@ import { auth } from "../auth"
 import axios from "axios"
 
 export const useAuthAPI = () => {
+    const baseURL = "https://api.wcp.dk/auth/" // Public prod
     // const baseURL = "http://localhost:5267/auth/" // Local Test
-    const baseURL = "https://api.nobitches.win/auth/" // Public test
-    // const baseURL = "https://api.wcp.dk/auth/" // Public prod
+    // const baseURL = "https://api.nobitches.win/auth/" // Public test
+    
     const baseConfig = { baseURL: baseURL, method: 'post', url: '' } 
     
     const login = (email, password) => {
