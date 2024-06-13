@@ -35,39 +35,6 @@ const toggleShowCreate = () => {
     userInfo.value = { cvr: '', phone: '' }
 }
 
-// const handleRegister = () => {
-//     if (validateUser(user.value)) {
-//         if (user.value.role === 'Admin') {
-//             authAPI.register(user.value).then(() => {
-//                 toggleShowCreate()
-//             })
-//         }
-//         else if (user.value.role === 'Creator') {
-//             const creator = {
-//                 ...user.value,
-//                 ...creatorProfile.value
-//             }
-            
-//             authAPI.registerCreator(creator).then(() => {
-//                 fetchCreators().then(() => toggleShowCreate())
-//             })
-//         }
-//         else if (user.value.role === 'Bruger') {
-//             user.value = {
-//                 ...user.value,
-//                 ...userInfo.value
-//             }
-
-//             if (validateBrand(brand.value)) {
-//                 authAPI.register(user.value).then((data) => {
-//                     brand.value.userId = data
-//                     brandAPI.postBrand(brand.value).then(() => toggleShowCreate())
-//                 })
-//             }
-//         }
-//     }
-// }
-
 const handleRegister = () => {
     if (!validateUser(user.value)) return;
 
@@ -76,7 +43,8 @@ const handleRegister = () => {
             authAPI.register(user.value).then(() => toggleShowCreate())
             break;
         case "Creator":           
-            authAPI.registerCreator({ ...user.value, ...creatorProfile.value })
+            authAPI.register({ ...user.value })
+                .then((data) => api.postCreator({ ...creatorProfile.value, name: user.value.displayName, email: user.value.email, id: data}))
                 .then(() => fetchCreators().then(() => toggleShowCreate()))
             break;
         case "Bruger":
