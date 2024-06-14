@@ -20,9 +20,8 @@ const router = useRouter()
 const showDisplayNameSetting = ref(false)
 const showEmailSetting = ref(false)
 const showPasswordSetting = ref(false)
+const showPhoneSetting = ref(false)
 
-const newPswd = ref('')
-const newPswdConfirm = ref('')
 const pswdError = ref('')
 const reportText = ref('')
 
@@ -38,7 +37,7 @@ const resetTabs = () => {
 const newDisplayName = ref('')
 const updateDisplayName = () => {
     if (validateDisplayName(newDisplayName.value)) {
-        api.putUser(auth.loggedInUser.id, { displayName: newDisplayName.value, email: auth.loggedInUser.email, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+        api.putUser(auth.loggedInUser.id, { ...auth.loggedInUser, displayName: newDisplayName.value,password: 'null' }).then(() => {
             auth.refreshToken().then(() => {
                 newDisplayName.value = ''
                 showDisplayNameSetting.value = false
@@ -47,10 +46,22 @@ const updateDisplayName = () => {
     }   
 }
 
+const newPhone = ref('')
+const updatePhone = () => {
+    if (validateDisplayName(newPhone.value)) {
+        api.putUser(auth.loggedInUser.id, { ...auth.loggedInUser, phone: newPhone.value, password: 'null' }).then(() => {
+            auth.refreshToken().then(() => {
+                newPhone.value = ''
+                showPhoneSetting.value = false
+            })
+        })
+    }   
+}
+
 const newEmail = ref('')
 const updateEmail = () => {
     if (validateEmail(newEmail.value)) {
-        api.putUser(auth.loggedInUser.id, { displayName: auth.loggedInUser.displayName, email: newEmail.value, password: 'null', role: auth.loggedInUser.roles[0] }).then(() => {
+        api.putUser(auth.loggedInUser.id, { ...auth.loggedInUser, email: newEmail.value, password: 'null' }).then(() => {
             localStorage.setItem("user", newEmail.value)
             auth.refreshToken().then(() => {
                 newEmail.value = ''
@@ -60,6 +71,8 @@ const updateEmail = () => {
     }
 }
 
+const newPswd = ref('')
+const newPswdConfirm = ref('')
 const updatePassword = () => {
     if (newPswd.value === newPswdConfirm.value) {
         if (validatePassword(newPswd.value)) {
@@ -187,6 +200,23 @@ const sendReport = () => {
                             </div>
                             <div v-if="pswdError" class="flex justify-center">
                                 <div class="text-red-600 break-words w-64 text-center text-sm">* {{ pswdError }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer">
+                        <div class="flex justify-between w-full" @click="showPhoneSetting = !showPhoneSetting">
+                            <div class="flex text-center">
+                                <span class="cursor-pointer fa fa-phone fa-2x min-w-10"></span>
+                                <p class="text-base">Skift telefonnummer</p>
+                            </div>  
+                            <span class="fa fa-angle-down fa-2x"></span>
+                        </div>
+                        <div v-if="showPhoneSetting" class="grid">
+                            <div class="flex">
+                                <input v-model="newPhone" :placeholder="auth.loggedInUser.phone" class="w-full p-2 my-2 rounded-l-xl text-base text-black" />
+                                <button class="bg-green-500 px-4 py-1 rounded-r-xl text-base my-2 fa fa-check hover:bg-green-600 duration-200" 
+                                :disabled="newPhone.length < 8"
+                                @click="updatePhone"></button>
                             </div>
                         </div>
                     </div>
