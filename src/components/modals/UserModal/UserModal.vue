@@ -24,6 +24,7 @@ const showPasswordSetting = ref(false)
 const newPswd = ref('')
 const newPswdConfirm = ref('')
 const pswdError = ref('')
+const reportText = ref('')
 
 const resetTabs = () => {
     currTab.value = 0
@@ -77,6 +78,12 @@ const updatePassword = () => {
         pswdError.value = 'Kodeordene matcher ikke'
     }
 }
+
+const sendReport = () => {
+    if (reportText.value !== '') {
+        // Send API call to backend to send email to info@webcontent.dk
+    }
+}
 </script>
 
 <template>
@@ -102,8 +109,16 @@ const updatePassword = () => {
                     <div class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
                     @click="currTab = 2">
                         <div class="flex text-center">
-                            <span class="cursor-pointer fa fa-question fa-2x min-w-10"></span>
+                            <span class="cursor-pointer fa fa-question-circle-o fa-2x min-w-10"></span>
                             <p class="text-base mx-1">Hjælp og spørgsmål</p>
+                        </div>  
+                        <span class="fa fa-angle-right fa-2x"></span>
+                    </div>
+                    <div class="flex items-center justify-between bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200 cursor-pointer"
+                    @click="currTab = 3">
+                        <div class="flex text-center">
+                            <span class="cursor-pointer fa fa-exclamation-triangle fa-2x min-w-10"></span>
+                            <p class="text-base mx-1">Rapportér problem</p>
                         </div>  
                         <span class="fa fa-angle-right fa-2x"></span>
                     </div>
@@ -215,6 +230,28 @@ const updatePassword = () => {
                     </div>
                     <div class="flex flex-col bg-red-500 p-2 rounded-lg px-3 cursor-pointer hover:bg-red-600 duration-200">
                         <p class="text-base text-center">Vis flere</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings page -->
+
+            <div v-show="currTab === 3" class="grid w-full mt-2 gap-4">
+                <div class="flex cursor-pointer" @click="currTab = 0">
+                    <span class="fa fa-angle-left fa-2x"></span>
+                    <p class="text-left p-0 py-1 mx-3">Tilbage</p>
+                </div>
+                <hr />
+                <div class="grid gap-2">
+                    <div class="flex flex-col bg-gray-900 p-2 rounded-lg px-3 hover:bg-opacity-80 duration-200">
+                        <div class="flex justify-between w-full">
+                            <div class="flex text-center">
+                                <span class="fa fa-exclamation-triangle fa-2x min-w-10"></span>
+                                <p class="text-base">Rapportér problem</p>
+                            </div>  
+                        </div>
+                        <textarea class="w-full p-2 my-2 rounded-lg text-base text-black" rows="3" placeholder="Hvad er der sket?"></textarea>
+                        <button @click="sendReport" :disabled="reportText === ''" class="bg-green-500 px-4 py-1 rounded-xl text-base hover:bg-green-600 duration-200">Send</button>
                     </div>
                 </div>
             </div>

@@ -45,6 +45,24 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/privatlivspolitik',
+      name: 'privacy-policy',
+      beforeEnter: authenticate,
+      component: () => import('../views/legal/PrivacyPolicy.vue')
+    },
+    {
+      path: '/vilkår',
+      name: 'terms',
+      beforeEnter: authenticate,
+      component: () => import('../views/legal/TermsOfService.vue')
+    },
+    {
+      path: '/cookiepolitik',
+      name: 'cookie-policy',
+      beforeEnter: authenticate,
+      component: () => import('../views/legal/CookiePolicy.vue')
+    },
+    {
       path: '/bestil',
       name: 'bestil',
       beforeEnter: user,

@@ -21,12 +21,20 @@ import { auth } from './store/auth';
     </div>
   </header>
 
-  <!-- <RouterView /> -->
-  <RouterView v-slot="{ Component }">
-    <Transition name="route" mode="out-in">
-      <component :is="Component"></component>
-    </Transition>
-  </RouterView>
+  <main ref="main" class="min-h-[78vh]">
+    <!-- <RouterView /> -->
+    <RouterView v-slot="{ Component }">
+      <Transition name="route" mode="out-in">
+        <component :is="Component"></component>
+      </Transition>
+    </RouterView>
+  </main>
+
+  <footer class="flex justify-center mb-4 gap-4 text-gray-400 w-full"> 
+    <RouterLink to="/vilkår" class="hover:text-white duration-200">Vilkår og betingelser</RouterLink>
+    <RouterLink to="/privatlivspolitik" class="hover:text-white duration-200">Privatlivspolitik</RouterLink>
+    <RouterLink to="/cookiepolitik" class="hover:text-white duration-200">Cookiepolitik</RouterLink>
+  </footer>
 </template>
 
 <style>
