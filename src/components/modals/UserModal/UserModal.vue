@@ -96,9 +96,7 @@ const updatePassword = () => {
 }
 
 const sendReport = () => {
-    if (reportText.value !== '') {
-        emailAPI.postReport({ userEmail: auth.loggedInUser.email, reportMessage: reportText.value })
-    }
+    emailAPI.postReport({ userEmail: auth.loggedInUser.email, reportMessage: reportText.value })
 }
 </script>
 

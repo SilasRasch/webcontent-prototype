@@ -7,13 +7,13 @@ export const useEmailAPI = () => {
     const baseConfig = { baseURL: baseURL, method: 'get', url: '', headers: { 'Authorization': auth.token } }
 
     // { userEmail, reportMessage }
-    const postReport = (user) => {
+    const postReport = (report) => {
         if (auth.isAdmin()) {
             const config = {
                 ...baseConfig,
                 method: 'post',
-                url: '/',
-                data: user,
+                url: '/report',
+                data: report,
                 headers: { 'Authorization': auth.token } 
             }
     

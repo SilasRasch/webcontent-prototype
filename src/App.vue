@@ -6,7 +6,7 @@ import { auth } from './store/auth';
 </script>
 
 <template>
-  <header class="z-50 flex sm:flex-row flex-col items-center justify-between bg-gray-800 sm:py-4 px-12 h-[8vh]">
+  <header class="z-50 flex sm:flex-row flex-col items-center justify-between bg-gray-800 sm:py-4 px-12">
     <RouterLink to="/">
       <img alt="logo" src="@/assets/webcontent.png" width="256" />
     </RouterLink>
@@ -21,7 +21,7 @@ import { auth } from './store/auth';
     </div>
   </header>
 
-  <main ref="main" class="min-h-[88vh] pb-8">
+  <main ref="main" class="pb-8">
     <!-- <RouterView /> -->
     <RouterView v-slot="{ Component }">
       <Transition name="route" mode="out-in">
