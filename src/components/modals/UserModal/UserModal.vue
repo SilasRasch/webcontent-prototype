@@ -283,7 +283,7 @@ const sendReport = () => {
                                 <p class="text-base">Rapportér problem</p>
                             </div>  
                         </div>
-                        <textarea class="w-full p-2 my-2 rounded-lg text-base text-black" rows="3" placeholder="Hvad er der sket?"></textarea>
+                        <textarea v-model="reportText" class="w-full p-2 my-2 rounded-lg text-base text-black" rows="3" placeholder="Hvad er der sket?"></textarea>
                         <button @click="sendReport" :disabled="reportText === ''" class="bg-green-500 px-4 py-1 rounded-xl text-base hover:bg-green-600 duration-200">Send</button>
                     </div>
                 </div>
