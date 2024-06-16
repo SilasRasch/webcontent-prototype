@@ -1,7 +1,7 @@
 <script setup>
 import { store } from '../../store/store.js'
+import InputComponent from '../Input/InputComponent.vue';
 import InputWrapper from '../Input/InputWrapper.vue';
-import SingleInput from '../Input/SingleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 import SingleSelect from '../Input/SingleSelect.vue';
 import ToolTip from '../Input/ToolTip.vue';
@@ -12,8 +12,8 @@ import ToolTip from '../Input/ToolTip.vue';
         <p class="text-xl font-semibold m-2">Information om dit projekt</p>
     
         <InputWrapper>
-            <SingleInput class="input w-full m-0" v-model="store.orderDataPageTwo.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
-            <SingleSelect class="input w-full my-2" v-model="store.orderDataPageTwo.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
+            <InputComponent class="input w-full" v-model="store.orderDataPageTwo.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</InputComponent>
+            <SingleSelect class="input w-full" v-model="store.orderDataPageTwo.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
         </InputWrapper>
 
         <hr class="text-black bg-black h-0.5 my-6" />

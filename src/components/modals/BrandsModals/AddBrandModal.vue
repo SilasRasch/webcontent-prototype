@@ -1,5 +1,6 @@
 <script setup>
-import DoubleInput from '@/components/Input/DoubleInput.vue';
+import InputComponent from '@/components/Input/InputComponent.vue';
+import InputWrapper from '@/components/Input/InputWrapper.vue';
 import { useBrandAPI } from '@/store/api/brandApi';
 import { auth } from '@/store/auth';
 import { validateBrand } from '@/store/validation';
@@ -43,11 +44,11 @@ const handleAdd = () => {
             <div v-show="showModal" @click.self="handleToggle" class="z-50 fixed bg-black bg-opacity-50 w-full h-full top-0 left-0">
                 <div class="text-base grid justify-center p-2 px-4 rounded-lg text-white min-w-[20rem] bg-gray-800 shadow-2xl shadow-black pb-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
                     <p class="text-center font-semibold">Opret nyt brand</p>
-                    <DoubleInput v-model:firstInput="brand.name" v-model:secondInput="brand.url" required
-                    placeholder-one="Navnet på brandet" placeholder-two="Brandets CVR">
-                        <template v-slot:slotOne>Brandnavn</template>
-                        <template v-slot:slotTwo>URL</template>
-                    </DoubleInput>
+
+                    <InputWrapper>
+                        <InputComponent v-model="brand.name" placeholder="Navnet på brandet" required>Brandnavn</InputComponent>
+                        <InputComponent v-model="brand.url" placeholder="Brandets CVR" required>URL</InputComponent>
+                    </InputWrapper>
 
                     <hr class="text-black bg-black opacity-50 h-0.5 m-1" />
 
