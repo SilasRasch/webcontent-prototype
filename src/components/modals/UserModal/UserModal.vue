@@ -4,10 +4,13 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { auth } from '@/store/auth';
 import { useUserAPI } from '@/store/api/userApi';
+import { useEmailAPI } from '@/store/api/emailApi';
+
 // import { store } from '@/store/store';
 import { validateEmail, validateDisplayName, validatePassword } from '@/store/validation';
 
 const api = useUserAPI()
+const emailAPI = useEmailAPI()
 
 const currTab = ref(0)
 
@@ -94,7 +97,7 @@ const updatePassword = () => {
 
 const sendReport = () => {
     if (reportText.value !== '') {
-        // Send API call to backend to send email to info@webcontent.dk
+        emailAPI.postReport({ userEmail: auth.loggedInUser.email, reportMessage: reportText.value })
     }
 }
 </script>

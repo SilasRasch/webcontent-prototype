@@ -6,7 +6,7 @@ import { auth } from './store/auth';
 </script>
 
 <template>
-  <header class="z-50 flex sm:flex-row flex-col items-center justify-between bg-gray-800 sm:py-4 px-12">
+  <header class="z-50 flex sm:flex-row flex-col items-center justify-between bg-gray-800 sm:py-4 px-12 h-[8vh]">
     <RouterLink to="/">
       <img alt="logo" src="@/assets/webcontent.png" width="256" />
     </RouterLink>
@@ -21,7 +21,7 @@ import { auth } from './store/auth';
     </div>
   </header>
 
-  <main ref="main" class="min-h-[78vh]">
+  <main ref="main" class="min-h-[88vh] pb-8">
     <!-- <RouterView /> -->
     <RouterView v-slot="{ Component }">
       <Transition name="route" mode="out-in">
@@ -30,7 +30,7 @@ import { auth } from './store/auth';
     </RouterView>
   </main>
 
-  <footer class="flex justify-center mb-4 gap-4 text-gray-400 w-full"> 
+  <footer class="flex justify-center gap-4 text-gray-400 w-full absolute bottom-0 h-10"> 
     <RouterLink to="/vilkår" class="hover:text-white duration-200">Vilkår og betingelser</RouterLink>
     <RouterLink to="/privatlivspolitik" class="hover:text-white duration-200">Privatlivspolitik</RouterLink>
     <RouterLink to="/cookiepolitik" class="hover:text-white duration-200">Cookiepolitik</RouterLink>
