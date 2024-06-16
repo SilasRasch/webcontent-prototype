@@ -96,7 +96,10 @@ const updatePassword = () => {
 }
 
 const sendReport = () => {
-    emailAPI.postReport({ userEmail: auth.loggedInUser.email, reportMessage: reportText.value })
+    emailAPI.postReport({ userEmail: auth.loggedInUser.email, reportMessage: reportText.value }).then(() => {
+        reportText.value = ''
+        resetTabs()
+    })
 }
 </script>
 

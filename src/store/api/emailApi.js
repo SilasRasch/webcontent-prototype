@@ -8,18 +8,16 @@ export const useEmailAPI = () => {
 
     // { userEmail, reportMessage }
     const postReport = (report) => {
-        if (auth.isAdmin()) {
-            const config = {
-                ...baseConfig,
-                method: 'post',
-                url: '/report',
-                data: report,
-                headers: { 'Authorization': auth.token } 
-            }
-    
-            return axios(config)
-                .then((res) => { return res })
+        const config = {
+            ...baseConfig,
+            method: 'post',
+            url: '/report',
+            data: report,
+            headers: { 'Authorization': auth.token } 
         }
+
+        return axios(config)
+            .then((res) => { return res })
     }
 
     return { postReport }
