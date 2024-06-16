@@ -1,5 +1,6 @@
 <script setup>
 import { store } from '../../store/store.js'
+import InputWrapper from '../Input/InputWrapper.vue';
 import SingleInput from '../Input/SingleInput.vue';
 import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
 import SingleSelect from '../Input/SingleSelect.vue';
@@ -9,35 +10,32 @@ import ToolTip from '../Input/ToolTip.vue';
 <template>
     <div class="text-center w-full p-2">
         <p class="text-xl font-semibold m-2">Information om dit projekt</p>
-        
-        <div class="grid md:grid-cols-2 grid-cols-1 my-2 items-center">
-            <SingleInput class="input mr-1" v-model="store.orderDataPageTwo.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
-            <SingleSelect class="input ml-1 my-2" v-model="store.orderDataPageTwo.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
-        </div>
-        
-        
+    
+        <InputWrapper>
+            <SingleInput class="input w-full m-0" v-model="store.orderDataPageTwo.projectName" required placeholder="Helst noget beskrivende...">Projektnavn</SingleInput>
+            <SingleSelect class="input w-full my-2" v-model="store.orderDataPageTwo.projectType" required :items="['User Generated Content', 'Video Ads', 'Talking Head', 'Testimonials', 'Organisk SoMe content', 'Statics', 'Stilbilleder', 'Drone video']">Projekttype</SingleSelect>
+        </InputWrapper>
 
         <hr class="text-black bg-black h-0.5 my-6" />
 
         <!-- Sliders! -->
         <Transition>
-            <div v-if="store.orderDataPageTwo.projectType"
-            class="grid md:grid-cols-2 grid-cols-1 mb-0">
-                <div class="input text-left mb-0">
+            <InputWrapper v-if="store.orderDataPageTwo.projectType">
+                <div class="input text-left mb-0 w-full">
                     <p class="px-0">Mængde af indhold <ToolTip v-if="store.showExtras()" label="i" class="bg-gray-600 text-white hover:bg-opacity-75 font-serif mx-1">Hvis mængden overstiger 8 videoer er prisen 3500,- per optagedag</ToolTip></p>
                     <div class="flex flex-col justify-center mr-1">
                         <input class="" v-model="store.orderDataPageTwo.contentCount" type="range" :min="store.isVideo() ? 1 : 1" :max="store.isVideo() ? 16 : 50" step="1"/>
                         <span class="text-center opacity-50">{{ store.orderDataPageTwo.contentCount }} stk</span>
                     </div>
                 </div>
-                <div class="input text-left mb-0"  v-if="store.isVideo()"> 
+                <div class="input text-left mb-0 w-full"  v-if="store.isVideo()"> 
                     <p class="px-0">Længde af indhold</p>
                     <div class="flex flex-col justify-center ml-1">
                         <input v-model="store.orderDataPageTwo.contentLength" type="range" min="20" max="120" step="5"/>
                         <span class="text-center opacity-50">{{ store.orderDataPageTwo.contentLength }} sekunder</span>
                     </div>
                 </div>
-            </div>
+            </InputWrapper>
         </Transition>
 
         <SingleMultiSelect v-model="store.formatArr" required other
