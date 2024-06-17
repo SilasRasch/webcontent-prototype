@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { store } from '@/store/store';
 import { useRouter } from 'vue-router';
-import ToolTip from '../Input/ToolTip.vue';
+import ToolTip from '../ToolTip.vue';
 import { auth } from '@/store/auth';
 
 const model = defineModel()

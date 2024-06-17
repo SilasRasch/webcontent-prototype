@@ -2,7 +2,7 @@
 import { store } from '../../store/store.js'
 import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue';
-import ToolTip from '../Input/ToolTip.vue';
+import ToolTip from '../ToolTip.vue';
 import { auth } from '@/store/auth';
 import { validateOrder } from '@/store/validation.js';
 

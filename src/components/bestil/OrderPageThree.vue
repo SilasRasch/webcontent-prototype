@@ -3,7 +3,7 @@ import { store } from '../../store/store.js'
 import InputComponent from '../Input/InputComponent.vue';
 import InputWrapper from '../Input/InputWrapper.vue';
 import MultiLineInput from '../Input/MultiLineInput.vue';
-import ToolTip from '../Input/ToolTip.vue';
+import ToolTip from '../ToolTip.vue';
 </script>
 
 <template>

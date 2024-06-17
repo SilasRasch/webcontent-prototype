@@ -2,9 +2,9 @@
 import { store } from '../../store/store.js'
 import InputComponent from '../Input/InputComponent.vue';
 import InputWrapper from '../Input/InputWrapper.vue';
-import SingleMultiSelect from '../Input/SingleMultiSelect.vue';
-import SingleSelect from '../Input/SingleSelect.vue';
-import ToolTip from '../Input/ToolTip.vue';
+import MultiSelect from '../Input/Selects/MultiSelect.vue';
+import SingleSelect from '../Input/Selects/SingleSelect.vue';
+import ToolTip from '../ToolTip.vue';
 </script>
 
 <template>
@@ -38,15 +38,15 @@ import ToolTip from '../Input/ToolTip.vue';
             </InputWrapper>
         </Transition>
 
-        <SingleMultiSelect v-model="store.formatArr" required other
+        <MultiSelect v-model="store.formatArr" required other
         :items="['16:9', '9:16', '1:1', '4:5']">
             Format
-        </SingleMultiSelect>
+        </MultiSelect>
 
-        <SingleMultiSelect v-model="store.channelsArr" required other
+        <MultiSelect v-model="store.channelsArr" required other
         :items="['TikTok', 'Instagram', 'Facebook', 'YouTube', 'Snapchat', 'Pinterest']">
             Tiltænkte platforme
-        </SingleMultiSelect>
+        </MultiSelect>
     </div>
 </template>
 

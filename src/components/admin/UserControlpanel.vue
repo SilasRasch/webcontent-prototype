@@ -1,5 +1,5 @@
 <script setup>
-import SingleSelect from '@/components/Input/SingleSelect.vue';
+import SingleSelect from '@/components/Input/Selects/SingleSelect.vue';
 import { useAuthAPI } from '@/store/api/authApi';
 import { useCreatorAPI } from '@/store/api/creatorApi';
 import { ref } from 'vue';

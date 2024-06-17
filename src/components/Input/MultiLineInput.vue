@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ToolTip from './ToolTip.vue';
+import ToolTip from '../ToolTip.vue';
 
 const props = defineProps({
     placeholder: String,
