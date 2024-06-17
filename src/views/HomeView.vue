@@ -63,7 +63,7 @@ function playPause(id, index) {
       </TransitionGroup>
 
       <div class="font-semibold text-white grid justify-center">
-        <div class="flex justify-center items-center md:w-[50rem] bg-slate-900 rounded-xl py-6 px-4">
+        <div class="flex justify-center items-center md:w-[50rem] bg-slate-900 rounded-lg py-6 px-4">
           <div class="flow-element">📝
             <p class="sm:text-xl text-center mt-2">Bestil</p>
           </div>
@@ -87,9 +87,9 @@ function playPause(id, index) {
         <div class="grid p-8 rounded-lg text-white bg-slate-900 mt-8 md:w-[50rem]">
           <div class="text-xl font-semibold text-left grid justify-center min-w-full">
             <h1 class="text-left">🔥 Populære creators</h1>
-            <div class="grid md:grid-cols-5 grid-cols-3 mt-4 max-w-fit gap-6 max-h-[174px] overflow-hidden">
+            <div class="grid md:grid-cols-5 grid-cols-3 mt-4 max-w-fit gap-6 max-h-[32vw] sm:max-h-[33vw] md:max-h-[174px] overflow-hidden">
               <div v-for="creator in creatorCards" :key="creator.name" class="flex flex-col">
-                <img class="w-[120px] h-[150px] bg-gray-500 rounded-md flex justify-center items-center" :src="baseURL + creator.link">
+                <img class="w-[22vw] sm:w-[24vw] md:w-[120px] bg-gray-500 rounded-md flex justify-center items-center" :src="baseURL + creator.link">
                 <p class="text-base text-left p-0 m-0 opacity-80">{{ creator.name }}</p>
               </div>
             </div>
@@ -98,9 +98,9 @@ function playPause(id, index) {
 
           <div class="text-xl font-semibold text-left grid justify-center min-w-full">
             <h1 class="text-left my-4">🔥 Populært content</h1>
-            <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6 grid-cols-1 sm:max-h-[240px] md:max-h-[270px] overflow-hidden">
+            <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6 grid-cols-1 sm:max-h-[47vw] md:max-h-[270px] overflow-hidden">
               <div v-for="video, index in videos" :key="video.id" class="flex flex-col">
-                <div class="md:w-[216px] md:h-[270px] sm:w-[192px] sm:h-[240px] w-[408px] h-[510px] bg-gray-500 rounded-md flex justify-center items-center relative">
+                <div class="md:w-[216px] md:h-[270px] sm:w-[37.5vw] w-[75vw] bg-gray-500 rounded-md flex justify-center items-center relative">
                   <video :id="video.id" class="w-full h-full rounded-lg" @click="playPause(video.id, index)">
                     <source :src="baseURL + video.link" type="video/mp4">
                   </video>
