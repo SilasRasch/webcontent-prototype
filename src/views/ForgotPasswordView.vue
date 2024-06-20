@@ -25,9 +25,7 @@ const handleSend = () => {
                     <input v-model="email" type="text" class="input max-w-96" />
                 </div>
             </InputWrapper>
-            <div class="flex justify-center">
-                <button @click="handleSend" :disabled="!validateEmail(email)" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Send</button>
-            </div>
+            <button @click="handleSend" :disabled="!validateEmail(email)" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Send</button>
             
         </div>
         <div v-else class="grid justify-center my-5">

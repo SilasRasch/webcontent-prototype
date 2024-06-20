@@ -33,8 +33,8 @@ const SendVerification = () => {
                 <input v-model="confirmPassword" type="password" class="input max-w-96" />
             </div>
         </InputWrapper>
-        <div class="flex justify-center">
-            <button @click="SendVerification" :disabled="password !== confirmPassword || password === ''" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Bekræft</button>
+        <div class="flex justify-center w-full">
+            <button @click="SendVerification" :disabled="password !== confirmPassword || password === ''" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2 max-w-52 w-full">Bekræft</button>
         </div>
         
     </div>
