@@ -23,7 +23,7 @@ export const useUserAPI = () => {
     const changePassword = (id, pswd) => {
         const config = {
             ...baseConfig,
-            method: 'put',
+            method: 'post',
             url: `/change-password/${id}`,
             data: pswd,
             headers: { 'Authorization': auth.token } 
@@ -48,5 +48,20 @@ export const useUserAPI = () => {
         }
     }
 
-    return { putUser, postUser, changePassword }
+    const resetPassword = (token, password) => {
+        if (auth.isAdmin()) {
+            const config = {
+                ...baseConfig,
+                method: 'post',
+                url: '/reset-password',
+                data: { token: token, password: password},
+                headers: { 'Authorization': auth.token } 
+            }
+    
+            return axios(config)
+                .then((res) => { return res })
+        }
+    }
+
+    return { putUser, postUser, changePassword, resetPassword }
 }

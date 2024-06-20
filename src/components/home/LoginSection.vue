@@ -45,7 +45,7 @@ const handleLogin = async () => {
                 <a href="https://calendly.com/webcontentdk/30min" target="_blank" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</a>
                 <!-- <button @click="handleShowCreate()" class="bg-red-500 p-2 rounded-lg w-1/2 ml-1 hover:bg-red-600 duration-200">Få adgang</button> -->
             </div>
-            <div class="text-base cursor-pointer hover:text-blue-500 duration-300">Glemt kodeord?</div>
+            <RouterLink to="/glemt-kodeord" class="text-base cursor-pointer hover:text-blue-500 duration-300">Glemt kodeord?</RouterLink>
             <div v-if="error" class="text-red-600 text-base">
                 * {{ error }}
             </div>

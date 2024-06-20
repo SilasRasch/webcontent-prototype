@@ -29,11 +29,11 @@ const authenticate = () => {
   auth.refreshToken()
 }
 
-// const guest = () => {
-//   if (auth.isLoggedIn) {
-//     return "/"
-//   }
-// }
+const guest = () => {
+  if (auth.isLoggedIn) {
+    return "/"
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,6 +61,24 @@ const router = createRouter({
       name: 'cookie-policy',
       beforeEnter: authenticate,
       component: () => import('../views/legal/CookiePolicy.vue')
+    },
+    {
+      path: '/verify',
+      name: 'verify',
+      beforeEnter: guest,
+      component: () => import('../views/VerifyUserView.vue')
+    },
+    {
+      path: '/glemt-kodeord',
+      name: 'forgot-password',
+      beforeEnter: guest,
+      component: () => import('../views/ForgotPasswordView.vue')
+    },
+    {
+      path: '/reset-kodeord',
+      name: 'reset-password',
+      beforeEnter: guest,
+      component: () => import('../views/ResetPasswordView.vue')
     },
     {
       path: '/bestil',
