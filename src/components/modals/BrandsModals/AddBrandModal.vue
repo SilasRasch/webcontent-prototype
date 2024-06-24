@@ -37,8 +37,8 @@ const handleAdd = () => {
 </script>
 
 <template>
-    <div class="grid items-center justify-center gap-2 bg-slate-900 rounded-lg h-24 fa fa-plus cursor-pointer bg-opacity-80 hover:bg-opacity-100 duration-200"
-    @click="handleToggle"></div>
+    <div class="flex items-center justify-center gap-2 bg-slate-900 rounded-lg h-24 cursor-pointer bg-opacity-80 hover:bg-opacity-100 duration-200"
+    @click="handleToggle"><i class="fa fa-plus"></i></div>
 
     <Transition>
             <div v-show="showModal" @click.self="handleToggle" class="z-50 fixed bg-black bg-opacity-50 w-full h-full top-0 left-0">

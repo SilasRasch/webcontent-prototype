@@ -67,15 +67,15 @@ function playPause(id, index) {
           <div class="flow-element">📝
             <p class="sm:text-xl text-center mt-2">Bestil</p>
           </div>
-          <i class="fa md:text-5xl text-3xl fa-long-arrow-right"></i>
+          <i class="fa fa-2x fa-long-arrow-right"></i>
           <div class="flow-element">👍
             <p class="sm:text-xl text-center mt-2">Bekræft</p>
           </div>
-          <i class="fa md:text-5xl text-3xl fa-long-arrow-right"></i>
+          <i class="fa fa-2x fa-long-arrow-right"></i>
           <div class="flow-element">💬
             <p class="sm:text-xl text-center mt-2">Feedback</p>
           </div>
-          <i class="fa md:text-5xl text-3xl fa-long-arrow-right"></i>
+          <i class="fa fa-2x fa-long-arrow-right"></i>
           <div class="flow-element">📦
             <p class="sm:text-xl text-center mt-2">Produkt</p>
           </div>
