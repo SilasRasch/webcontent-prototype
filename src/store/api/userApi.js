@@ -63,5 +63,18 @@ export const useUserAPI = () => {
         }
     }
 
-    return { putUser, postUser, changePassword, resetPassword }
+    const forgotPassword = (email) => {
+        const config = {
+            ...baseConfig,
+            method: 'post',
+            url: '/forgot-password',
+            data: email,
+            headers: { 'Authorization': auth.token } 
+        }
+
+        return axios(config)
+            .then((res) => { return res })
+    }
+
+    return { putUser, postUser, changePassword, resetPassword, forgotPassword }
 }
