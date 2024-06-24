@@ -69,7 +69,6 @@ export const useUserAPI = () => {
             method: 'post',
             url: '/forgot-password',
             data: email,
-            headers: { 'Authorization': auth.token } 
         }
 
         return axios(config)
