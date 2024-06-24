@@ -1,11 +1,11 @@
 <script setup>
 import InputWrapper from '@/components/Input/InputWrapper.vue';
-import { useAuthAPI } from '@/store/api/authApi';
+import { useUserAPI } from '@/store/api/userApi';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
-const api = useAuthAPI()
+const api = useUserAPI()
 let token = route.query["token"]
 
 const password = ref('')
@@ -19,7 +19,7 @@ const SendVerification = () => {
 
 <template>
     <div v-if="token" class="grid justify-center">
-        <h1 class="text-center font-semibold text-2xl my-5">Lad os færdiggøre din nye bruger</h1>
+        <h1 class="text-center font-semibold text-2xl my-5">Ændrer dit kodeord</h1>
 
         <InputWrapper>
             <div class="grid w-full justify-center">

@@ -49,18 +49,16 @@ export const useUserAPI = () => {
     }
 
     const resetPassword = (token, password) => {
-        if (auth.isAdmin()) {
-            const config = {
-                ...baseConfig,
-                method: 'post',
-                url: '/reset-password',
-                data: { token: token, password: password},
-                headers: { 'Authorization': auth.token } 
-            }
-    
-            return axios(config)
-                .then((res) => { return res })
+        const config = {
+            ...baseConfig,
+            method: 'post',
+            url: '/reset-password',
+            data: { token: token, password: password},
+            headers: { 'Authorization': auth.token } 
         }
+
+        return axios(config)
+            .then((res) => { return res })
     }
 
     const forgotPassword = (email) => {
