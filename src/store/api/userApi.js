@@ -66,7 +66,7 @@ export const useUserAPI = () => {
             ...baseConfig,
             method: 'post',
             url: '/forgot-password',
-            data: email,
+            data: { email },
         }
 
         return axios(config)
