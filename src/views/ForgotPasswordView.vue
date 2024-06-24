@@ -1,15 +1,15 @@
 <script setup>
 import InputWrapper from '@/components/Input/InputWrapper.vue';
-// import { useUserAPI } from '@/store/api/userApi';
+import { useUserAPI } from '@/store/api/userApi';
 import { validateEmail } from '@/store/validation';
 import { ref } from 'vue';
 
-// const api = useUserAPI()
+const api = useUserAPI()
 
 const email = ref('')
 const isSent = ref(false)
 const handleSend = () => {
-    // api.forgotPassword({ email: email.value }).then(() => isSent.value = true)
+    api.forgotPassword({ email: email.value }).then(() => isSent.value = true)
     isSent.value = !isSent.value
 }
 </script>
