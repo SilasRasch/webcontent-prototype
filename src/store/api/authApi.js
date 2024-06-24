@@ -104,5 +104,17 @@ export const useAuthAPI = () => {
             .catch((err) => console.error(err))
     }
 
-    return { login, register, authenticate, addAdmin, refreshToken, revoke, registerCreator }
+    const verifyUser = (data) => {
+        const config = {
+            ...baseConfig,
+            url: `verify`,
+            data: data,
+        }
+        
+        return axios(config)
+            .then((res) => { return res.data })
+            .catch((err) => console.error(err))
+    }
+
+    return { login, register, authenticate, addAdmin, refreshToken, revoke, registerCreator, verifyUser }
 }

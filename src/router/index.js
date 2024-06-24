@@ -29,11 +29,11 @@ const authenticate = () => {
   auth.refreshToken()
 }
 
-// const guest = () => {
-//   if (auth.isLoggedIn) {
-//     return "/"
-//   }
-// }
+const guest = () => {
+  if (auth.isLoggedIn) {
+    return "/"
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +43,42 @@ const router = createRouter({
       name: 'home',
       beforeEnter: authenticate,
       component: HomeView
+    },
+    {
+      path: '/privatlivspolitik',
+      name: 'privacy-policy',
+      beforeEnter: authenticate,
+      component: () => import('../views/legal/PrivacyPolicy.vue')
+    },
+    {
+      path: '/vilkår',
+      name: 'terms',
+      beforeEnter: authenticate,
+      component: () => import('../views/legal/TermsOfService.vue')
+    },
+    {
+      path: '/cookiepolitik',
+      name: 'cookie-policy',
+      beforeEnter: authenticate,
+      component: () => import('../views/legal/CookiePolicy.vue')
+    },
+    {
+      path: '/verify',
+      name: 'verify',
+      beforeEnter: guest,
+      component: () => import('../views/VerifyUserView.vue')
+    },
+    {
+      path: '/glemt-kodeord',
+      name: 'forgot-password',
+      beforeEnter: guest,
+      component: () => import('../views/ForgotPasswordView.vue')
+    },
+    {
+      path: '/reset-kodeord',
+      name: 'reset-password',
+      beforeEnter: guest,
+      component: () => import('../views/ResetPasswordView.vue')
     },
     {
       path: '/bestil',

@@ -1,12 +1,13 @@
 <script setup>
-import DoubleInput from '@/components/Input/DoubleInput.vue';
-import SingleSelect from '@/components/Input/SingleSelect.vue';
+import SingleSelect from '@/components/Input/Selects/SingleSelect.vue';
 import { useAuthAPI } from '@/store/api/authApi';
 import { useCreatorAPI } from '@/store/api/creatorApi';
 import { ref } from 'vue';
 import UserPool from './UserPool.vue';
 import { useBrandAPI } from '@/store/api/brandApi';
 import { validateBrand, validateUser } from '@/store/validation';
+import InputWrapper from '../Input/InputWrapper.vue';
+import InputComponent from '../Input/InputComponent.vue';
 
 const api = useCreatorAPI()
 const authAPI = useAuthAPI()
@@ -80,11 +81,10 @@ const handleRegister = () => {
             <h1 class="text-xl">Opret ny bruger</h1>
             <hr class="my-2 opacity-50">
 
-            <DoubleInput v-model:firstInput="user.displayName" v-model:secondInput="user.email" required
-            placeholder-one="Navnet på brugeren" placeholder-two="Brugerens email">
-                <template v-slot:slotOne>Navn</template>
-                <template v-slot:slotTwo>Email</template>
-            </DoubleInput>
+            <InputWrapper>
+                <InputComponent v-model="user.displayName" placeholder="Navnet på brugeren" required>Navn</InputComponent>
+                <InputComponent v-model="user.email" placeholder="Brugerens email" required>Email</InputComponent>
+            </InputWrapper>
 
             <SingleSelect v-model="user.role" :items="['Bruger', 'Creator', 'Admin']" required full-length>Rolle</SingleSelect>
 
@@ -93,40 +93,41 @@ const handleRegister = () => {
                 <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
                 <h1 class="text-xl">Creatorprofil</h1>
 
-                <DoubleInput  v-model:firstInput="creatorProfile.location" v-model:secondInput="creatorProfile.speciality" required
-                placeholder-one="Brugerens lokation" placeholder-two="Hvad brugeren tilbyder">
-                    <template v-slot:slotOne>Lokation</template>
-                    <template v-slot:slotTwo>Speciale</template>
-                </DoubleInput>
+                <InputWrapper>
+                    <InputComponent v-model="creatorProfile.location" placeholder="Brugerens lokation" required>Lokation</InputComponent>
+                    <InputComponent v-model="creatorProfile.speciality" placeholder="Hvad brugeren tilbyder" required>Speciale</InputComponent>
+                </InputWrapper>
 
                 <div>
-                    <DoubleInput placeholder-one="@Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.instagram" v-model:secondInput="creatorProfile.handles.tikTok">
-                        <template v-slot:slotOne>Instagram</template>
-                        <template v-slot:slotTwo>TikTok</template>
-                    </DoubleInput>
-                    <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn" v-model:firstInput="creatorProfile.handles.facebook" v-model:secondInput="creatorProfile.handles.youTube">
-                        <template v-slot:slotOne>Facebook</template>
-                        <template v-slot:slotTwo>YouTube</template>
-                    </DoubleInput>
-                    <DoubleInput placeholder-one="Brugernavn" placeholder-two="Brugernavn"  v-model:firstInput="creatorProfile.handles.snapchat" v-model:secondInput="creatorProfile.handles.pinterest">
-                        <template v-slot:slotOne>Snapchat</template>
-                        <template v-slot:slotTwo>Pinterest</template>
-                    </DoubleInput>
+                    <InputWrapper>
+                        <InputComponent v-model="creatorProfile.handles.instagram" placeholder="@Brugernavn">Instagram</InputComponent>
+                        <InputComponent v-model="creatorProfile.handles.tikTok" placeholder="Brugernavn">TikTok</InputComponent>
+                    </InputWrapper>
+
+                    <InputWrapper>
+                        <InputComponent v-model="creatorProfile.handles.facebook" placeholder="Brugernavn">Facebook</InputComponent>
+                        <InputComponent v-model="creatorProfile.handles.youTube" placeholder="Brugernavn">YouTube</InputComponent>
+                    </InputWrapper>
+
+                    <InputWrapper>
+                        <InputComponent v-model="creatorProfile.handles.snapchat" placeholder="Brugernavn">Snapchat</InputComponent>
+                        <InputComponent v-model="creatorProfile.handles.pinterest" placeholder="Brugernavn">Pinterest</InputComponent>
+                    </InputWrapper>
                 </div>
             </div>
 
             <div v-else-if="user.role === 'Bruger'">
-                <DoubleInput placeholder-one="Nr. på kontaktperson" placeholder-two="Virksomhedens CVR" v-model:firstInput="userInfo.phone" v-model:secondInput="userInfo.cvr">
-                    <template v-slot:slotOne>Kontaktnummer</template>
-                    <template v-slot:slotTwo>CVR</template>
-                </DoubleInput>
+                <InputWrapper>
+                    <InputComponent v-model="userInfo.phone" placeholder="Nr. på kontaktperson" required>Kontaktnummer</InputComponent>
+                    <InputComponent v-model="userInfo.cvr" placeholder="Virksomhedens CVR" required>CVR</InputComponent>
+                </InputWrapper>
                 
                 <hr class="text-black bg-black opacity-50 h-0.5 m-3" />
                 <h1 class="text-xl">Brand</h1>
-                <DoubleInput placeholder-one="Navnet på brandet" placeholder-two="Brandets URL" v-model:firstInput="brand.name" v-model:secondInput="brand.url">
-                    <template v-slot:slotOne>Brandnavn</template>
-                    <template v-slot:slotTwo>URL</template>
-                </DoubleInput>
+                <InputWrapper>
+                    <InputComponent v-model="brand.name" placeholder="Navnet på brandet" required>Brandnavn</InputComponent>
+                    <InputComponent v-model="brand.url" placeholder="brandets URL" required>URL</InputComponent>
+                </InputWrapper>
             </div>
             
 

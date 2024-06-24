@@ -2,7 +2,7 @@
 import { store } from '../../store/store.js'
 import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue';
-import ToolTip from '../Input/ToolTip.vue';
+import ToolTip from '../ToolTip.vue';
 import { auth } from '@/store/auth';
 import { validateOrder } from '@/store/validation.js';
 
@@ -214,6 +214,7 @@ const estimatedPrice = computed(() => {
             Pris per optagedag <br> 1-6 timer: 3000,- ekskl. moms
         </ToolTip>
         <p v-if="!validated" class="text-red-600 font-semibold">* Tjek venligst at alle nødvendige felter er udfyldt</p>
+        <p v-else class="">* Ved at trykke send giver du samtykke til at vi må behandle dine indtastede oplysninger</p>
         <p v-if="sendError" class="text-red-600 font-semibold">* {{ sendError }}</p>
     </div>
 </template>

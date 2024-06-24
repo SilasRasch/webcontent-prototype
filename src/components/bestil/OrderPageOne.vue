@@ -19,7 +19,7 @@ import InputComponent from '../Input/InputComponent.vue';
         </InputWrapper>
 
         <InputWrapper>
-            <InputComponent v-model="store.orderDataPageOne.contact.email" placeholder="Navn på kontaktperson" required>Kontaktperson</InputComponent>
+            <InputComponent v-model="store.orderDataPageOne.contact.email" placeholder="Navn på kontaktperson" required>Kontaktmail</InputComponent>
         </InputWrapper>
     </div>
 </template>

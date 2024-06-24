@@ -1,5 +1,5 @@
 <script setup>
-import ToolTip from '../Input/ToolTip.vue';
+import ToolTip from '../ToolTip.vue';
 import { computed, ref } from 'vue';
 import ConfirmControls from '../admin/ConfirmControls.vue';
 import LinkModal from '../modals/LinkModal.vue';
