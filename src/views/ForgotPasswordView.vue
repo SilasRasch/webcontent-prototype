@@ -29,7 +29,7 @@ const handleSend = () => {
             
         </div>
         <div v-else class="grid justify-center my-5">
-            <p class="text-center">Så er den klaret! <br> Du vil snarest få en mail med et link, så du kan lave et nyt kodeord. <br> Hvis du ikke kan finde eller ikke mener du har modtaget mailen, så husk tjekke spam mappen.</p>
+            <p class="text-center"><strong>Så er den klaret!</strong> <br> Du vil snarest få en mail med et link, så du kan lave et nyt kodeord. <br> Hvis du ikke kan finde eller ikke mener du har modtaget mailen, så husk tjekke spam mappen.</p>
         </div>
     </TransitionGroup>
 </template>
