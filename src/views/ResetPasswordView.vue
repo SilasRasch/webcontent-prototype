@@ -1,6 +1,7 @@
 <script setup>
 import InputWrapper from '@/components/Input/InputWrapper.vue';
 import { useUserAPI } from '@/store/api/userApi';
+import { validatePassword } from '@/store/validation';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -14,7 +15,7 @@ const password = ref('')
 const confirmPassword = ref('')
 
 const SendVerification = () => {
-    if (password.value === confirmPassword.value)
+    if (password.value === confirmPassword.value && validatePassword(password.value))
         api.resetPassword(token, password.value).then(() => {
             password.value = ''
             confirmPassword.value = ''
@@ -40,7 +41,7 @@ const SendVerification = () => {
                 <input v-model="confirmPassword" type="password" class="input max-w-96" />
             </div>
         </InputWrapper>
-        <button @click="SendVerification" :disabled="password !== confirmPassword || password === ''" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Bekræft</button>
+        <button @click="SendVerification" :disabled="password !== confirmPassword || !validatePassword(password)" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Bekræft</button>
         <p v-if="error" class="text-red-500 font-semibold">* {{ error }}</p>
         
     </div>

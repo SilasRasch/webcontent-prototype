@@ -1,6 +1,7 @@
 <script setup>
 import InputWrapper from '@/components/Input/InputWrapper.vue';
 import { useAuthAPI } from '@/store/api/authApi';
+import { validatePassword } from '@/store/validation';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -14,7 +15,7 @@ const password = ref('')
 const confirmPassword = ref('')
 
 const SendVerification = () => {
-    if (password.value === confirmPassword.value) {
+    if (password.value === confirmPassword.value && validatePassword(password.value)) {
         api.verifyUser({ verificationToken: token, password: password.value }).then(() => {
             password.value = ''
             confirmPassword.value = ''
@@ -42,7 +43,7 @@ const SendVerification = () => {
             </div>
         </InputWrapper>
         <div class="flex justify-center w-full">
-            <button @click="SendVerification" :disabled="password !== confirmPassword || password === ''" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2 max-w-52 w-full">Bekræft</button>
+            <button @click="SendVerification" :disabled="password !== confirmPassword || validatePassword(password)" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2 max-w-52 w-full">Bekræft</button>
         </div>
         <p v-if="error" class="text-red-500 font-semibold">* {{ error }}</p>
 
