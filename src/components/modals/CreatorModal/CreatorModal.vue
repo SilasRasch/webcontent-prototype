@@ -45,7 +45,7 @@ const handleRemoveFromTemp = (id) => {
     <div @click="handleToggle" class="w-24 h-32 rounded-lg bg-slate-950 flex flex-col justify-end items-center m-2 mr-0 cursor-pointer relative">
         <i class="fa fa-user fa-3x opacity-65 absolute top-8"></i>
         <!-- <p v-if="creator.handles.instagram" class="p-0 m-0 opacity-65 mb-2 mx-2 truncate text-sm">{{ creator.name }}</p> -->
-        <p v-if="creator.handles.instagram" class="p-0 m-0 opacity-65 mb-2 mx-2 leading-4 text-sm">{{ creator.name }}</p>
+        <p v-if="creator.name" class="p-0 m-0 opacity-65 mb-2 mx-2 leading-4 text-sm">{{ creator.name }}</p>
         <i v-if="props.showCheck" class="rounded-full fa fa-check absolute bg-green-500 p-2 -top-2 -right-2"></i>
     </div>
 
