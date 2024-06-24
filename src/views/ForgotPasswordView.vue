@@ -8,9 +8,12 @@ const api = useUserAPI()
 
 const email = ref('')
 const isSent = ref(false)
+const error = ref('')
 const handleSend = () => {
-    api.forgotPassword({ email: email.value }).then(() => isSent.value = true)
-    isSent.value = !isSent.value
+    api.forgotPassword({ email: email.value }).then(() => {
+        isSent.value = true 
+    })
+    .catch((err) => error.value = err.response.data)
 }
 </script>
 
@@ -23,6 +26,7 @@ const handleSend = () => {
                 <div class="grid w-full justify-center">
                     <p class="text-left p-0 py-1">Indtast din mail</p>
                     <input v-model="email" type="text" class="input max-w-96" />
+                    <p v-if="error" class="text-red-500 font-semibold">* {{ error }}</p>
                 </div>
             </InputWrapper>
             <button @click="handleSend" :disabled="!validateEmail(email)" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Send</button>

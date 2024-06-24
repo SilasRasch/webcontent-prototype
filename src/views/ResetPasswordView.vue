@@ -2,18 +2,25 @@
 import InputWrapper from '@/components/Input/InputWrapper.vue';
 import { useUserAPI } from '@/store/api/userApi';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
+const router = useRouter()
 const route = useRoute()
 const api = useUserAPI()
 let token = route.query["token"]
 
+const error = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 
 const SendVerification = () => {
     if (password.value === confirmPassword.value)
-        api.resetPassword(token, password.value)
+        api.resetPassword(token, password.value).then(() => {
+            password.value = ''
+            confirmPassword.value = ''
+            router.push("/")
+        })
+        .catch((err) => error.value = err.response.data)
 }
 </script>
 
@@ -36,6 +43,7 @@ const SendVerification = () => {
         <div class="flex justify-center">
             <button @click="SendVerification" :disabled="password !== confirmPassword || password === ''" class="bg-green-500 p-2 hover:bg-green-600 duration-200 rounded-lg mt-2">Bekræft</button>
         </div>
+        <p v-if="error" class="text-red-500 font-semibold">* {{ error }}</p>
         
     </div>
 </template>
